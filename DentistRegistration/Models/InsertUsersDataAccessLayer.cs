@@ -8,20 +8,33 @@ namespace DentistRegistration.Models
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public void InsertUser(User user)
+        public bool InsertUser(User user)
         {
+            bool isInserted = false;
             SqlConnection con = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("spAddUser", con)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@FIRSTNAME", user.FirstName);
-            cmd.Parameters.AddWithValue("@LASTNAME", user.LastName);
-            cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
-            cmd.Parameters.AddWithValue("@USER_PASSWORD", user.Password);
             con.Open();
-            cmd.ExecuteNonQuery();
+            SqlCommand cmdCheck = new SqlCommand("spCheckUser", con);
+            cmdCheck.CommandType = CommandType.StoredProcedure;
+            cmdCheck.Parameters.AddWithValue("@PHONENUM", user.Phonenum);
+            SqlParameter outPutParameter = new SqlParameter("@COUNT", SqlDbType.Int);
+            outPutParameter.Direction = System.Data.ParameterDirection.Output;
+            cmdCheck.Parameters.Add(outPutParameter);
+            cmdCheck.ExecuteNonQuery();
+            int count = int.Parse(outPutParameter.Value.ToString());
+            if (count == 0)
+            {
+                SqlCommand cmd = new SqlCommand("spAddUser", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@FIRSTNAME", user.Firstname);
+                cmd.Parameters.AddWithValue("@LASTNAME", user.Lastname);
+                cmd.Parameters.AddWithValue("@PHONENUM", user.Phonenum);
+                cmd.Parameters.AddWithValue("@USER_PASSWORD", user.Password);
+                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
+                cmd.ExecuteNonQuery();
+                isInserted = true;
+            }
             con.Close();
+            return isInserted;
         }
     }
 }

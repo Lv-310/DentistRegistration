@@ -17,8 +17,8 @@ namespace DentistRegistration.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                insertUserLayer.InsertUser(user);
-                return Ok("User added.");
+                bool isAdded = insertUserLayer.InsertUser(user);
+                return Ok("User added is " + isAdded);
             }
             catch (Exception)
             {

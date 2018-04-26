@@ -1,0 +1,109 @@
+[33mcommit b6c59b5ab306a9c49bce5910d034f211c2a8fc23[m[33m ([m[1;36mHEAD -> [m[1;32mdev_BackEnd_master[m[33m, [m[1;31morigin/dev_BackEnd_master[m[33m)[m
+Merge: 0d3c537 ead569e
+Author: khvos <khvos@DESKTOP-3JMBUFA>
+Date:   Thu Apr 26 16:09:06 2018 +0300
+
+    Merge branch 'dev_BackEnd_master' of https://github.com/Lv-310/DentistRegistration into dev_BackEnd_master
+
+[33mcommit 0d3c537eda3d22293efb4f2bfc2d449f081de018[m
+Author: khvos <khvos@DESKTOP-3JMBUFA>
+Date:   Thu Apr 26 16:08:05 2018 +0300
+
+    UserController
+
+[33mcommit ead569ecaef8612016e6ebfacc49f1025c164496[m
+Author: Unnamed999999999 <Unnamed999999999@Gmail.com>
+Date:   Thu Apr 26 15:28:51 2018 +0300
+
+    fix #2
+
+[33mcommit a8f0fedc46851ee8a103d0d24009d10761f687a3[m
+Author: Unnamed999999999 <Unnamed999999999@Gmail.com>
+Date:   Thu Apr 26 15:25:30 2018 +0300
+
+    fix for connection string
+
+[33mcommit 616a4512cf56253a9edd6bd7c228fa3da0e04d6d[m
+Author: Unnamed999999999 <Unnamed999999999@Gmail.com>
+Date:   Thu Apr 26 15:11:40 2018 +0300
+
+    renamed project
+
+[33mcommit 11e646e47f95c61858281166cb5bd30fd5b47f5d[m
+Author: Unnamed999999999 <Unnamed999999999@Gmail.com>
+Date:   Thu Apr 26 14:51:25 2018 +0300
+
+    fix for project duplication
+
+[33mcommit 1a4b6edf5fb88f4a98489522b4c841c14647853a[m
+Author: unnamed999999999 <unnamed999999999@gmail.com>
+Date:   Thu Apr 26 12:21:29 2018 +0300
+
+    update version.txt
+
+[33mcommit 83403539dedb1ce0022e5abc77672014e35d47b7[m
+Author: unnamed999999999 <unnamed999999999@gmail.com>
+Date:   Thu Apr 26 12:18:38 2018 +0300
+
+    update version.txt
+
+[33mcommit 10e184365926db3762d21209813861c21311b428[m
+Author: unnamed999999999 <unnamed999999999@gmail.com>
+Date:   Thu Apr 26 05:01:45 2018 +0300
+
+    update version.txt
+
+[33mcommit 44dee242deaa17df0b6ab7648281fd5782b9848a[m
+Author: unnamed999999999 <unnamed999999999@gmail.com>
+Date:   Wed Apr 25 05:01:57 2018 +0300
+
+    update version.txt
+
+[33mcommit a95f92c4ef5bd2f21106652aab66d88e2fe5ce23[m
+Merge: 409ab84 51ea3dd
+Author: khvos <khvos@DESKTOP-3JMBUFA>
+Date:   Tue Apr 24 17:19:15 2018 +0300
+
+    Merge branch 'dev_BackEnd_master' of https://github.com/Lv-310/DentistRegistration into dev_BackEnd_master
+
+[33mcommit 409ab84dde22444e67d7d69010de15232fb3ba6f[m
+Author: khvos <khvos@DESKTOP-3JMBUFA>
+Date:   Tue Apr 24 17:17:58 2018 +0300
+
+    login controller (demo)
+
+[33mcommit 51ea3dd620c73061e290b0d84c232fa2953374b0[m
+Author: taras21777 <piatak.taras@gmail.com>
+Date:   Sat Apr 21 17:14:55 2018 +0300
+
+    Tets commit
+
+[33mcommit 6aae6e94f4d8236c9c4185b52209618b4323c944[m
+Author: taras21777 <piatak.taras@gmail.com>
+Date:   Sat Apr 21 17:10:36 2018 +0300
+
+    Test commit
+
+[33mcommit 976e64a4b36be519797a66beaad6aeaef443d36e[m
+Author: Anjey <ondzeylav@gmail.com>
+Date:   Sat Apr 21 14:36:04 2018 +0300
+
+    change holder file of connection string, ignore connection string file, ignore .vs folder, which unnecessary on repository
+
+[33mcommit 0288cfdb9e8b61ea6d252fab1012a3251869d28a[m
+Author: Anjey <ondzeylav@gmail.com>
+Date:   Sat Apr 21 11:47:19 2018 +0300
+
+    add gitignore, delete bin and obj files, hide user and password db
+
+[33mcommit d6a96c19ba9b654ab68d272d9ac2968a9d71a563[m
+Author: Unnamed999999999 <Unnamed999999999@Gmail.com>
+Date:   Thu Apr 19 17:21:38 2018 +0300
+
+    Initial commit
+
+[33mcommit e94ad7040ba5ec4b2d64d598c592209837257b4b[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/BackEnd_master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: AndriyLavrushko <ondzeylav@gmail.com>
+Date:   Thu Apr 12 18:02:34 2018 +0300
+
+    Initial commit

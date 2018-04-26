@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace DentistRegistration.Models
 {
@@ -12,5 +13,7 @@ namespace DentistRegistration.Models
         public string LastName { get; set; }
         public long PhoneNum { get; set; }
         public string Password { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
     }
 }
