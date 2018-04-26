@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestDemo.Models
 {
@@ -12,5 +13,7 @@ namespace TestDemo.Models
         public string Lastname { get; set; }
         public long Phonenum { get; set; }
         public string Password { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
     }
 }

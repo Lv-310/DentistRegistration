@@ -9,7 +9,7 @@ using TestDemo.Models;
 
 namespace TestDemo.Controllers
 {
-    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:9090", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
         InsertUsersDataAccessLayer insertUserLayer = new InsertUsersDataAccessLayer();
@@ -23,8 +23,8 @@ namespace TestDemo.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                insertUserLayer.InsertUser(user);
-                return Ok("User added.");
+                bool isAdded = insertUserLayer.InsertUser(user);
+                return Ok("User added is " + isAdded);
             }
             catch (Exception)
             {
