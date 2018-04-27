@@ -15,7 +15,7 @@ namespace DentistRegistration.Models
             con.Open();
             SqlCommand cmdCheck = new SqlCommand("spCheckUser", con);
             cmdCheck.CommandType = CommandType.StoredProcedure;
-            cmdCheck.Parameters.AddWithValue("@PHONENUM", user.Phonenum);
+            cmdCheck.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
             SqlParameter outPutParameter = new SqlParameter("@COUNT", SqlDbType.Int);
             outPutParameter.Direction = System.Data.ParameterDirection.Output;
             cmdCheck.Parameters.Add(outPutParameter);
@@ -25,9 +25,9 @@ namespace DentistRegistration.Models
             {
                 SqlCommand cmd = new SqlCommand("spAddUser", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FIRSTNAME", user.Firstname);
-                cmd.Parameters.AddWithValue("@LASTNAME", user.Lastname);
-                cmd.Parameters.AddWithValue("@PHONENUM", user.Phonenum);
+                cmd.Parameters.AddWithValue("@FIRSTNAME", user.FirstName);
+                cmd.Parameters.AddWithValue("@LASTNAME", user.LastName);
+                cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
                 cmd.Parameters.AddWithValue("@USER_PASSWORD", user.Password);
                 cmd.Parameters.AddWithValue("@EMAIL", user.Email);
                 cmd.ExecuteNonQuery();
