@@ -5,3 +5,7 @@ obj
 
 # IGNORE SECRETS CONNECTIONSTRING FILE
 ConnectionStrings.config
+
+
+# IGNORE NUGET PACKAGES
+packages

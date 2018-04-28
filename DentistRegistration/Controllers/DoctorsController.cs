@@ -7,7 +7,7 @@ namespace DentistRegistration.Controllers
     public class DoctorsController : ApiController
     {
         private DoctorsDataAccessLayer objdoctors = new DoctorsDataAccessLayer();
-        // Tets comment
+
         // GET: api/Doctors
         public List<Doctor> GetData()
         {

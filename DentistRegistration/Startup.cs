@@ -2,8 +2,6 @@
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace DentistRegistration
@@ -14,10 +12,8 @@ namespace DentistRegistration
         public void Configuration(IAppBuilder app)
         {
             var httpConfig = new HttpConfiguration();
-            AreaRegistration.RegisterAllAreas();
+
             WebApiConfig.Register(app, httpConfig);
-            //WebApiConfig.Register(app, httpConfig);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             //app.UseJwtBearerAuthentication(
             //    new JwtBearerAuthenticationOptions
