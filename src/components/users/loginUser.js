@@ -1,4 +1,4 @@
-import baseURL from '../../services/url'
+import baseURL from '../../services/url';
 
 export function loginUser(loginParams){
   const body = JSON.stringify(loginParams)

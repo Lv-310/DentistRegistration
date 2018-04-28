@@ -44,3 +44,8 @@
   transform: translate(-50%, 0%);
   z-index: 100500;
 }
+.error-message
+{
+  color: red;
+  font-size: 2vh;
+}
