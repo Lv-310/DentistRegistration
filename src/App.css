@@ -37,13 +37,10 @@
   height: 25%;
 }
 
-.input-form-center {
-  position: fixed !important;
-  top: 10% !important;
-  left: 50% !important;
-  transform: translate(-50%, 0%) !important;
-}
-
-.on-top-of-all{
-  z-index: 100500 !important;
+.navbar-nav.navbar-right.ml-auto .dropdown .input-form-center {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 100500;
 }

@@ -61,7 +61,7 @@ class Signup extends React.Component{
         return (
             <li className="dropdown mr-sm-2 my-1" >
             <button className="btn btn-lg btn-outline-secondary text-light" data-toggle="dropdown">Register</button>
-            <ul className="dropdown-menu dropdown-lr input-form-center on-top-of-all">
+            <ul className="dropdown-menu dropdown-lr input-form-center">
                 <div className="col-lg-12">
                     <div className="text-center">
                         <h3><b>Register</b></h3>
