@@ -12,7 +12,7 @@ namespace DentistRegistration.Models
         [Required(ErrorMessage = "Field can't be empty")]
         public long Phonenum { get; set; }
 
-        [StringLength(50, MinimumLength = 6, ErrorMessage = "Password Should be minimum 6 characters and a maximum of 50 characters")]
+        [StringLength(15, MinimumLength = 6, ErrorMessage = "Password Should be minimum 6 characters and maximum 15 characters")]
         [Required(ErrorMessage = "Field can't be empty")]
         public string Password { get; set; }
     }
