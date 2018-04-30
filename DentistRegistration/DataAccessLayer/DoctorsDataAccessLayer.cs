@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Configuration;
+using System.Data.SqlClient;
+
 using DentistRegistration.Models;
 
 namespace DentistRegistration.DataAccessLayer
@@ -10,7 +11,7 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        //To View all Doctors details    
+        // To View all Doctors details    
         public IEnumerable<Doctor> GetAllDoctors()
         {
             List<Doctor> lstdoctors = new List<Doctor>();
@@ -39,8 +40,6 @@ namespace DentistRegistration.DataAccessLayer
 
                     lstdoctors.Add(doc);
                 }
-
-                con.Close();
             }
 
             return lstdoctors;

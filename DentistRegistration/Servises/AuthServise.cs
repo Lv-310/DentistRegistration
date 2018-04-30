@@ -9,17 +9,18 @@ namespace DentistRegistration.Servises
 {
     public class AuthServise
     {
-        public string GetAccessToken(string FirstName, string Password)
+        public string GetAccessToken(string firstName, string password)
         {
-            //new Guid("37EEC6AC-CFEF-44B7-8E3B-4EA10A7A7203")
+            // new Guid("37EEC6AC-CFEF-44B7-8E3B-4EA10A7A7203")
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, FirstName),
+                    new Claim(ClaimTypes.Name, firstName),
                     new Claim(ClaimTypes.Name, Guid.NewGuid().ToString())
                 };
 
             var securityKey = new SymmetricSecurityKey(AllConstants.JwtTokenConstants.Secret);
-            var cred = new SigningCredentials(securityKey,
+            var cred = new SigningCredentials(
+                securityKey,
                 SecurityAlgorithms.HmacSha256Signature,
                 SecurityAlgorithms.HmacSha256Signature);
 

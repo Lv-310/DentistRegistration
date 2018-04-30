@@ -8,9 +8,9 @@ namespace DentistRegistration.Constants
 {
     internal class AllConstants
     {
-        ///<summary>
-        ///Constans for JwtToken class
-        ///</summary>
+        /// <summary>
+        /// Constans for JwtToken class
+        /// </summary>
         internal static class JwtTokenConstants
         {
             public const string Issuer = "http://localhost:9090/";

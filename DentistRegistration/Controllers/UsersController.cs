@@ -7,7 +7,7 @@ namespace DentistRegistration.Controllers
 {
     public class UsersController : ApiController
     {
-        InsertUsersDataAccessLayer insertUserLayer = new InsertUsersDataAccessLayer();
+        private InsertUsersDataAccessLayer insertUserLayer = new InsertUsersDataAccessLayer();
 
         [HttpPost]
         public IHttpActionResult InsertUser([FromBody]User user)
@@ -22,7 +22,6 @@ namespace DentistRegistration.Controllers
                 bool isAdded = insertUserLayer.InsertUser(user);
                 return Ok("User added is " + isAdded);
             }
-
             catch (Exception)
             {
                 return BadRequest(ModelState);

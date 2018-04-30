@@ -1,15 +1,15 @@
-﻿using DentistRegistration.Models;
-using System;
+﻿using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using DentistRegistration.DataAccessLayer;
+using DentistRegistration.Models;
 
 namespace TestDemo.Controllers
 {
     [EnableCors(origins: "http://localhost:9090", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
-        LoginUserDataAccessLayer loginer = new LoginUserDataAccessLayer();
+        private LoginUserDataAccessLayer loginer = new LoginUserDataAccessLayer();
 
         [HttpPost]
         public IHttpActionResult Login([FromBody]LoginViewModel user)
@@ -27,14 +27,11 @@ namespace TestDemo.Controllers
                 }
 
                 return BadRequest("Invalid login or password");
-
             }
-
             catch (Exception)
             {
                 return Ok("Something went wrong");
             }
         }
-
     }
 }

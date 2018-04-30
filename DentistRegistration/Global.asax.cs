@@ -1,5 +1,4 @@
-﻿
-namespace DentistRegistration
+﻿namespace DentistRegistration
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

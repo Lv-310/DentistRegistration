@@ -1,12 +1,10 @@
-﻿using DentistRegistration.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using DentistRegistration.DataAccessLayer;
+using DentistRegistration.Models;
 
 namespace DentistRegistration.Controllers
 {
@@ -41,7 +39,7 @@ namespace DentistRegistration.Controllers
 
                 if (rules[i].StartDate < from - rules[i].RepeatInterval)
                 {
-                    while ((rules[i].StartDate < from - rules[i].RepeatInterval))
+                    while (rules[i].StartDate < from - rules[i].RepeatInterval)
                     {
                         rules[i].StartDate += rules[i].RepeatInterval;
                     }
@@ -63,7 +61,7 @@ namespace DentistRegistration.Controllers
                     var eventDate = dateTime;
                     while (eventDate < dateTime + rule.TimeToFinish)
                     {
-                        events.Add(new CalendarEvent() { Id = -1, Title = eventDate.TimeOfDay.ToString(), Desc = "", Start = eventDate, End = eventDate + rule.EventDuration });
+                        events.Add(new CalendarEvent() { Id = -1, Title = eventDate.TimeOfDay.ToString(), Desc = string.Empty, Start = eventDate, End = eventDate + rule.EventDuration });
                         eventDate += rule.EventDuration;
                     }
 

@@ -1,7 +1,6 @@
-﻿using DentistRegistration.Models;
+﻿using System.Web.Http;
+using DentistRegistration.Models;
 using DentistRegistration.Servises;
-using System.Web.Http;
-
 
 namespace DentistRegistration.Controllers
 {
@@ -19,7 +18,7 @@ namespace DentistRegistration.Controllers
         {
             var authServise = new AuthServise();
 
-            //Test data FirstName = "Jack", .Password = "1111"
+            // Test data FirstName = "Jack", .Password = "1111"
             if (model.FirstName == "Jack" && model.Password == "1111")
             {
                 return authServise.GetAccessToken(model.FirstName, model.Password);
@@ -28,13 +27,12 @@ namespace DentistRegistration.Controllers
             return null;
         }
 
-        //for testing auth method
+        // for testing auth method
         [Authorize]
         [HttpGet]
         [Route("check")]
         public string CheckToken()
         {
-
             var str = "good";
             return str;
         }
