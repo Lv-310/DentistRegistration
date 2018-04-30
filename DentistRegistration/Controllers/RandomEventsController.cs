@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using DentistRegistration.DataAccessLayer;
 
 namespace DentistRegistration.Controllers
 {
@@ -26,7 +27,7 @@ namespace DentistRegistration.Controllers
 
         private IEnumerable<CalendarEvent> GenerateEvents(DateTime from, DateTime to)
         {
-            var rules = GetRules(from,to).ToList();
+            var rules = new CalendarEventsDataAccessLayer().GetRules(from, to).ToList();
 
             var numOfRules = rules.Count();
 
@@ -38,7 +39,7 @@ namespace DentistRegistration.Controllers
                     rules[i].ExpireDate = to;
                 }
 
-                if (rules[i].StartDate < from-rules[i].RepeatInterval)
+                if (rules[i].StartDate < from - rules[i].RepeatInterval)
                 {
                     while ((rules[i].StartDate < from - rules[i].RepeatInterval))
                     {
@@ -60,7 +61,7 @@ namespace DentistRegistration.Controllers
                 while (dateTime < rule.ExpireDate)
                 {
                     var eventDate = dateTime;
-                    while(eventDate<dateTime+rule.TimeToFinish)
+                    while (eventDate < dateTime + rule.TimeToFinish)
                     {
                         events.Add(new CalendarEvent() { Id = -1, Title = eventDate.TimeOfDay.ToString(), Desc = "", Start = eventDate, End = eventDate + rule.EventDuration });
                         eventDate += rule.EventDuration;
@@ -97,56 +98,5 @@ namespace DentistRegistration.Controllers
 
             return events;
         }
-
-        private IEnumerable<CalendarEventRule> GetRules(DateTime from, DateTime to)
-        {
-            return new CalendarEventRule[]
-                {
-                    new CalendarEventRule(){
-                        Id = 1,
-                        IsInclude = true,
-                        StartDate = new DateTime(2018,04,28,10,0,0),
-                        TimeToFinish = new TimeSpan(0,6,0,0),
-                        EventDuration = new TimeSpan(0,0,30,0),
-                        ExpireDate = new DateTime(2019,04,28,10,0,0),
-                        RepeatInterval =new TimeSpan(2,0,0,0) },
-                    new CalendarEventRule(){
-                        Id = 2,
-                        IsInclude = true,
-                        StartDate = new DateTime(2018,04,29,16,0,0),
-                        TimeToFinish = new TimeSpan(0,6,0,0),
-                        EventDuration = new TimeSpan(0,0,30,0),
-                        ExpireDate = new DateTime(2019,04,29,16,0,0),
-                        RepeatInterval = new TimeSpan(2,0,0,0) },
-                    new CalendarEventRule(){
-                        Id = 3,
-                        IsInclude = false,
-                        StartDate = new DateTime(2018,04,28,0,0,0),
-                        TimeToFinish = new TimeSpan(1,0,0,0),
-                        EventDuration = new TimeSpan(1,0,0,0),
-                        ExpireDate = new DateTime(2019,04,28,0,0,0),
-                        RepeatInterval = new TimeSpan(7,0,0,0) },
-                    new CalendarEventRule(){
-                        Id = 4,
-                        IsInclude = false,
-                        StartDate = new DateTime(2018,04,29,0,0,0),
-                        TimeToFinish = new TimeSpan(1,0,0,0),
-                        EventDuration = new TimeSpan(1,0,0,0),
-                        ExpireDate = new DateTime(2019,04,29,0,0,0),
-                        RepeatInterval = new TimeSpan(7,0,0,0) },
-                };
-        }
-
-        private class CalendarEventRule
-        {
-            public int Id { get; set; }
-            public bool IsInclude { get; set; }
-            public DateTime StartDate { get; set; }
-            public TimeSpan TimeToFinish { get; set; }
-            public TimeSpan EventDuration { get; set; }
-            public TimeSpan RepeatInterval { get; set; }
-            public DateTime ExpireDate { get; set; }
-        }
-
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DentistRegistration.Models
 {
@@ -22,5 +19,8 @@ namespace DentistRegistration.Models
 
         [JsonProperty(PropertyName = "end")]
         public DateTime End { get; set; }
+
+        [JsonProperty(PropertyName = "hasBeenBooked")]
+        public bool HasBeenBooked { get; set; }
     }
 }

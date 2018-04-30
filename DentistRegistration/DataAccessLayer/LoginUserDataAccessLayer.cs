@@ -5,36 +5,30 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using DentistRegistration.Models;
 
-namespace DentistRegistration.Models
+namespace DentistRegistration.DataAccessLayer
 {
     public class LoginUserDataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        int count;
-
         // check whether there is a user with such a login and password
         public bool Login(LoginViewModel user)
         {
+            int count;
+            var query = "select count(id_User) from users where PHONENUM = {0} and USER_PASSWORD = '{1}'";
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand($"select count(id_User) from users where PHONENUM = {user.Phonenum} and USER_PASSWORD = '{user.Password}'", con);
-
                 con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                count = Convert.ToInt32(reader.GetValue(0));
-                }
-                 con.Close();
+                SqlCommand cmd = new SqlCommand(String.Format(query, user.PhoneNum, user.Password));
 
-                if (count > 0)
-                    return true;
-                return false;
+                count = (int)cmd.ExecuteScalar();
             }
+
+            return (count > 0) ? true : false;
         }
-    
-}
+    }
 }

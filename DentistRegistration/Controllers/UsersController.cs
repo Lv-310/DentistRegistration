@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using DentistRegistration.DataAccessLayer;
 using DentistRegistration.Models;
 
 namespace DentistRegistration.Controllers
@@ -17,9 +18,11 @@ namespace DentistRegistration.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+
                 bool isAdded = insertUserLayer.InsertUser(user);
                 return Ok("User added is " + isAdded);
             }
+
             catch (Exception)
             {
                 return BadRequest(ModelState);

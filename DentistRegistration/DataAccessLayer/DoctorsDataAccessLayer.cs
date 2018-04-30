@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Configuration;
+using DentistRegistration.Models;
 
-namespace DentistRegistration.Models
+namespace DentistRegistration.DataAccessLayer
 {
     public class DoctorsDataAccessLayer
     {
@@ -28,14 +26,16 @@ namespace DentistRegistration.Models
                 {
                     Doctor doc = new Doctor();
 
-                    doc = new Doctor();
-                    doc.Id = Convert.ToInt32(reader.GetValue(0));
-                    doc.FirstName = reader.GetValue(1).ToString();
-                    doc.LastName = reader.GetValue(2).ToString();
-                    doc.PhoneNum = Convert.ToInt64(reader.GetValue(3));
-                    doc.CabNum = Convert.ToByte(reader.GetValue(4));
-                    doc.Speciality = reader.GetValue(5).ToString();
-                    doc.Doc_password = reader.GetValue(6).ToString();
+                    doc = new Doctor
+                    {
+                        Id = Convert.ToInt32(reader.GetValue(0)),
+                        FirstName = reader.GetValue(1).ToString(),
+                        LastName = reader.GetValue(2).ToString(),
+                        PhoneNum = Convert.ToInt64(reader.GetValue(3)),
+                        CabNum = Convert.ToByte(reader.GetValue(4)),
+                        Speciality = reader.GetValue(5).ToString(),
+                        Doc_password = reader.GetValue(6).ToString()
+                    };
 
                     lstdoctors.Add(doc);
                 }

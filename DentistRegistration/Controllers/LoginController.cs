@@ -1,11 +1,8 @@
 ﻿using DentistRegistration.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using DentistRegistration.DataAccessLayer;
 
 namespace TestDemo.Controllers
 {
@@ -23,13 +20,16 @@ namespace TestDemo.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+
                 if (loginer.Login(user))
                 {
                     return Ok("Logined.");
                 }
+
                 return BadRequest("Invalid login or password");
 
             }
+
             catch (Exception)
             {
                 return Ok("Something went wrong");
