@@ -49,3 +49,8 @@
   color: red;
   font-size: 2vh;
 }
+.add-scroll
+{
+  height:75%;
+  overflow-y: scroll;
+}
