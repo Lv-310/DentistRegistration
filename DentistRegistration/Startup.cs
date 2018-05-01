@@ -1,6 +1,8 @@
 ﻿using System.Web.Http;
 using Microsoft.Owin;
 using Owin;
+using System.Configuration;
+using System.Web.Configuration;
 
 [assembly: OwinStartup(typeof(DentistRegistration.Startup))]
 
@@ -25,6 +27,42 @@ namespace DentistRegistration
             //            new SymmetricKeyIssuerSecurityKeyProvider(Сonstans.JwtToken.Issuer, Secret)
             //        }
             //    });
+            UnProtectSection("connectionStrings");
+        }
+
+        private void ProtectSection(string sectionName,
+                                   string provider)
+        {
+            Configuration config =
+                WebConfigurationManager.
+                    OpenWebConfiguration("/");
+
+            ConfigurationSection section =
+                         config.GetSection(sectionName);
+
+            if (section != null &&
+                      !section.SectionInformation.IsProtected)
+            {
+                section.SectionInformation.ProtectSection(provider);
+                config.Save();
+            }
+        }
+
+        private void UnProtectSection(string sectionName)
+        {
+            Configuration config =
+                WebConfigurationManager.
+                    OpenWebConfiguration("/");
+
+            ConfigurationSection section =
+                      config.GetSection(sectionName);
+
+            if (section != null &&
+                  section.SectionInformation.IsProtected)
+            {
+                section.SectionInformation.UnprotectSection();
+                config.Save();
+            }
         }
     }
 }
