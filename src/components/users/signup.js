@@ -126,7 +126,7 @@ class Signup extends React.Component{
         return (
             <li className="dropdown mr-sm-2 my-1">
             <button className="btn btn-lg btn-outline-secondary text-light" data-toggle="dropdown"
-            onMouseDown={this.blurMainContent} onBlur={this.showMainContent}>Register 
+            onMouseDown={this.blurMainContent}>Register 
                 <span className="caret"></span>
             </button>
             <ul className="dropdown-menu dropdown-lr input-form-center add-scroll">

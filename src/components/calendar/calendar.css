@@ -570,7 +570,7 @@
   }
   .rbc-time-view .rbc-row {
     box-sizing: border-box;
-    min-height: 20px;
+    min-height: 5px;
   }
   .rbc-time-header {
     display: -webkit-flex;

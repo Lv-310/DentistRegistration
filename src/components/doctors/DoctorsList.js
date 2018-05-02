@@ -21,16 +21,15 @@ class DoctorsList extends React.Component{
   }
   render() {
     return (
-      <div>
-      <p>List doctors: </p>
-      <ul>
+      <div className="list-group">
+      <a href="#" className="list-group-item active my-list-header">LIST DOCTORS</a>
         {this.state.items.map((item,index) => {
-          return <li key={index}>
-            <a className="btn btn-secondary doctor-list">{item.FirstName} {item.LastName}</a>
-            </li>
+          return <button type="button" key={index} className="list-group-item list-group-item-action">
+            {item.FirstName} {item.LastName}
+            </button>
         }
         )}
-      </ul>
+      
       </div>
     );
   }

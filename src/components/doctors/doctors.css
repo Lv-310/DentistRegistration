@@ -10,4 +10,8 @@
   .doctor-main{
     align-content: center;
   }
+
+  .my-list-header>a{
+    background-color: grey;
+  }
   
