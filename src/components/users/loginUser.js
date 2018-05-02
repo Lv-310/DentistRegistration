@@ -1,8 +1,9 @@
 import baseURL from '../../services/url';
 
+//#region Login/Registration
 export function loginUser(loginParams){
   const body = JSON.stringify(loginParams)
-  return fetch(`${baseURL}/login`, {
+  return fetch(`${baseURL}/Login`, {
       method: 'post',
       body: body,
       headers: {
@@ -18,7 +19,7 @@ export function loginUser(loginParams){
 
 export function signupUser(signupParams){
   const body = JSON.stringify(signupParams)
-  return fetch(`${baseURL}/signup`, {
+  return fetch(`${baseURL}/Users`, {
       method: 'post',
       body: body,
       headers: {
@@ -31,3 +32,4 @@ export function signupUser(signupParams){
       }
      )
 }
+//#endregion

@@ -55,9 +55,6 @@ class Signup extends React.Component{
         this.setState({[name]: value},
                       () => { this.validateField(name, value) });
       }
-      handleBlur = (e) => {
-
-      }
 
       validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
@@ -70,11 +67,11 @@ class Signup extends React.Component{
     
         switch(fieldName) {
             case 'firstname':
-                firstnameValid = value.match(/^[a-zA-Z]/) && value.length>0;
+                firstnameValid = value.match(/^[a-zA-Z]+$/) && value.length>0;
                 fieldValidationErrors.firstname = firstnameValid ? '' : 'First name is incorrect';
             break;
             case 'lastname':
-                lastnameValid = value.match(/^[a-zA-Z]/) && value.length>0;
+                lastnameValid = value.match(/^[a-zA-Z]+$/) && value.length>0;
                 fieldValidationErrors.lastname = lastnameValid ? '' : 'Last name is incorrect';
             break;
             case 'email':
@@ -82,12 +79,12 @@ class Signup extends React.Component{
                 fieldValidationErrors.email = emailValid ? '' : 'Email is incorrect';
             break;
             case 'phoneNum':
-                phoneNumValid = value.match(/^[0-9]/) && value.length===12;
+                phoneNumValid = value.match(/^[0-9]+$/) && value.length===12;
                 fieldValidationErrors.phoneNum = phoneNumValid ? '' : 'Numbers less than 12 or incorrect';
             break;
             case 'password':
-                passwordValid = value.length >= 6;
-                fieldValidationErrors.password = passwordValid ? '': 'Password less than 6 characters';
+                passwordValid = value.length >= 6 && value.length<=15;
+                fieldValidationErrors.password = passwordValid ? '': 'Password less than 6 or bigger than 15 characters';
             break;
             case 'confirmPassword':
                 confirmPasswordValid = this.state.password === this.state.confirmPassword && value.length >=6;
@@ -116,11 +113,20 @@ class Signup extends React.Component{
        errorBorder(error) {
         return(error.length === 0 ? '' : "border border-danger");
     }
+        blurMainContent(){
+        document.getElementById("main-content").style.opacity= "0.3";
+    }
+        showMainContent(){
+        document.getElementById("main-content").style.opacity= "1";
+    }
+
+    
 
       render(){
         return (
             <li className="dropdown mr-sm-2 my-1">
-            <button className="btn btn-lg btn-outline-secondary text-light" data-toggle="dropdown">Register 
+            <button className="btn btn-lg btn-outline-secondary text-light" data-toggle="dropdown"
+            onMouseDown={this.blurMainContent} onBlur={this.showMainContent}>Register 
                 <span className="caret"></span>
             </button>
             <ul className="dropdown-menu dropdown-lr input-form-center add-scroll">
@@ -131,34 +137,34 @@ class Signup extends React.Component{
                     <form id="ajax-register-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.firstname)}`} placeholder="First Name" required="required" name="firstname"
-                                onChange={this.handleUserInput} value={this.state.firstname} />
-                            <div className="error-message">{this.state.formErrors.firstname}</div>
+                                onChange={this.handleUserInput} value={this.state.firstname}/>
+                          <div className="error-message"> {this.state.formErrors.firstname}</div>
                         </div>
                         <div className="form-group">
                             <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.lastname)}`} placeholder="Last Name" required="required" name="lastname"
                                 onChange={this.handleUserInput} value={this.state.lastname} />
-                                <div className="error-message"> {this.state.formErrors.lastname}</div>
+                            <div className="error-message"> {this.state.formErrors.lastname}</div>
                         </div>
                         <div className="form-group">
                             <input type="email" className={`form-control ${this.errorBorder(this.state.formErrors.email)}`} placeholder="Email" required="required" name="email"
                                 onChange={this.handleUserInput} value={this.state.email} />
-                                <div className="error-message">{this.state.formErrors.email}</div>
+                            <div className="error-message">{this.state.formErrors.email}</div>
                         </div>
                         <div className="form-group">
                             <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"
                                 onChange={this.handleUserInput} value={this.state.phoneNum} />
-                                <span className="error-message">{this.state.formErrors.phoneNum}</span>
+                            <div className="error-message">{this.state.formErrors.phoneNum}</div>
                         </div>
                         <div className="form-group">
                             <input type="password" className={`form-control ${this.errorBorder(this.state.formErrors.password)}`} placeholder="Password" required="required" name="password"
                                 onChange={this.handleUserInput} value={this.state.password} />
-                                <div className="error-message">{this.state.formErrors.password}</div>
+                            <div className="error-message">{this.state.formErrors.password}</div>
                         </div>
                         <div className="form-group">
                             <input type="password" className={`form-control ${this.errorBorder(this.state.formErrors.confirmPassword)}`} placeholder="Confirm Password" required="required"
                                 name="confirmPassword"
                                 onChange={this.handleUserInput} value={this.state.confirmPassword} />
-                                <div className="error-message">{this.state.formErrors.confirmPassword}</div>
+                            <div className="error-message">{this.state.formErrors.confirmPassword}</div>
                         </div>
                         <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}> Sign up 
                         </button>

@@ -52,5 +52,11 @@
 .add-scroll
 {
   height:75%;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.dropdown-menu
+{
+  height: auto;
+  max-height: calc(100vh - 180px);
 }

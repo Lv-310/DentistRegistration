@@ -10,7 +10,7 @@ class Homepage extends React.Component{
         return(
             <div className="my-div">
                 <NavBar />
-                <div className="row">
+                <div className="row" id="main-content">
                     <div className="col-xl-2">
                     <DoctorsList />
                     </div>
