@@ -1,0 +1,10 @@
+.btn.btn-secondary.doctor-list {
+    width: 100%;
+    margin-bottom: 10px;
+    color : white;
+    text-align: left;
+  }
+  li {
+    list-style-type: none;
+  }
+  
