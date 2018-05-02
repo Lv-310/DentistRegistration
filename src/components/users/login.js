@@ -65,50 +65,48 @@ class Login extends React.Component{
         this.setState({formErrors: fieldValidationErrors,
             phoneNumValid: phoneNumValid,
             passwordValid: passwordValid
-          }, this.validateForm);
+        },  this.validateForm);
     }
     validateForm() {
-    this.setState({formValid:
+        this.setState({formValid:
         this.state.phoneNumValid && this.state.passwordValid});
-  }
+    }
 
-  errorBorder(error) {
-    return(error.length === 0 ? '' : "border border-danger");
-}
-blurMainContent(){
-    document.getElementById("main-content").style.opacity= "0.3";
-}
-showMainContent(){
-    document.getElementById("main-content").style.opacity= "1";
-}
+    errorBorder(error) {
+        return(error.length === 0 ? '' : "border border-danger");
+    }
+
     render(){
         return (
        
-            <li className="dropdown mr-sm-2 my-1">
-                <button className="btn btn-lg btn-outline-secondary text-light" data-toggle="dropdown"
-                onMouseDown={this.blurMainContent} onBlur={this.showMainContent} >Log In</button>
-                <ul className="dropdown-menu dropdown-lr input-form-center">
-                    <div className="col-lg-12">
-                        <div className="text-center">
-                            <h3><b>Log In</b></h3>
+            <div id="loginModal" className="modal fade" role="dialog">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header text-center">
+                            <h4>Login</h4>
+                            <button type="button" className="close" data-dismiss="modal"> &times;</button>
+                
                         </div>
-                            <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit} >
+                    <div className="modal-body col-lg-12">
+                        <form id="ajax-register-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                            <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"
-                                onChange={this.handleUserInput} value={this.state.phoneNum} />
-                            <div className="error-message">{this.state.formErrors.phoneNum}</div>
+                                <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"
+                                    onChange={this.handleUserInput} value={this.state.phoneNum} />
+                                <div className="error-message">{this.state.formErrors.phoneNum}</div>
                             </div>
-                                <div className="form-group">
-                            <input type="password" className={`form-control ${this.errorBorder(this.state.formErrors.password)}`} placeholder="Password" required="required" name="password"
-                                onChange={this.handleUserInput} value={this.state.password} />
-                            <div className="error-message">{this.state.formErrors.password}</div>
+                            <div className="form-group">
+                                <input type="password" className={`form-control ${this.errorBorder(this.state.formErrors.password)}`} placeholder="Password" required="required" name="password"
+                                    onChange={this.handleUserInput} value={this.state.password} />
+                                <div className="error-message">{this.state.formErrors.password}</div>
                             </div>
-                                <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}> Login 
-                                </button> 
-                            </form>
+                            <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
+                                 Log in
+                            </button>
+                        </form>
                     </div>
-                </ul>
-            </li>
+                </div>
+            </div>
+        </div>
         );
     } 
 }

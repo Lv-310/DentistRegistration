@@ -27,36 +27,20 @@
   to { transform: rotate(360deg); }
 }
 
-.copyright
-{
+.copyright{
   height: 65px;
 }
 
-.spacer-25-vertical
-{
+.spacer-25-vertical{
   height: 25%;
 }
 
-.navbar-nav.navbar-right.ml-auto .dropdown .input-form-center {
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  z-index: 100500;
-}
-.error-message
-{
+.error-message{
   color: red;
   font-size: 2vh;
 }
-.add-scroll
-{
+
+.add-scroll{
   height:75%;
   overflow-y: auto;
-}
-
-.dropdown-menu
-{
-  height: auto;
-  max-height: calc(100vh - 180px);
 }
