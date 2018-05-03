@@ -27,7 +27,8 @@ namespace DentistRegistration
             //            new SymmetricKeyIssuerSecurityKeyProvider(Сonstans.JwtToken.Issuer, Secret)
             //        }
             //    });
-            UnProtectSection("connectionStrings");
+            ProtectSection("connectionStrings", "DataProtectionConfigurationProvider");
+            //UnProtectSection("connectionStrings");
         }
 
         private void ProtectSection(string sectionName,
