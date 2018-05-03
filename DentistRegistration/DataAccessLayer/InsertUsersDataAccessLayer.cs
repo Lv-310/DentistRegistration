@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using DentistRegistration.Models;
+using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
@@ -41,7 +42,7 @@ namespace DentistRegistration.DataAccessLayer
                     cmd.Parameters.AddWithValue("@FIRSTNAME", user.FirstName);
                     cmd.Parameters.AddWithValue("@LASTNAME", user.LastName);
                     cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
-                    cmd.Parameters.AddWithValue("@USER_PASSWORD", user.Password);
+                    cmd.Parameters.AddWithValue("@USER_PASSWORD", SecurePasswordHasher.Hash(user.Password));
                     cmd.Parameters.AddWithValue("@EMAIL", user.Email);
 
                     cmd.ExecuteNonQuery();

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using DentistRegistration.Models;
+using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
@@ -12,21 +14,31 @@ namespace DentistRegistration.DataAccessLayer
         // check whether there is a user with such a login and password
         public bool Login(LoginViewModel user)
         {
-            int count;
-            var query = @"select count(id_User) from users where PHONENUM = @PHONENUM and USER_PASSWORD = @PASSWORD";
+            string password;
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (var con = new SqlConnection(connectionString))
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
-                cmd.Parameters.AddWithValue("@PASSWORD", user.Password);
+                SqlCommand cmd = new SqlCommand("spCheckLogin", con);
 
-                count = (int)cmd.ExecuteScalar();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
+                SqlParameter outPutParameter = new SqlParameter("@USER_PASSWORD", SqlDbType.NVarChar, 320)
+                {
+                    Direction = ParameterDirection.Output
+                };
+
+                cmd.Parameters.Add(outPutParameter);
+
+                cmd.ExecuteNonQuery();
+                password = outPutParameter.Value.ToString();
+
             }
 
-            return (count > 0) ? true : false;
+            if (SecurePasswordHasher.Verify(user.Password, password))
+            { return true; }
+            return false;
         }
     }
 }
