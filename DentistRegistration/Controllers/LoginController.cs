@@ -30,7 +30,7 @@ namespace TestDemo.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Something went wrong");
+                return BadRequest(ModelState);
             }
         }
     }
