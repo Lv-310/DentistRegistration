@@ -22,7 +22,7 @@ namespace DentistRegistration.Controllers
                 bool isAdded = insertUserLayer.InsertUser(user);
                 return Ok("User added is " + isAdded);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return BadRequest(ModelState);
             }

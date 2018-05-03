@@ -13,7 +13,7 @@ namespace DentistRegistration.DataAccessLayer
         public bool Login(LoginViewModel user)
         {
             int count;
-            var query = @"select count(id_User) from users where PHONENUM = @PHONENUM and USER_PASSWORD = '@PASSWORD'";
+            var query = @"select count(id_User) from users where PHONENUM = @PHONENUM and USER_PASSWORD = @PASSWORD";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
