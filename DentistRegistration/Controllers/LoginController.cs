@@ -30,7 +30,7 @@ namespace TestDemo.Controllers
             }
             catch (Exception)
             {
-                return Ok("Something went wrong");
+                return BadRequest("Something went wrong");
             }
         }
     }
