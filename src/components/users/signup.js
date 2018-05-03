@@ -46,7 +46,7 @@ class Signup extends React.Component{
             signupUser(signupParams).then((user) => {
                 localStorage.setItem("id", user.user_id)
                 }).then(setTimeout(function () { window.location.reload(); }, 10))
-                .then(alert("You was registered!")).then(setTimeout(function () { window.location.reload(); }, 10));
+                .then(setTimeout(function () { window.location.reload(); }, 10));
       }
 
       handleUserInput = (e) => {

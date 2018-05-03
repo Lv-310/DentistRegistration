@@ -11,7 +11,8 @@
     align-content: center;
   }
 
-  .my-list-header>a{
+  .btn.my-list-header{
     background-color: grey;
   }
+
   

@@ -19,17 +19,19 @@ class DoctorsList extends React.Component{
     .then(results => results.json())
     .then(results => this.setState({'items': results}));
   }
+
+
+
   render() {
     return (
       <div className="list-group">
-      <a href="#" className="list-group-item active my-list-header">LIST DOCTORS</a>
+      <a href="#" className="list-group-item active my-list-header btn-secondary" id="first">LIST DOCTORS</a>
         {this.state.items.map((item,index) => {
           return <button type="button" key={index} className="list-group-item list-group-item-action">
             {item.FirstName} {item.LastName}
             </button>
         }
-        )}
-      
+        )} 
       </div>
     );
   }

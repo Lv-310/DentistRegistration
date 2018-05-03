@@ -33,7 +33,7 @@ class Login extends React.Component{
 
     loginUser(loginParams).then((user) => {
         localStorage.setItem("id", user.user_id)
-      }).then(alert("You are logged in!")).then(setTimeout(function () { window.location.reload(); }, 10));
+      }).then(setTimeout(function () { window.location.reload(); }, 10));
     }
     
     handleUserInput = (e) => {
@@ -88,7 +88,7 @@ class Login extends React.Component{
                 
                         </div>
                     <div className="modal-body col-lg-12">
-                        <form id="ajax-register-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
+                        <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"
                                     onChange={this.handleUserInput} value={this.state.phoneNum} />

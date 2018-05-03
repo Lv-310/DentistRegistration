@@ -11,10 +11,13 @@ export function loginUser(loginParams){
         "Accept":"application/json",
       }
     })
+    .then((res) => {
+      alert(res.status);
+    })
       .then((res) => {
         return res.json()
-      }
-     )
+      } 
+     ) 
 }
 
 export function signupUser(signupParams){
@@ -26,6 +29,9 @@ export function signupUser(signupParams){
         "Content-Type":"application/json",
         "Accept":"application/json",
       }
+    })
+    .then((res) => {
+      alert(res.status);
     })
       .then((res) => {
         return res.json()
