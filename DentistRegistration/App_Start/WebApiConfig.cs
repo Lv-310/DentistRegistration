@@ -13,7 +13,7 @@ namespace DentistRegistration
         public static void Register(IAppBuilder app, HttpConfiguration config)
         {
             // New code
-            var cors = new EnableCorsAttribute("http://localhost:9090", "*", "GET, POST, PUT");
+            var cors = new EnableCorsAttribute("*", "*", "GET, POST, PUT");
             config.EnableCors(cors);
 
             // Web API routes
