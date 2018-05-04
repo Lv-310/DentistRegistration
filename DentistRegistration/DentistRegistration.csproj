@@ -198,6 +198,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servises\AuthServise.cs" />
+    <Compile Include="Servises\EncryptingConfiguration.cs" />
     <Compile Include="Servises\SecurePasswordHasher.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

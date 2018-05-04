@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using DentistRegistration.Servises;
 using Microsoft.Owin;
 using Owin;
 
@@ -25,6 +26,8 @@ namespace DentistRegistration
             //            new SymmetricKeyIssuerSecurityKeyProvider(Сonstans.JwtToken.Issuer, Secret)
             //        }
             //    });
+
+            //EncryptingConfiguration.ProtectSection("connectionStrings", "DataProtectionConfigurationProvider");
         }
     }
 }
