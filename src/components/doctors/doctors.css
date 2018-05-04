@@ -15,4 +15,9 @@
     background-color: grey;
   }
 
+  .col-md-2>.list-group{
+    margin-left: 15px;
+    margin-bottom: 20px;
+  }
+
   

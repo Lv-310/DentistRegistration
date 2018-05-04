@@ -11,10 +11,10 @@ class Homepage extends React.Component{
             <div className="my-div">
                 <NavBar />
                 <div className="row" id="main-content">
-                    <div className="col-xl-2">
+                    <div className="col-md-2">
                     <DoctorsList />
                     </div>
-                    <div className="col-xl-10">
+                    <div className="col-md-10">
                     <Calendar />
                     </div>
                 </div>

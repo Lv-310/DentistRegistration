@@ -29,7 +29,8 @@
         -ms-flex-align: stretch;
             align-items: stretch;
     height: calc(100vh - 180px);
-    width: 100%;
+    width: 95%;
+    margin-left:15px;
   }
   .rbc-calendar *,
   .rbc-calendar *:before,
@@ -161,15 +162,15 @@
   .rbc-btn-group {
     display: inline-block;
     white-space: nowrap;
-    width:40%;
   }
   .rbc-btn-group>button {
-    width: 10.5vw;
-    font-size: 1.6vw;
+    width: 9.5vw;
+    font-size: 1.3vw;
     background-color: grey;
+    
   }
   .rbc-toolbar-label {
-    font-size: 1.6vw;
+    font-size: 2.1vw;
     text-align: center;
   }
   .rbc-btn-group > button:first-child:not(:last-child) {

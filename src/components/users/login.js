@@ -29,7 +29,6 @@ class Login extends React.Component{
             phoneNum: this.state.phoneNum,
             password: this.state.password
         }
-    
 
     loginUser(loginParams).then((user) => {
         localStorage.setItem("id", user.user_id)
@@ -47,7 +46,6 @@ class Login extends React.Component{
         let fieldValidationErrors = this.state.formErrors;
         let phoneNumValid= this.state.phoneNumValid;
         let passwordValid = this.state.passwordValid;
-        
     
         switch(fieldName) {
             case 'phoneNum':

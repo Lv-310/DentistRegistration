@@ -159,7 +159,6 @@ class Signup extends React.Component{
                                 <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}> 
                                     Sign up 
                                 </button>
-                                <a href="/" className="btn btn-secondary btn-block">Cancel</a>
                             </form>
                         </div>
                     </div>

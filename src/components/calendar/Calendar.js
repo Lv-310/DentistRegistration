@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
+import baseURL from '../../helpers/url';
 import 'moment/locale/en-gb';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -20,10 +21,25 @@ class Calendar extends React.Component {
     }
   
     getItems(){
-      fetch('http://localhost:9999/api/RandomEvents')
+      fetch(`${baseURL}/RandomEvents`)
       .then(results => results.json())
       .then(results => this.setState({'allevents': results}));
       
+    }
+
+    setStyle(event) {
+      let newStyle = {
+        backgroundColor: "green",
+        color: 'white',
+        borderRadius: "0px",
+        border: "none",
+        zIndex : 11
+      };
+
+      if (event.hasBeenBooked){
+        newStyle.backgroundColor = "red"
+      }
+      return newStyle;
     }
     
     render() {
@@ -33,8 +49,6 @@ class Calendar extends React.Component {
       })
       
       return (
-        
-        
           <BigCalendar
               events = {this.state.allevents}
               defaultView="week"
@@ -47,21 +61,9 @@ class Calendar extends React.Component {
               
               eventPropGetter={
                 (event, start, end, isSelected) => {
-                  let newStyle = {
-                    backgroundColor: "green",
-                    color: 'white',
-                    borderRadius: "0px",
-                    border: "none",
-                    zIndex : 11
-                  };
-            
-                  if (event.hasBeenBooked){
-                    newStyle.backgroundColor = "red"
-                  }
-            
                   return {
                     className: "",
-                    style: newStyle
+                    style: this.setStyle(event)
                   };
                 }
               }

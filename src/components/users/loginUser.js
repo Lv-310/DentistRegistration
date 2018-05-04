@@ -1,4 +1,4 @@
-import baseURL from '../../services/url';
+import baseURL from '../../helpers/url';
 
 //#region Login/Registration
 export function loginUser(loginParams){
