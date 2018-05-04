@@ -1,36 +1,44 @@
-﻿using System;
+using System;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using DentistRegistration.DataAccessLayer;
 using DentistRegistration.Models;
+using DentistRegistration.Servises;
 
-namespace TestDemo.Controllers
+namespace DentistRegistration.Controllers
 {
-    [EnableCors(origins: "http://localhost:9090", headers: "*", methods: "*")]
+
+    [RoutePrefix("api/auth")]
     public class LoginController : ApiController
     {
-        private LoginUserDataAccessLayer loginer = new LoginUserDataAccessLayer();
+        private LoginUserDataAccessLayer Login = new LoginUserDataAccessLayer();
+
 
         [HttpPost]
-        public IHttpActionResult Login([FromBody]LoginViewModel user)
+        [Route("sign-in")]
+        public IHttpActionResult SignIn([FromBody]LoginViewModel user)
         {
+            var authServise = new AuthServise();
+
             try
             {
                 if (!ModelState.IsValid)
-                {
                     return BadRequest(ModelState);
-                }
 
-                if (loginer.Login(user))
+                var res = Login.CheckLogin(user);
+
+                if (!res)
+                    return BadRequest("Invalid login or password");
+
+                var token = authServise.GetAccessToken(user.PhoneNum.ToString());
+
+                return Ok(new
                 {
-                    return Ok("Logined.");
-                }
-
-                return BadRequest("Invalid login or password");
+                    token
+                });
             }
             catch (Exception)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Something went wrong");
             }
         }
     }
