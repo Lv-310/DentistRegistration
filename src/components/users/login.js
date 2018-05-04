@@ -31,8 +31,9 @@ class Login extends React.Component{
         }
 
     loginUser(loginParams).then((user) => {
-        localStorage.setItem("id", user.user_id)
-      }).then(setTimeout(function () { window.location.reload(); }, 10));
+        //localStorage.setItem("id", user.user_id)
+        localStorage.setItem("token", user.token)
+      })
     }
     
     handleUserInput = (e) => {
