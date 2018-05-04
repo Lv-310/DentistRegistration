@@ -21,7 +21,7 @@ namespace DentistRegistration.Controllers
             // Test data FirstName = "Jack", .Password = "1111"
             if (model.FirstName == "Jack" && model.Password == "1111")
             {
-                return authServise.GetAccessToken(model.FirstName, model.Password);
+                return authServise.GetAccessToken(model.PhoneNum.ToString());
             }
 
             return null;

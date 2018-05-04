@@ -24,7 +24,7 @@ namespace DentistRegistration.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var res = Login.CheckLogin(user);
+                var res = Login.Login(user);
 
                 if (!res)
                     return BadRequest("Invalid login or password");

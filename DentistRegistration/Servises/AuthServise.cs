@@ -9,12 +9,12 @@ namespace DentistRegistration.Servises
 {
     public class AuthServise
     {
-        public string GetAccessToken(string firstName, string password)
+        public string GetAccessToken(string phoneNumber)
         {
             // new Guid("37EEC6AC-CFEF-44B7-8E3B-4EA10A7A7203")
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, firstName),
+                    new Claim(ClaimTypes.MobilePhone, phoneNumber),
                     new Claim(ClaimTypes.Name, Guid.NewGuid().ToString())
                 };
 
