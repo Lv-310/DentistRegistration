@@ -3,7 +3,7 @@ import baseURL from '../../helpers/url';
 //#region Login/Registration
 export function loginUser(loginParams){
   const body = JSON.stringify(loginParams)
-  return fetch(`${baseURL}/Login`, {
+  return fetch(`${baseURL}/auth/sign-in`, {
       method: 'post',
       body: body,
       headers: {
