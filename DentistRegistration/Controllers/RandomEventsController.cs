@@ -8,7 +8,6 @@ using DentistRegistration.Models;
 
 namespace DentistRegistration.Controllers
 {
-    [EnableCors(origins: "http://localhost:9090", headers: "*", methods: "*")]
     public class RandomEventsController : ApiController
     {
         // GET: api/RandomEvents
