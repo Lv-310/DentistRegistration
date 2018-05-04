@@ -4,7 +4,7 @@ using System.Web.Http.Cors;
 using DentistRegistration.DataAccessLayer;
 using DentistRegistration.Models;
 
-namespace TestDemo.Controllers
+namespace DentistRegistration.Controllers
 {
     [EnableCors(origins: "http://localhost:9090", headers: "*", methods: "*")]
     public class LoginController : ApiController
@@ -30,7 +30,7 @@ namespace TestDemo.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Something went wrong");
+                return BadRequest(ModelState);
             }
         }
     }
