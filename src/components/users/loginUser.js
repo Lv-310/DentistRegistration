@@ -3,7 +3,7 @@ import baseURL from '../../helpers/url';
 //#region Login/Registration
 export function loginUser(loginParams){
   const body = JSON.stringify(loginParams)
-  return fetch(`${baseURL}/auth/sign-in`, {
+  return fetch(`${baseURL}/Login`, {
       method: 'post',
       body: body,
       headers: {
@@ -13,6 +13,7 @@ export function loginUser(loginParams){
     })
     .then((res) => {
       alert(res.status);
+      return res;
     })
       .then((res) => {
         return res.json()
