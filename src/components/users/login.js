@@ -75,6 +75,13 @@ class Login extends React.Component{
         return(error.length === 0 ? '' : "border border-danger");
     }
 
+    clearForm = () => { 
+        this.setState({
+          phoneNum: '',
+          password: ''
+        });
+      }
+
     render(){
         return (
        
@@ -83,7 +90,7 @@ class Login extends React.Component{
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4>Login</h4>
-                            <button type="button" className="close" data-dismiss="modal"> &times;</button>
+                            <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
                 
                         </div>
                     <div className="modal-body col-lg-12">

@@ -108,11 +108,22 @@ class Signup extends React.Component{
         this.setState({formValid:
             this.state.firstnameValid && this.state.lastnameValid && this.state.emailValid && 
             this.state.phoneNumValid && this.state.passwordValid && this.state.confirmPasswordValid});
+        
       }
     
        errorBorder(error) {
         return(error.length === 0 ? '' : "border border-danger");
     }
+    clearForm = () => { 
+        this.setState({
+          firstname: '',
+          lastname: '',
+          email: '',
+          phoneNum: '',
+          password: '',
+          confirmPassword: ''
+        });
+      }
 
     render(){
         return (
@@ -121,10 +132,10 @@ class Signup extends React.Component{
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4>Registration</h4>
-                            <button type="button" className="close" data-dismiss="modal"> &times;</button>
+                            <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
                         </div>
                         <div className="modal-body col-lg-12">
-                            <form id="ajax-register-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
+                            <form id="ajax-register-form" action="" value={this.state.value} method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.firstname)}`} placeholder="First Name" required="required" name="firstname"
                                     onChange={this.handleUserInput} value={this.state.firstname}/>
