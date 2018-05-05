@@ -15,6 +15,7 @@ namespace DentistRegistration.DataAccessLayer
         public bool Login(LoginViewModel user)
         {
             string password;
+            int id;
 
             using (var con = new SqlConnection(connectionString))
             {
@@ -28,12 +29,17 @@ namespace DentistRegistration.DataAccessLayer
                 {
                     Direction = ParameterDirection.Output
                 };
+                SqlParameter outPutParameter1 = new SqlParameter("@ID_USER", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
 
                 cmd.Parameters.Add(outPutParameter);
+                cmd.Parameters.Add(outPutParameter1);
 
                 cmd.ExecuteNonQuery();
                 password = outPutParameter.Value.ToString();
-
+                id = Convert.ToInt32(outPutParameter1.Value);
             }
 
             if (SecurePasswordHasher.Verify(user.Password, password))
