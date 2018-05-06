@@ -7,12 +7,14 @@ using DentistRegistration.Servises;
 namespace DentistRegistration.Controllers
 {
 
+    
     public class LoginController : ApiController
     {
         private LoginUserDataAccessLayer Login = new LoginUserDataAccessLayer();
 
 
         [HttpPost]
+        
         public IHttpActionResult SignIn([FromBody]LoginViewModel user)
         {
             var authServise = new AuthServise();
