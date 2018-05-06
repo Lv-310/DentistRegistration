@@ -3,6 +3,8 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import baseURL from '../../helpers/url';
 import 'moment/locale/en-gb';
+import Toolbar from '../customtoolbar/Toolbar';
+import {isMobile} from 'react-device-detect';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
@@ -27,6 +29,18 @@ class Calendar extends React.Component {
       
     }
 
+    checkIfMobile(){
+      if(isMobile)
+      return ['day'];
+      else return ['day','week','month'];
+    }
+
+    changeDefaultView(){
+      if(isMobile)
+      return "day";
+      else return "week";
+    }    
+
     setStyle(event) {
       let newStyle = {
         backgroundColor: "green",
@@ -47,18 +61,22 @@ class Calendar extends React.Component {
         a.start = new Date(a.start);
         a.end = new Date(a.end);
       })
+
+      var x = window.matchMedia("(max-width: 700px)")
       
       return (
           <BigCalendar
               events = {this.state.allevents}
-              defaultView="week"
+              defaultView={this.changeDefaultView()}
               scrollToTime={new Date(1970, 1, 1, 6)}
               defaultDate={new Date(new Date())}
-              views={['day','week','month']}
+              views={this.checkIfMobile()}
               min={new Date(2017, 10, 0, 8, 0, 0)}
               max={new Date(2017, 10, 0, 20, 0, 0)} 
               onSelectEvent={event => alert(event.title)}
-              
+              components={{
+                toolbar : Toolbar
+              }}
               eventPropGetter={
                 (event, start, end, isSelected) => {
                   return {
