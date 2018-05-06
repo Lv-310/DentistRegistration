@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using DentistRegistration.Models;
@@ -11,7 +10,7 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        // check whether there is a user with such a login and password
+        // check whether there is a user with such a phoneNumber and password
         public bool Login(LoginViewModel user)
         {
             string password;
@@ -20,9 +19,11 @@ namespace DentistRegistration.DataAccessLayer
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("spCheckLogin", con);
+                SqlCommand cmd = new SqlCommand("spCheckLogin", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
 
-                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
                 SqlParameter outPutParameter = new SqlParameter("@USER_PASSWORD", SqlDbType.NVarChar, 320)
                 {
@@ -37,7 +38,9 @@ namespace DentistRegistration.DataAccessLayer
             }
 
             if (SecurePasswordHasher.Verify(user.Password, password))
-            { return true; }
+            {
+                return true;
+            }
             return false;
         }
     }

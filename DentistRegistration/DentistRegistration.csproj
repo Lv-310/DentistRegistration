@@ -179,7 +179,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants\AllConstants.cs" />
-    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RandomEventsController.cs" />
