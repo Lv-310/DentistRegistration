@@ -39,7 +39,7 @@ namespace DentistRegistration.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Invalid login or password");
+                return BadRequest("Something went wrong");
             }
         }
     }
