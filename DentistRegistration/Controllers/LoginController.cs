@@ -24,21 +24,22 @@ namespace DentistRegistration.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var res = Login.Login(user);
+                var LoginnedUser = Login.CheckLogin(user);
 
-                if (!res)
+                if (LoginnedUser == null)
                     return BadRequest("Invalid login or password");
 
                 var token = authServise.GetAccessToken(user.PhoneNum.ToString());
 
                 return Ok(new
                 {
+                    LoginnedUser,
                     token
                 });
             }
             catch (Exception)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Invalid login or password");
             }
         }
     }
