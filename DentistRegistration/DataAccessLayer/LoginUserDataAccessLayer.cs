@@ -12,10 +12,10 @@ namespace DentistRegistration.DataAccessLayer
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         // check whether there is a user with such a login and password
-        public LoginViewModel CheckLogin(LoginViewModel user)
+        public ReturnedLoginModel CheckLogin(LoginViewModel user)
         {
-            LoginViewModel LoginnedUser = new LoginViewModel();
-            LoginnedUser.PhoneNum = user.PhoneNum;
+            ReturnedLoginModel LoginnedUser = new ReturnedLoginModel();
+            string Password;
 
             using (var con = new SqlConnection(connectionString))
             {
@@ -52,8 +52,8 @@ namespace DentistRegistration.DataAccessLayer
                 
 
 
-                LoginnedUser.Password=outPutParameterPassword.Value.ToString();
-                if (string.IsNullOrEmpty(LoginnedUser.Password)) return null;
+                Password=outPutParameterPassword.Value.ToString();
+                if (string.IsNullOrEmpty(Password)) return null;
                 LoginnedUser.Id = Convert.ToInt32(outPutParameterId.Value);
                 LoginnedUser.FirstName = outPutParameterFirstname.Value.ToString();
                 LoginnedUser.LastName = outPutParameterLastname.Value.ToString();
@@ -64,9 +64,9 @@ namespace DentistRegistration.DataAccessLayer
 
             }
 
-            if (SecurePasswordHasher.Verify(user.Password, LoginnedUser.Password))
+            if (SecurePasswordHasher.Verify(user.Password, Password))
             {
-                LoginnedUser.Password = null;
+             
                 return LoginnedUser; }
             return null;
         }

@@ -14,10 +14,5 @@ namespace DentistRegistration.Models
         [Required(ErrorMessage = "Field can't be empty")]
         public string Password { get; set; }
 
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int Id { get; set; }
-
     }
 }
