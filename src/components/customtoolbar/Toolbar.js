@@ -1,4 +1,6 @@
 import React from 'react';
+import './toolbar.css';
+
 'use strict';
 
 
@@ -60,7 +62,7 @@ var Toolbar = function (_React$Component) {
         _react2.default.createElement(
           'button',
           {
-            className: "fas fa-angle-left",
+            className: "fas fa-angle-left prev-next",
             type: 'button',
             onClick: this.navigate.bind(null, _constants.navigate.PREVIOUS)
           }        
@@ -76,7 +78,7 @@ var Toolbar = function (_React$Component) {
         _react2.default.createElement(
           'button',
           {
-            className: "fas fa-angle-right",
+            className: "fas fa-angle-right prev-next",
             type: 'button',
             onClick: this.navigate.bind(null, _constants.navigate.NEXT)
           }

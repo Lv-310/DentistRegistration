@@ -29,11 +29,14 @@ class DoctorsList extends React.Component{
     document.getElementById("demo").className="collapse";
     else  document.getElementById("demo").className="collapse show";
   }
-
+  // <i class="fas fa-sort-down"></i>
   render() {
     return (
       <div className="list-group">
-      <a href="#" data-toggle="collapse" data-target="#demo" className="list-group-item active my-list-header btn-secondary"  id="first">DOCTORS</a>
+      <a href="#" data-toggle="collapse" data-target="#demo" className="list-group-item active my-list-header btn-secondary dropdown-toggle-split"  id="first">DOCTORS
+      <i className="fas fa-sort-down" id="down-arrow"></i>
+      </a>
+
         <div id="demo" className="collapse show">
         {this.state.items.map((item,index) => {
           return <button type="button" key={index} className="list-group-item list-group-item-action">

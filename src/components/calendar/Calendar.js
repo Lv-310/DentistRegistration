@@ -50,10 +50,16 @@ class Calendar extends React.Component {
         zIndex : 11
       };
 
+      
+
       if (event.hasBeenBooked){
         newStyle.backgroundColor = "red"
       }
       return newStyle;
+    }
+
+    onEventClick(event) {
+     console.log(event);
     }
     
     render() {
@@ -73,7 +79,7 @@ class Calendar extends React.Component {
               views={this.checkIfMobile()}
               min={new Date(2017, 10, 0, 8, 0, 0)}
               max={new Date(2017, 10, 0, 20, 0, 0)} 
-              onSelectEvent={event => alert(event.title)}
+              onSelectEvent={event => this.onEventClick(event)}
               components={{
                 toolbar : Toolbar
               }}

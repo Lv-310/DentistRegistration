@@ -1,0 +1,23 @@
+.prev-next{
+    width: 30%;
+}
+
+
+
+@media screen and (max-width: 770px) {
+    .rbc-btn-group>button {
+        /*width: 9.5vw;*/
+        font-size: 4.7vw;
+        background-color: grey;
+
+      }
+}
+
+@media screen and (min-width: 771px){
+    .rbc-btn-group>button {
+        /*width: 9.5vw;*/
+        font-size: 1.7vw;
+        background-color: grey;
+        
+      }
+}
