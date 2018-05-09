@@ -18,7 +18,7 @@ export function loginUser(loginParams){
       .then((res) => {
         return res.json()
       } 
-     ) 
+     )
 }
 
 export function signupUser(signupParams){
