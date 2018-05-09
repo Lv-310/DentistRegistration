@@ -184,13 +184,16 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RandomEventsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="DataAccessLayer\CalendarEventsDataAccessLayer.cs" />
+    <Compile Include="DataAccessLayer\VersionDataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="DataAccessLayer\LoginUserDataAccessLayer.cs" />
     <Compile Include="Models\CalendarEventRule.cs" />
+    <Compile Include="Models\ReturnedLoginModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="DataAccessLayer\DoctorsDataAccessLayer.cs" />
