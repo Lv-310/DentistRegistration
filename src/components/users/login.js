@@ -3,17 +3,24 @@ import jwt_decode from 'jwt-decode';
 import { loginUser } from './loginUser';
 import { checkToken } from './tokenService';
 
-
-
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            phoneNum: "", password: "", formErrors: { phoneNum: '', password: '' },
-            phoneNumValid: false, passwordValid: false, formValid: false
-        };
-        this.handleUserInput = this.handleUserInput.bind(this);
+            phoneNum: "",
+            password: "",
 
+            formErrors: {
+                phoneNum: '',
+                password: ''
+            },
+
+            phoneNumValid: false,
+            passwordValid: false,
+            formValid: false
+        };
+
+        this.handleUserInput = this.handleUserInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
 
@@ -28,14 +35,11 @@ class Login extends React.Component {
         }
 
         loginUser(loginParams).then((user) => {
-            localStorage.setItem("id", user.id)
-
-            localStorage.setItem("token", user.token)
-            var decoded = jwt_decode(user.token)
-
-            var tokenDurating = Date.now() + decoded.exp
+            localStorage.setItem("userId", user.authorizedUser.Id);
+            localStorage.setItem("userToken", user.token);
+            var decoded = jwt_decode(user.token);
+            var tokenDurating = decoded.exp * 1000;
             localStorage.setItem("tokenDurating", tokenDurating);
-
             checkToken();
 
         })
@@ -43,12 +47,12 @@ class Login extends React.Component {
     }
 
     //handleLogOut = (event) => {
-    //  event.preventDefault()
+    //event.preventDefault()
 
     // logOut(() => {
-    //localStorage.removeItem(user.id, user.token, tokenDurating);
+    //localStorage.removeItem("id", "token", "tokenDurating");
     //})
-    // }
+    //}
 
 
 
