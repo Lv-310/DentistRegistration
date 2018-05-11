@@ -7,38 +7,38 @@ using DentistRegistration.Servises;
 namespace DentistRegistration.Controllers
 {
 
-    
+
     public class LoginController : ApiController
     {
         private LoginUserDataAccessLayer Login = new LoginUserDataAccessLayer();
 
-
         [HttpPost]
-        
         public IHttpActionResult SignIn([FromBody]LoginViewModel user)
         {
-            var authServise = new AuthServise();
+            var authServise = new AuthServices();
 
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var res = Login.Login(user);
+                var authorizedUser = Login.CheckLogin(user);
 
-                if (!res)
+                if (authorizedUser == null)
                     return BadRequest("Invalid login or password");
 
                 var token = authServise.GetAccessToken(user.PhoneNum.ToString());
 
                 return Ok(new
                 {
+                    authorizedUser,
                     token
                 });
             }
+
             catch (Exception)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Something went wrong");
             }
         }
     }

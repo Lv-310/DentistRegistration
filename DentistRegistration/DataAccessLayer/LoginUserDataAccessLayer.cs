@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using DentistRegistration.Models;
@@ -10,11 +11,11 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        // check whether there is a user with such a phoneNumber and password
-        public bool Login(LoginViewModel user)
+        // check whether there is a user with such a login and password
+        public AuthorizedUserModel CheckLogin(LoginViewModel user)
         {
-            string password;
-            int id;
+            AuthorizedUserModel authorizedUser = new AuthorizedUserModel();
+            string Password;
 
             using (var con = new SqlConnection(connectionString))
             {
@@ -26,28 +27,43 @@ namespace DentistRegistration.DataAccessLayer
                 };
 
                 cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
-                SqlParameter outPutParameter = new SqlParameter("@USER_PASSWORD", SqlDbType.NVarChar, 320)
+                SqlParameter outPutParameterPassword = new SqlParameter("@USER_PASSWORD", SqlDbType.NVarChar, 320)
                 {
                     Direction = ParameterDirection.Output
                 };
-                SqlParameter outPutParameter1 = new SqlParameter("@ID_USER", SqlDbType.Int)
+                SqlParameter outPutParameterId = new SqlParameter("@ID_USER", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                SqlParameter outPutParameterFirstname = new SqlParameter("@FIRSTNAME", SqlDbType.VarChar, 30)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                SqlParameter outPutParameterLastname = new SqlParameter("@LASTNAME", SqlDbType.VarChar, 30)
                 {
                     Direction = ParameterDirection.Output
                 };
 
-                cmd.Parameters.Add(outPutParameter);
-                cmd.Parameters.Add(outPutParameter1);
-
+                cmd.Parameters.Add(outPutParameterPassword);
+                cmd.Parameters.Add(outPutParameterId);
+                cmd.Parameters.Add(outPutParameterFirstname);
+                cmd.Parameters.Add(outPutParameterLastname);
                 cmd.ExecuteNonQuery();
-                password = outPutParameter.Value.ToString();
-                id = Convert.ToInt32(outPutParameter1.Value);
+
+                Password = outPutParameterPassword.Value.ToString();
+
+                if (string.IsNullOrEmpty(Password)) return null;
+
+                authorizedUser.Id = Convert.ToInt32(outPutParameterId.Value);
+                authorizedUser.FirstName = outPutParameterFirstname.Value.ToString();
+                authorizedUser.LastName = outPutParameterLastname.Value.ToString();
             }
 
-            if (SecurePasswordHasher.Verify(user.Password, password))
+            if (SecurePasswordHasher.Verify(user.Password, Password))
             {
-                return true;
+                return authorizedUser;
             }
-            return false;
+            return null;
         }
     }
 }

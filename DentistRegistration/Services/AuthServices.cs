@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DentistRegistration.Servises
 {
-    public class AuthServise
+    public class AuthServices
     {
         public string GetAccessToken(string phoneNumber)
         {
@@ -28,7 +28,7 @@ namespace DentistRegistration.Servises
                 issuer: AllConstants.JwtTokenConstants.Issuer,
                 audience: AllConstants.JwtTokenConstants.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(2),
+                expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: cred);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
