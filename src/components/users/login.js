@@ -93,7 +93,7 @@ class Login extends React.Component{
                             <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
                 
                         </div>
-                    <div className="modal-body col-lg-12">
+                    <div className="modal-body col-sm-12">
                         <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"

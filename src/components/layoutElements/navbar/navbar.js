@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Login from '../../users/login';
 import Signup from '../../users/signup';
+import MainMenu from '../navbar/mainMenu';
 
 class NavBar extends React.Component {
     render() {
@@ -16,16 +17,19 @@ class NavBar extends React.Component {
                             &#9776;
                         </button>
                         <div className="collapse navbar-collapse" id="exCollapsingNavbar">
-                            <ul className="nav navbar-nav navbar-right ml-auto">
+                            <ul className="nav navbar-nav float-left">
+                            <MainMenu />
+                            </ul>
+                            <ul className="nav navbar-nav ml-auto float-right">
                                 <li>
-                                    <a className="btn btn-lg btn-outline-secondary text-light mr-sm-2" data-toggle="modal" data-target="#registerModal">Registration</a>
+                                    <a className="text-light mr-sm-4 nav-link" data-toggle="modal" data-target="#registerModal">Registration</a>
                                 </li>
                                 <li>
-                                    <a className="btn btn-lg btn-outline-secondary text-light" data-toggle="modal" data-target="#loginModal">Login</a>
+                                    <a className="text-light nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
                                 </li>
                             </ul>  
+                            </div>
                         </div>
-                    </div>
                 </nav>
                 <Login />
                 <Signup />
