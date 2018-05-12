@@ -3,8 +3,13 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import baseURL from '../../helpers/url';
 import 'moment/locale/en-gb';
+<<<<<<< HEAD
 import $ from 'jquery';
 import {ModalComponent} from 'react-modal';
+=======
+import Toolbar from '../customtoolbar/Toolbar';
+import {isMobile} from 'react-device-detect';
+>>>>>>> c29f6676ee7d20fe2882974ba33c985f2db9c0ef
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
@@ -63,6 +68,18 @@ class Calendar extends React.Component {
       
     }
 
+    checkIfMobile(){
+      if(isMobile)
+      return ['day'];
+      else return ['day','week','month'];
+    }
+
+    changeDefaultView(){
+      if(isMobile)
+      return "day";
+      else return "week";
+    }    
+
     setStyle(event) {
       let newStyle = {
         backgroundColor: "green",
@@ -72,10 +89,16 @@ class Calendar extends React.Component {
         zIndex : 11
       };
 
+      
+
       if (event.hasBeenBooked){
         newStyle.backgroundColor = "red"
       }
       return newStyle;
+    }
+
+    onEventClick(event) {
+     console.log(event);
     }
     
     onEventClick(event){
@@ -90,6 +113,8 @@ class Calendar extends React.Component {
         a.start = new Date(a.start);
         a.end = new Date(a.end);
       })
+
+      var x = window.matchMedia("(max-width: 700px)")
       
       return (
     <div>
@@ -128,14 +153,21 @@ class Calendar extends React.Component {
               </div>
           <BigCalendar
               events = {this.state.allevents}
-              defaultView="week"
+              defaultView={this.changeDefaultView()}
               scrollToTime={new Date(1970, 1, 1, 6)}
               defaultDate={new Date(new Date())}
-              views={['day','week','month']}
+              views={this.checkIfMobile()}
               min={new Date(2017, 10, 0, 8, 0, 0)}
               max={new Date(2017, 10, 0, 20, 0, 0)} 
+<<<<<<< HEAD
               onSelectEvent={(event) => {this.onEventClick(event)}}
               
+=======
+              onSelectEvent={event => this.onEventClick(event)}
+              components={{
+                toolbar : Toolbar
+              }}
+>>>>>>> c29f6676ee7d20fe2882974ba33c985f2db9c0ef
               eventPropGetter={
                 (event, start, end, isSelected) => {
                   return {

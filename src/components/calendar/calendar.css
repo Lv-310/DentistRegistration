@@ -164,15 +164,34 @@
     white-space: nowrap;
   }
   .rbc-btn-group>button {
-    width: 9.5vw;
-    font-size: 1.3vw;
+    /*width: 9.5vw;*/
+    font-size: 1.7vw;
     background-color: grey;
-    
   }
-  .rbc-toolbar-label {
-    font-size: 2.1vw;
-    text-align: center;
-  }
+  @media screen and (max-width: 770px) {
+    .rbc-btn-group>button {
+        /*width: 9.5vw;*/
+        font-size: 2.3vw;
+        background-color: grey;
+      }
+      .rbc-toolbar-label{
+        font-size: 2.7vw;
+      }
+        
+}
+
+@media screen and (min-width: 771px){
+    .rbc-btn-group>button {
+        /*width: 9.5vw;*/
+        font-size: 1.7vw;
+        background-color: grey;
+        
+      }
+      .rbc-toolbar-label{
+        font-size: 2.1vw;
+      }
+}
+ 
   .rbc-btn-group > button:first-child:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;

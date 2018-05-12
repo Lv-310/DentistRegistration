@@ -20,4 +20,26 @@
     margin-bottom: 20px;
   }
 
+  #down-arrow{
+    float: right;
+  }
+
+@media screen and (max-width: 770px) {
+    #demo.collapsed {
+      display: inline; 
+    }
+}
+
+@media screen and (min-width: 771px){
+  #demo:not(.collapsed) {
+    display: inline;
+  }
+  #first{
+    pointer-events: none;
+  }
+}
+
+
+
+
   
