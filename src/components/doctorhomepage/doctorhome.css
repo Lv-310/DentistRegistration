@@ -1,0 +1,10 @@
+.container{
+    max-width: 95%;
+    margin-bottom: 10px;
+}
+
+.my-div{
+    margin-top: 95px;
+    margin-bottom: 75px; 
+    max-width: 95%;  
+}

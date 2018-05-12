@@ -109,7 +109,6 @@ class Calendar extends React.Component {
     
     onEventClick(event){
       $("#Modalbtn").click();
-      alert(event.start);
       this.setState({selectedEvent : event});
     }
 
