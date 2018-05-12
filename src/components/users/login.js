@@ -116,22 +116,6 @@ class Login extends React.Component {
                             <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
 
                         </div>
-<<<<<<< HEAD
-                    <div className="modal-body col-sm-12">
-                        <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
-                            <div className="form-group">
-                                <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"
-                                    onChange={this.handleUserInput} value={this.state.phoneNum} />
-                                <div className="error-message">{this.state.formErrors.phoneNum}</div>
-                            </div>
-                            <div className="form-group">
-                                <input type="password" className={`form-control ${this.errorBorder(this.state.formErrors.password)}`} placeholder="Password" required="required" name="password"
-                                    onChange={this.handleUserInput} value={this.state.password} />
-                                <div className="error-message">{this.state.formErrors.password}</div>
-                            </div>
-                            <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
-                                 Log in
-=======
                         <div className="modal-body col-lg-12">
                             <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
@@ -146,7 +130,6 @@ class Login extends React.Component {
                                 </div>
                                 <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
                                     Log in
->>>>>>> c29f6676ee7d20fe2882974ba33c985f2db9c0ef
                             </button>
                             </form>
                         </div>

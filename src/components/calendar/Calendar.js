@@ -3,13 +3,10 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import baseURL from '../../helpers/url';
 import 'moment/locale/en-gb';
-<<<<<<< HEAD
 import $ from 'jquery';
 import {ModalComponent} from 'react-modal';
-=======
 import Toolbar from '../customtoolbar/Toolbar';
 import {isMobile} from 'react-device-detect';
->>>>>>> c29f6676ee7d20fe2882974ba33c985f2db9c0ef
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
@@ -159,15 +156,10 @@ class Calendar extends React.Component {
               views={this.checkIfMobile()}
               min={new Date(2017, 10, 0, 8, 0, 0)}
               max={new Date(2017, 10, 0, 20, 0, 0)} 
-<<<<<<< HEAD
-              onSelectEvent={(event) => {this.onEventClick(event)}}
-              
-=======
               onSelectEvent={event => this.onEventClick(event)}
               components={{
                 toolbar : Toolbar
               }}
->>>>>>> c29f6676ee7d20fe2882974ba33c985f2db9c0ef
               eventPropGetter={
                 (event, start, end, isSelected) => {
                   return {
