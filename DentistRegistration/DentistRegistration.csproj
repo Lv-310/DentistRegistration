@@ -192,7 +192,7 @@
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="DataAccessLayer\LoginUserDataAccessLayer.cs" />
     <Compile Include="Models\CalendarEventRule.cs" />
-    <Compile Include="Models\ReturnedLoginModel.cs" />
+    <Compile Include="Models\AuthorizedUser.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="DataAccessLayer\DoctorsDataAccessLayer.cs" />

@@ -12,10 +12,10 @@ namespace DentistRegistration.DataAccessLayer
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         // check whether there is a user with such a login and password
-        public bool Login(LoginViewModel user)
+        public AuthorizedUser CheckLogin(LoginViewModel user)
         {
-            string password;
-            int id;
+            AuthorizedUser authorizedUser = new AuthorizedUser();
+            string Password;
 
             using (var con = new SqlConnection(connectionString))
             {
@@ -25,21 +25,20 @@ namespace DentistRegistration.DataAccessLayer
                 {
                     CommandType = CommandType.StoredProcedure
                 };
-
                 cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
-                SqlParameter outPutParameter = new SqlParameter("@USER_PASSWORD", SqlDbType.NVarChar, 320)
+                SqlParameter outPutParameterPassword = new SqlParameter("@USER_PASSWORD", SqlDbType.NVarChar, 320)
                 {
                     Direction = ParameterDirection.Output
                 };
-                SqlParameter outPutParameter1 = new SqlParameter("@ID_USER", SqlDbType.Int)
+                SqlParameter outPutParameterId = new SqlParameter("@ID_USER", SqlDbType.Int)
                 {
                     Direction = ParameterDirection.Output
                 };
-                SqlParameter outPutParameterFirstname = new SqlParameter("@FIRSTNAME", SqlDbType.VarChar,30)
+                SqlParameter outPutParameterFirstname = new SqlParameter("@FIRSTNAME", SqlDbType.VarChar, 30)
                 {
                     Direction = ParameterDirection.Output
                 };
-                SqlParameter outPutParameterLastname = new SqlParameter("@LASTNAME", SqlDbType.VarChar,30)
+                SqlParameter outPutParameterLastname = new SqlParameter("@LASTNAME", SqlDbType.VarChar, 30)
                 {
                     Direction = ParameterDirection.Output
                 };
@@ -50,14 +49,18 @@ namespace DentistRegistration.DataAccessLayer
                 cmd.Parameters.Add(outPutParameterLastname);
                 cmd.ExecuteNonQuery();
 
-                cmd.ExecuteNonQuery();
-                password = outPutParameter.Value.ToString();
-                id = Convert.ToInt32(outPutParameter1.Value);
+                Password = outPutParameterPassword.Value.ToString();
+                if (string.IsNullOrEmpty(Password)) return null;
+                authorizedUser.Id = Convert.ToInt32(outPutParameterId.Value);
+                authorizedUser.FirstName = outPutParameterFirstname.Value.ToString();
+                authorizedUser.LastName = outPutParameterLastname.Value.ToString();
             }
 
-            if (SecurePasswordHasher.Verify(user.Password, password))
-            { return true; }
-            return false;
+            if (SecurePasswordHasher.Verify(user.Password, Password))
+            {
+                return authorizedUser;
+            }
+            return null;
         }
     }
 }

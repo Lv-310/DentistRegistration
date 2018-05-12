@@ -7,13 +7,10 @@ using DentistRegistration.Servises;
 namespace DentistRegistration.Controllers
 {
 
-<<<<<<<<< Temporary merge branch 1
-=========
-    
->>>>>>>>> Temporary merge branch 2
     public class LoginController : ApiController
     {
         private LoginUserDataAccessLayer Login = new LoginUserDataAccessLayer();
+
 
         [HttpPost]
         public IHttpActionResult SignIn([FromBody]LoginViewModel user)
@@ -25,19 +22,19 @@ namespace DentistRegistration.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var res = Login.Login(user);
+                var authorizedUser = Login.CheckLogin(user);
 
-                if (!res)
+                if (authorizedUser == null)
                     return BadRequest("Invalid login or password");
 
                 var token = authServise.GetAccessToken(user.PhoneNum.ToString());
 
                 return Ok(new
                 {
+                    authorizedUser,
                     token
                 });
             }
-
             catch (Exception)
             {
                 return BadRequest("Something went wrong");

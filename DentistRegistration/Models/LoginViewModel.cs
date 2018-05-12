@@ -4,8 +4,6 @@ namespace DentistRegistration.Models
 {
     public class LoginViewModel
     {
-
-
         [Range(100000000000, 999999999999, ErrorMessage = "Number should be 12 digits")]
         [Required(ErrorMessage = "Field can't be empty")]
         public long PhoneNum { get; set; }

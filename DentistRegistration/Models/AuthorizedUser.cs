@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DentistRegistration.Models
+﻿namespace DentistRegistration.Models
 {
-    public class ReturnedLoginModel
+    public class AuthorizedUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
