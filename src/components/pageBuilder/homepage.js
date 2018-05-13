@@ -4,23 +4,30 @@ import Footer from '../layoutElements/footer';
 import Calendar from '../calendar/Calendar';
 import DoctorsList from '../doctors/DoctorsList';
 
+import Select from './Select';
 import './homepage.css';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class Homepage extends React.Component{
     render() {
-        return(
-            <div className="my-div">
-            <NavBar />
-            <div className="row" id="main-content">
-                <div className="col-md-2">
-                <DoctorsList />
+        return (
+            <BrowserRouter>
+                <div className="my-div">
+                    <NavBar />
+                    <div className="row" id="main-content">
+                        <div className="col-md-2">
+                            <DoctorsList />
+                        </div>
+                        <div className="col-md-10">
+                            <Switch>
+                                <Route exact path="/" component={Select} />
+                                <Route path="/:itemId" component={Calendar} />
+                            </Switch>
+                        </div>
+                    </div>
+                    <Footer />
                 </div>
-                <div className="col-md-10">
-                <Calendar />
-                </div>
-            </div>
-            <Footer />
-        </div>
+            </BrowserRouter>
         );
     }
 }

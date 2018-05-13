@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './doctors.css';
 import baseURL from '../../helpers/url';
 import {isMobile} from 'react-device-detect';
-
+import {Link} from 'react-router-dom';
 
 class DoctorsList extends React.Component{
   constructor() {
@@ -39,9 +39,13 @@ class DoctorsList extends React.Component{
 
         <div id="demo" className="collapse show">
         {this.state.items.map((item,index) => {
-          return <button type="button" key={index} className="list-group-item list-group-item-action">
-            {item.FirstName} {item.LastName}
-            </button>
+          return <div>
+          <button type="button" key={index} className="list-group-item list-group-item-action">
+            <Link to={`/${item.Id}`}>
+              {item.FirstName} {item.LastName}
+            </Link>
+          </button>
+          </div>
         }
         )}
         </div> 
@@ -51,8 +55,3 @@ class DoctorsList extends React.Component{
 }
 
 export default DoctorsList;
-
-
-
-
-
