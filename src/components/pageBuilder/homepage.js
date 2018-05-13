@@ -3,6 +3,7 @@ import NavBar from '../layoutElements/navbar/navbar';
 import Footer from '../layoutElements/footer';
 import Calendar from '../calendar/Calendar';
 import DoctorsList from '../doctors/DoctorsList';
+import UserHomePage from '../userhomepage/UserHomePage'
 
 import Select from './Select';
 import './homepage.css';
@@ -21,7 +22,8 @@ class Homepage extends React.Component{
                         <div className="col-md-10">
                             <Switch>
                                 <Route exact path="/" component={Select} />
-                                <Route path="/:itemId" component={Calendar} />
+                                <Route path="/Users/:itemId" component={UserHomePage} />
+                                <Route path="/:itemId" component={Calendar} />                               
                             </Switch>
                         </div>
                     </div>

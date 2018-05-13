@@ -2,6 +2,7 @@ import * as React from 'react';
 import jwt_decode from 'jwt-decode';
 import { loginUser } from './loginUser';
 import { checkToken } from './tokenService';
+import { withRouter } from 'react-router-dom'
 
 class Login extends React.Component {
     constructor(props) {
@@ -12,12 +13,14 @@ class Login extends React.Component {
 
             formErrors: {
                 phoneNum: '',
-                password: ''
+                password: '',
+                wrongCredentials: ''
             },
 
             phoneNumValid: false,
             passwordValid: false,
-            formValid: false
+            formValid: false,
+            wrongCredentials: false
         };
 
         this.handleUserInput = this.handleUserInput.bind(this);
@@ -34,33 +37,54 @@ class Login extends React.Component {
             password: this.state.password
         }
 
-        loginUser(loginParams).then((user) => {
+        loginUser(loginParams)
+            .then(user=> this.handleWrongUser(user))
+            .then((user) => {
+            if(user.Message!=undefined) return;
             localStorage.setItem("userId", user.authorizedUser.Id);
             localStorage.setItem("userToken", user.token);
             var decoded = jwt_decode(user.token);
             var tokenDurating = decoded.exp * 1000;
             localStorage.setItem("tokenDurating", tokenDurating);
             checkToken();
-
+            document.getElementById('login-modal-close').click();
+            this.props.history.push('/Users/' + user.authorizedUser.Id);
         })
 
     }
 
-    //handleLogOut = (event) => {
-    //event.preventDefault()
+    handleWrongUser(user)
+    {
+        if(user.Message != undefined)
+        {
+            this.state.wrongCredentials = true;
+            this.showErrorMessage(user.Message);
+        }
 
-    // logOut(() => {
-    //localStorage.removeItem("id", "token", "tokenDurating");
-    //})
-    //}
+        return user;
+    }
 
+    showErrorMessage(message)
+    {
+        let errors = this.state.formErrors;
+        errors.wrongCredentials = this.state.wrongCredentials ? message : '';
+        this.setState({formErrors: errors});
+    }
 
+    clearErrorMessage()
+    {
+        let errors = this.state.formErrors;
+        errors.wrongCredentials = '';
+        this.setState({formErrors: errors});
+    }
 
     handleUserInput = (e) => {
+        this.wrongCredentials = false;
+        this.clearErrorMessage();
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value },
-            () => { this.validateField(name, value) });
+            () => { this.validateField(name, value) });       
     }
 
     validateField(fieldName, value) {
@@ -70,7 +94,7 @@ class Login extends React.Component {
 
         switch (fieldName) {
             case 'phoneNum':
-                phoneNumValid = value.match(/^[0-9]/) && value.length === 12;
+                phoneNumValid = value.match(/^[0-9]{12}$/);
                 fieldValidationErrors.phoneNum = phoneNumValid ? '' : 'Numbers less than 12 or incorrect';
                 break;
             case 'password':
@@ -99,10 +123,12 @@ class Login extends React.Component {
     }
 
     clearForm = () => {
+        this.clearErrorMessage();
         this.setState({
             phoneNum: '',
-            password: ''
+            password: '',
         });
+
     }
 
     render() {
@@ -113,7 +139,7 @@ class Login extends React.Component {
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4>Login</h4>
-                            <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
+                            <button type="button" id="login-modal-close" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
 
                         </div>
                         <div className="modal-body col-lg-12">
@@ -130,7 +156,8 @@ class Login extends React.Component {
                                 </div>
                                 <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
                                     Log in
-                            </button>
+                                </button>
+                                <div className="error-message">{this.state.formErrors.wrongCredentials}</div>
                             </form>
                         </div>
                     </div>
@@ -139,4 +166,5 @@ class Login extends React.Component {
         );
     }
 }
-export default Login;
+
+export default withRouter(Login);

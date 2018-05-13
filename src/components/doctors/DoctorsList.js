@@ -12,6 +12,7 @@ class DoctorsList extends React.Component{
       'items': []
     }
   }
+
   componentDidMount(){
     this.getDoctors();
     this.changeCollapse();
@@ -23,7 +24,6 @@ class DoctorsList extends React.Component{
     .then(results => this.setState({'items': results}));
   }
   
-
   changeCollapse(){
     if(isMobile)
     document.getElementById("demo").className="collapse";
