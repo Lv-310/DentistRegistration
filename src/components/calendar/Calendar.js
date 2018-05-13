@@ -20,12 +20,19 @@ class Calendar extends React.Component {
         'allevents': [],
         selectedEvent : {}
       }
+      this.handleDescription = this.handleDescription.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
-    loginUser=(loginParams) => {
-      const body = JSON.stringify(loginParams)
-      return fetch(`${baseURL}/Login`, {
+    handleDescription = (event) => {
+      this.setState({description: this.state.selectedEvent.description})
+  
+    }
+
+    BookEvent=(eventParams) => {
+      const body = JSON.stringify(eventParams)
+      return fetch(`${baseURL}/CalendarEvent`, {
           method: 'post',
           body: body,
           headers: {
@@ -46,10 +53,10 @@ class Calendar extends React.Component {
     handleSubmit = (event) => {
       event.preventDefault()
 
-      const loginParams = {
-
+      const eventParams = {
+        selectedEvent : {}
       }
-      //loginUser(loginParams);
+      this.BookEvent(eventParams).then(console.log("hi"));
     
   }
 
@@ -106,6 +113,12 @@ class Calendar extends React.Component {
       return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
+    formatTime = (time) => {
+      var t = time.split(":");
+      var timeNow = t[0]+':'+t[1];
+      return timeNow;
+    }
+
     
     onEventClick(event){
       $("#Modalbtn").click();
@@ -116,14 +129,14 @@ class Calendar extends React.Component {
       this.state.allevents.forEach(a => {
         a.start = new Date(a.start);
         a.end = new Date(a.end);
-      })
+      })   
 
       
       
 
       var x = window.matchMedia("(max-width: 700px)")
       
-      return (
+      return ( 
     <div>
       <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
       </div>
@@ -132,22 +145,23 @@ class Calendar extends React.Component {
                     <div className="modal-content">
                     <div className="modal-header">
                       <h4>Make an appointment</h4>
-                      <p>Title : {this.state.selectedEvent.title} </p>
-                      <p>Week day : {new Date(this.state.selectedEvent.start).toLocaleString('en-us', {  weekday: 'long' })} </p>
-                      <p>Date: {this.formatDate(new Date(this.state.selectedEvent.start))}</p> 
                       <button type="button" className="close" data-dismiss="modal">&times;</button>
                     </div>
                   <div className="modal-body">
                   <div className="modal-body col-sm-12">
                         <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                                <input type="text" className="form-control" value={this.state.selectedEvent.title}  disabled />
-                                <div className="error-message"></div>
-                                
+                              <label>Date of an appointment</label>
+                                <input type="text" className="form-control" value={this.formatDate(new Date(this.state.selectedEvent.start))+" ("+
+                                new Date(this.state.selectedEvent.start).toLocaleString('en-us', {  weekday: 'long' }) +")"}  disabled />  
                             </div>
                             <div className="form-group">
-                                <input type="text" className="form-control"/>
-                                <div className="error-message"></div>
+                            <label>Beginning of an appointment</label>
+                                <input type="text" className="form-control" value={this.formatTime(String(this.state.selectedEvent.title))} disabled/>
+                            </div>
+                            <div className="form-group">
+                            <label>Input a purpose of an appointment</label>
+                                <textarea type="text" className="form-control" onChange={this.handleDescription} value={this.state.selectedEvent.description}/>
                             </div>
                             <button className="btn btn-secondary btn-block">
                                  Visit hell
