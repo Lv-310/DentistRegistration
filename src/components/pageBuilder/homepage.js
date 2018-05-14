@@ -6,12 +6,11 @@ import DoctorsList from '../doctors/DoctorsList';
 
 import Select from './Select';
 import './homepage.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 
 class Homepage extends React.Component{
     render() {
         return (
-            <BrowserRouter>
                 <div className="my-div">
                     <NavBar />
                     <div className="row" id="main-content">
@@ -21,13 +20,12 @@ class Homepage extends React.Component{
                         <div className="col-md-10">
                             <Switch>
                                 <Route exact path="/" component={Select} />
-                                <Route path="/:itemId" component={Calendar} />
+                                <Route path="/:doctorId" component={Calendar} />
                             </Switch>
                         </div>
                     </div>
                     <Footer />
                 </div>
-            </BrowserRouter>
         );
     }
 }

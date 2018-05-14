@@ -65,9 +65,12 @@ class Calendar extends React.Component {
     }
   
     getItems(){
-      fetch(`${baseURL}/RandomEvents`)
+      fetch(`${baseURL}/RandomEvents/${this.props.match.params.doctorId}`)
       .then(results => results.json())
-      .then(results => this.setState({'allevents': results}));
+      .then(results => {
+        // filter results by this.props.match.params.itemId
+        this.setState({'allevents': results})
+      });
     }
 
     checkIfMobile(){
@@ -144,7 +147,7 @@ class Calendar extends React.Component {
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
-                      <h4>Make an appointment</h4>
+                      <h4>Make an appointment {this.props.match.params.itemId}</h4>
                       <button type="button" className="close" data-dismiss="modal">&times;</button>
                     </div>
                   <div className="modal-body">
