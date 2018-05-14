@@ -8,6 +8,12 @@ namespace DentistRegistration.Models
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
+        [JsonProperty(PropertyName = "userId")]
+        public int UserId { get; set; }
+
+        [JsonProperty(PropertyName = "doctorId")]
+        public int DoctorId { get; set; }
+
         [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 

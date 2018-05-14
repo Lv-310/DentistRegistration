@@ -179,11 +179,15 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants\AllConstants.cs" />
+    <Compile Include="Controllers\CalendarEventController.cs" />
+    <Compile Include="Controllers\CalendarEventRuleController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RandomEventsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VersionController.cs" />
+    <Compile Include="DataAccessLayer\CalendarEventDAL.cs" />
+    <Compile Include="DataAccessLayer\CalendarEventRulesDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventsDataAccessLayer.cs" />
     <Compile Include="DataAccessLayer\VersionDataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
