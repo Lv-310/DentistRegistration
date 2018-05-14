@@ -10,12 +10,7 @@ export function loginUser(loginParams){
         "Content-Type":"application/json",
         "Accept":"application/json",
       }
-    })
-    .then((res) => {
-      alert(res.status);
-      return res;
-    })
-      .then((res) => {
+    }).then((res) => {
         return res.json()
       } 
      )

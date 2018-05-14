@@ -10,7 +10,6 @@ import {isMobile} from 'react-device-detect';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
-
 BigCalendar.momentLocalizer(moment);
 
 class Calendar extends React.Component {
@@ -147,7 +146,7 @@ class Calendar extends React.Component {
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
-                      <h4>Make an appointment {this.props.match.params.itemId}</h4>
+                      <h4>Make an appointment {this.props.match.params.doctorId}</h4>
                       <button type="button" className="close" data-dismiss="modal">&times;</button>
                     </div>
                   <div className="modal-body">
