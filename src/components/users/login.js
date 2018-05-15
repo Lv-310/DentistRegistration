@@ -40,25 +40,29 @@ class Login extends React.Component {
         loginUser(loginParams)
             .then(user=> this.handleWrongUser(user))
             .then((user) => {
-            if(user.Message!=undefined) return;
-            localStorage.setItem("userId", user.authorizedUser.Id);
-            localStorage.setItem("userToken", user.token);
-            var decoded = jwt_decode(user.token);
+            if(user.statusCode != 200) return;
+            localStorage.setItem("userId", user.data.authorizedUser.Id);
+            localStorage.setItem("userToken", user.data.token);
+            var decoded = jwt_decode(user.data.token);
             var tokenDurating = decoded.exp * 1000;
             localStorage.setItem("tokenDurating", tokenDurating);
             checkToken();
             document.getElementById('login-modal-close').click();
-            this.props.history.push('/Users/' + user.authorizedUser.Id);
+            this.props.history.push('/Users/' + user.data.authorizedUser.Id);
         })
 
     }
 
     handleWrongUser(user)
     {
-        if(user.Message != undefined)
+        if(user.statusCode!=200)
         {
             this.state.wrongCredentials = true;
-            this.showErrorMessage(user.Message);
+        }
+
+        if(user.data.Message != undefined)
+        {
+            this.showErrorMessage(user.data.Message);
         }
 
         return user;
