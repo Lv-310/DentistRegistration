@@ -20,7 +20,12 @@ namespace DentistRegistration.Controllers
                 }
 
                 bool isAdded = insertUserLayer.InsertUser(user);
-                return Ok("User added is " + isAdded);
+
+                if (isAdded)
+                {
+                    return Ok("User added");
+                }
+                return BadRequest("Phone already registered");
             }
             catch (Exception)
             {
