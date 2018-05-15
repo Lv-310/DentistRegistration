@@ -18,7 +18,7 @@ namespace DentistRegistration.Controllers
         // GET: api/RandomEvents/5
         public IEnumerable<CalendarEvent> Get(int id)
         {
-            return GenerateEvents(DateTime.Now, DateTime.Now.AddDays(10));
+            return GenerateEvents(DateTime.Now - new TimeSpan(10,0,0,0), DateTime.Now.AddDays(10));
         }
 
         private IEnumerable<CalendarEvent> GenerateEvents(DateTime from, DateTime to)
