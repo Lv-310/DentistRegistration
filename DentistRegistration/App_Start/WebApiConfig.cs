@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Cors;
 using DentistRegistration.Constants;
+using DentistRegistration.Services;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
 using Owin;
@@ -40,6 +41,9 @@ namespace DentistRegistration
             });
 
             app.UseWebApi(config);
+
+            //Redirect http tp https
+            config.Filters.Add(new RequireHttpsAttribute());
         }
     }
 }
