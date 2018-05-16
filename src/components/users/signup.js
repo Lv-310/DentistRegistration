@@ -1,5 +1,10 @@
 import React from 'react';
 import {signupUser} from './loginUser';
+import { withRouter } from 'react-router-dom'
+
+import jwt_decode from 'jwt-decode';
+import { loginUser } from './loginUser';
+import { checkToken } from './tokenService';
 
 class Signup extends React.Component{
    constructor(props) { 
@@ -17,7 +22,8 @@ class Signup extends React.Component{
                 email: '',
                 phoneNum: '',
                 password: '',
-                confirmPassword: ''},
+                confirmPassword: '',
+                userExist:''},
             firstnameValid: false,
             lastnameValid: false,
             emailValid: false,
@@ -43,10 +49,32 @@ class Signup extends React.Component{
             password: this.state.password
             }
 
+            const loginParams = {
+                phoneNum: this.state.phoneNum,
+                password: this.state.password
+            }
             signupUser(signupParams).then((user) => {
-                localStorage.setItem("id", user.user_id)
-                }).then(setTimeout(function () { window.location.reload(); }, 10))
-                .then(setTimeout(function () { window.location.reload(); }, 10));
+                if(user.statusCode != 200)
+                {
+                    var state = this.state;
+                    state.formErrors.userExist = user.data.Message;
+                    this.setState(state);
+                    return;
+                }
+                document.getElementById('register-modal-close').click();
+                }).then(user=>{                      
+                loginUser(loginParams)
+                    .then((user) => {
+                    if(user.statusCode != 200) return;
+                    localStorage.setItem("userId", user.data.authorizedUser.Id);
+                    localStorage.setItem("userToken", user.data.token);
+                    var decoded = jwt_decode(user.data.token);
+                    var tokenDurating = decoded.exp * 1000;
+                    localStorage.setItem("tokenDurating", tokenDurating);
+                    checkToken();
+                    this.props.history.push('/Users/' + user.data.authorizedUser.Id);
+                })
+            })
       }
 
       handleUserInput = (e) => {
@@ -54,6 +82,9 @@ class Signup extends React.Component{
         const value = e.target.value;
         this.setState({[name]: value},
                       () => { this.validateField(name, value) });
+        var errors = this.state.formErrors;
+        errors.userExist = '';
+        this.setState({formErrors:errors});
       }
 
       validateField(fieldName, value) {
@@ -115,13 +146,16 @@ class Signup extends React.Component{
         return(error.length === 0 ? '' : "border border-danger");
     }
     clearForm = () => { 
+        var errors = this.state.formErrors;
+        errors.userExist = '';
         this.setState({
           firstname: '',
           lastname: '',
           email: '',
           phoneNum: '',
           password: '',
-          confirmPassword: ''
+          confirmPassword: '',
+          formErrors: errors
         });
       }
 
@@ -132,7 +166,7 @@ class Signup extends React.Component{
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4>Registration</h4>
-                            <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
+                            <button type="button" id="register-modal-close" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
                         </div>
                         <div className="modal-body col-lg-12">
                             <form id="ajax-register-form" action="" value={this.state.value} method="post" autoComplete="off" onSubmit={this.handleSubmit}>
@@ -170,6 +204,7 @@ class Signup extends React.Component{
                                 <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}> 
                                     Sign up 
                                 </button>
+                                <div className="error-message">{this.state.formErrors.userExist}</div>
                             </form>
                         </div>
                     </div>
@@ -178,4 +213,4 @@ class Signup extends React.Component{
         );
     } 
 }
-export default Signup;
+export default withRouter(Signup);

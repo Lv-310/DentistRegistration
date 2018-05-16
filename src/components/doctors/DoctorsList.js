@@ -4,6 +4,8 @@ import './doctors.css';
 import baseURL from '../../helpers/url';
 import {isMobile} from 'react-device-detect';
 import {withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import { fetchFrom } from '../../helpers/fetcher';
 
 class DoctorsList extends React.Component{
   constructor() {
@@ -19,9 +21,8 @@ class DoctorsList extends React.Component{
   }
 
   getDoctors(){
-    fetch(`${baseURL}/Doctors`)
-    .then(results => results.json())
-    .then(results => this.setState({'items': results}));
+    fetchFrom('Doctors','get',null)
+    .then(results => this.setState({'items': results.data}));
   }
   
   changeCollapse(){

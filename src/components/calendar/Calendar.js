@@ -8,6 +8,7 @@ import { ModalComponent } from 'react-modal';
 import Toolbar from '../customtoolbar/Toolbar';
 import { isMobile } from 'react-device-detect';
 import { withRouter } from 'react-router-dom';
+import { fetchFrom } from '../../helpers/fetcher';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
@@ -31,21 +32,13 @@ class Calendar extends React.Component {
   }
 
   BookEvent = (eventParams) => {
-    const body = JSON.stringify(eventParams)
-    return fetch(`${baseURL}/CalendarEvent`, {
-      method: 'post',
-      body: body,
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      }
-    })
+    fetchFrom('CalendarEvent', 'post', eventParams)
       .then((res) => {
-        alert(res.status);
+        alert(res.statusCode);
         return res;
       })
       .then((res) => {
-        return res.json()
+        return res.data;
       }
       )
   }
@@ -56,7 +49,7 @@ class Calendar extends React.Component {
     const eventParams = {
       selectedEvent: {}
     }
-    this.BookEvent(eventParams).then(console.log("hi"));
+    this.BookEvent(eventParams);
 
   }
 

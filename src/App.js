@@ -15,23 +15,41 @@ class App extends React.Component {
     };
   }
 
+  renderError() {
+    return(
+      <div></div>
+    )
+  }
+
+  showError() {
+    if(!this.state.canWork)
+    {
+    this.renderError = function(){
+      return(
+        <div className="h1 text-center mt-5" id="something-went-wrong">
+          Something went wrong
+        </div>
+      )
+     }
+    this.setState({canWork:false});
+    }
+  }
+
   componentWillMount() {
-      checkVersion().then(result=>{return result;}).then(result=>{this.setState({canWork: result});})
+      checkVersion().then(result=>{return result;}).then(result=>{this.setState({canWork: result});});
+      var obj = this;
+      setTimeout(function(){obj.showError();},5000);
   }
 
   render() {
     if(this.state.canWork == true)
     return (
-      <div className="app">
+      <div className="app" id="app-main">
         <Homepage />
       </div>
     )
     else
-    return(
-      <div className="h1 text-center mt-5">
-        Something went wrong
-      </div>
-    )
+    return this.renderError();
   }
 };
 export default App;
