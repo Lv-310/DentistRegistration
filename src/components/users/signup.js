@@ -22,7 +22,8 @@ class Signup extends React.Component{
                 email: '',
                 phoneNum: '',
                 password: '',
-                confirmPassword: ''},
+                confirmPassword: '',
+                userExist:''},
             firstnameValid: false,
             lastnameValid: false,
             emailValid: false,
@@ -53,12 +54,17 @@ class Signup extends React.Component{
                 password: this.state.password
             }
             signupUser(signupParams).then((user) => {
+                if(user.statusCode != 200)
+                {
+                    var state = this.state;
+                    state.formErrors.userExist = user.data.Message;
+                    this.setState(state);
+                    return;
+                }
                 document.getElementById('register-modal-close').click();
-                //alert(user.statusCode);
                 }).then(user=>{                      
                 loginUser(loginParams)
                     .then((user) => {
-                    //alert(user.statusCode);
                     if(user.statusCode != 200) return;
                     localStorage.setItem("userId", user.data.authorizedUser.Id);
                     localStorage.setItem("userToken", user.data.token);
@@ -76,6 +82,9 @@ class Signup extends React.Component{
         const value = e.target.value;
         this.setState({[name]: value},
                       () => { this.validateField(name, value) });
+        var errors = this.state.formErrors;
+        errors.userExist = '';
+        this.setState({formErrors:errors});
       }
 
       validateField(fieldName, value) {
@@ -137,13 +146,16 @@ class Signup extends React.Component{
         return(error.length === 0 ? '' : "border border-danger");
     }
     clearForm = () => { 
+        var errors = this.state.formErrors;
+        errors.userExist = '';
         this.setState({
           firstname: '',
           lastname: '',
           email: '',
           phoneNum: '',
           password: '',
-          confirmPassword: ''
+          confirmPassword: '',
+          formErrors: errors
         });
       }
 
@@ -192,6 +204,7 @@ class Signup extends React.Component{
                                 <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}> 
                                     Sign up 
                                 </button>
+                                <div className="error-message">{this.state.formErrors.userExist}</div>
                             </form>
                         </div>
                     </div>
