@@ -48,7 +48,21 @@ class Login extends React.Component {
             localStorage.setItem("tokenDurating", tokenDurating);
             checkToken();
             document.getElementById('login-modal-close').click();
-            this.props.history.push('/Users/' + user.data.authorizedUser.Id);
+            var role = user.data.authorizedUser.Role;
+            switch(role) {
+                case 'user':
+                    this.props.history.push('/Users/' + user.data.authorizedUser.Id);
+                    break;
+                case 'doctor':
+                    this.props.history.push('/Doctors/' + user.data.authorizedUser.Id);
+                    break;
+                case 'admin':
+                    this.props.history.push('/Admins/' + user.data.authorizedUser.Id);
+                break;
+                default:
+                break;
+            }
+            
         })
 
     }
