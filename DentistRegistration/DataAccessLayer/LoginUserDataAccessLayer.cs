@@ -42,11 +42,16 @@ namespace DentistRegistration.DataAccessLayer
                 {
                     Direction = ParameterDirection.Output
                 };
+                SqlParameter outPutParameterRole = new SqlParameter("@ROLE", SqlDbType.VarChar, 30)
+                {
+                    Direction = ParameterDirection.Output
+                };
 
                 cmd.Parameters.Add(outPutParameterPassword);
                 cmd.Parameters.Add(outPutParameterId);
                 cmd.Parameters.Add(outPutParameterFirstname);
                 cmd.Parameters.Add(outPutParameterLastname);
+                cmd.Parameters.Add(outPutParameterRole);
                 cmd.ExecuteNonQuery();
 
                 Password = outPutParameterPassword.Value.ToString();
@@ -54,6 +59,7 @@ namespace DentistRegistration.DataAccessLayer
                 authorizedUser.Id = Convert.ToInt32(outPutParameterId.Value);
                 authorizedUser.FirstName = outPutParameterFirstname.Value.ToString();
                 authorizedUser.LastName = outPutParameterLastname.Value.ToString();
+                authorizedUser.Role = outPutParameterRole.Value.ToString();
             }
 
             if (SecurePasswordHasher.Verify(user.Password, Password))
