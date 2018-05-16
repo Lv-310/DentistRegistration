@@ -1,4 +1,4 @@
 
-const baseURL = 'http://localhost:9999/api'
+const baseURL = 'https://localhost:44300/api';
 
 export default baseURL
