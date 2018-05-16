@@ -1,17 +1,12 @@
 import version from "../version.json"
 import baseURL from '../helpers/url';
+import {fetchFrom} from "./fetcher"
 
 export async function checkVersion(){
-    const response = await fetch(`${baseURL}/Version?version=${encodeURIComponent(version)}`, {
-        method: 'get',
-        headers: {
-          "Content-Type":"application/json",
-          "Accept":"application/json",
-        }
-      })
-    const res = await response.json();
-   
-    if(res === "good") return true;
+
+    var res = await fetchFrom(`Version?version=${encodeURIComponent(version)}`, 'get', null);
+    
+    if(res.data === "good") return true;
     return false;
 }
 
