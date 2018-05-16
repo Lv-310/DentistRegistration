@@ -63,6 +63,8 @@ INSERT INTO ROLE_INFO(ROLE_NAME)
 VALUES('Admin');
 END;
 
+GO
+
 IF object_id('spAddEvent') IS NULL
     EXEC ('create procedure dbo.spAddEvent as select 1')
 GO
@@ -75,6 +77,8 @@ INSERT INTO CALENDAR_EVENT(DOCTOR_ID, USER_ID, TITLE, DESCRIPTIO, START_EVENT, E
 VALUES (@DOCTOR_ID, @USER_ID, @TITLE, @DESCRIPTIO, @START_EVENT, @END_EVENT, @IS_BOOKED)
 END;
 
+GO
+
 IF object_id('spCheckEvent') IS NULL
     EXEC ('create procedure dbo.spCheckEvent as select 1')
 GO
@@ -86,4 +90,3 @@ SELECT @COUNT = count(*)
 FROM CALENDAR_EVENT 
 WHERE @START_EVENT = START_EVENT && @DOCTOR_ID = DOCTOR_ID
 END;
-
