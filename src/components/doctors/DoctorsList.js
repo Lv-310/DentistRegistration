@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './doctors.css';
 import baseURL from '../../helpers/url';
 import {isMobile} from 'react-device-detect';
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class DoctorsList extends React.Component{
   constructor() {
@@ -29,6 +29,26 @@ class DoctorsList extends React.Component{
     document.getElementById("demo").className="collapse";
     else  document.getElementById("demo").className="collapse show";
   }
+
+  formatDate = (date) => {
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    return year + '-' + month + '-' + day;
+  }
+
+  changeDefaultView() {
+    if (isMobile)
+      return "day";
+    else return "week";
+  }
+
+  handleCustomerClick(doctor) {
+    var currentDate = new Date()
+    this.props.history.push(`/doctor/${doctor.Id}/${this.formatDate(currentDate)}/${this.changeDefaultView()}`);
+  }
   // <i class="fas fa-sort-down"></i>
   render() {
     return (
@@ -40,10 +60,8 @@ class DoctorsList extends React.Component{
         <div id="demo" className="collapse show">
         {this.state.items.map((item,index) => {
           return <div>
-          <button type="button" key={index} className="list-group-item list-group-item-action">
-            <Link to={`/${item.Id}`}>
+          <button type="button" onClick={() => this.handleCustomerClick(item)} key={index} className="list-group-item list-group-item-action">
               {item.FirstName} {item.LastName}
-            </Link>
           </button>
           </div>
         }
@@ -54,4 +72,4 @@ class DoctorsList extends React.Component{
   }
 }
 
-export default DoctorsList;
+export default withRouter(DoctorsList);
