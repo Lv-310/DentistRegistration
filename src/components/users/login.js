@@ -2,7 +2,7 @@ import * as React from 'react';
 import jwt_decode from 'jwt-decode';
 import { loginUser } from './loginUser';
 import { checkToken } from './tokenService';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
     constructor(props) {
