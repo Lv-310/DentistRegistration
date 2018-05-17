@@ -6,8 +6,23 @@ import MainMenu from '../navbar/mainMenu';
 import Logout from '../../users/Logout';
 
 class NavBar extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            logout: false,
+        };
+      }
+
+    componentWillMount() {
+        if (localStorage.getItem("userId")!=null)
+        {
+            this.setState({logout:true});
+        }
+    }
+
     render() {
-       if (localStorage.getItem("userId")===null) {return (
+       return (
             <div className="container">
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
                     <div className="container">
@@ -22,55 +37,31 @@ class NavBar extends React.Component {
                             <MainMenu />
                             </ul>
                             <ul className="nav navbar-nav ml-auto float-right">
+                                {!this.state.logout?
                                 <li>
                                     <a className="text-light mr-sm-4 nav-link" data-toggle="modal" data-target="#registerModal">Registration</a>
                                 </li>
+                                :null}
+                                
+                                {!this.state.logout?
                                 <li>
                                     <a className="text-light nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
                                 </li>
-                                
+                                :null}
+
+                                {this.state.logout?<li><Logout/></li>:null}                                
                             </ul>  
                             </div>
                         </div>
                 </nav>
-                <Login />
-                <Signup />
+                <Login/>
+                <Signup/>
+               
                 
                 
             </div>
-        );}
-        else
-        {
-            return (
-                <div className="container">
-                    <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
-                        <div className="container">
-                            <a className="navbar-brand" href="/">
-                                SoftServe Dentistry
-                            </a>
-                            <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                                &#9776;
-                            </button>
-                            <div className="collapse navbar-collapse" id="exCollapsingNavbar">
-                                <ul className="nav navbar-nav float-left">
-                                <MainMenu />
-                                </ul>
-                                <ul className="nav navbar-nav ml-auto float-right">
-                                    <li>
-                                        <Logout/>
-                                    </li>
-                                   
-                                    
-                                </ul>  
-                                </div>
-                            </div>
-                    </nav>
-                    
-                    
-                    
-                </div>
-            );
-        }
+        );
+    
     }
 }    
 export default NavBar;

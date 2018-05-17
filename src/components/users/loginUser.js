@@ -1,7 +1,7 @@
 import baseURL from '../../helpers/url';
 import { fetchFrom } from '../../helpers/fetcher';
 
-//#region Login/Registration
+//#region Login/Registration  
 export function loginUser(loginParams){
   return fetchFrom('Login','post',loginParams);
 }
