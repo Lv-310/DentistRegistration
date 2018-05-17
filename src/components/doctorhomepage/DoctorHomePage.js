@@ -9,8 +9,6 @@ import "./doctorhome.css";
 class DoctorHomePage extends React.Component{
     render() {
         return(
-            <div className="my-div">
-                <NavBar />
                 <div className="row" id="main-content">
                         <div className="col-md-4">
                         <DoctorProfileCard />
@@ -19,8 +17,6 @@ class DoctorHomePage extends React.Component{
                         <DoctorCalendar />
                         </div>
                 </div>
-                <Footer />
-            </div>
         );
     }
 }

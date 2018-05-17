@@ -1,11 +1,13 @@
 import * as React from 'react';
 import './App.css';
 
-import Homepage from './components/pageBuilder/homepage';
-import DoctorHomePage from './components/doctorhomepage/DoctorHomePage'
-
+import NavBar from '../src/components/layoutElements/navbar/navbar';
+import Footer from '../src/components/layoutElements/footer';
+import Homepage from '../src/components/pageBuilder/homepage';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {checkVersion} from './helpers/versionChecker';
-
+import UserHomePage from './components/userhomepage/UserHomePage';
+import DoctorHomePage from '../src/components/doctorhomepage/DoctorHomePage';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,11 +45,21 @@ class App extends React.Component {
 
   render() {
     if(this.state.canWork == true)
-    return (
-      <div className="app" id="app-main">
-        <Homepage />
-      </div>
-    )
+      return (
+        <div className="app" id="app-main">
+          <div className="my-div">
+            <NavBar />
+                <Switch>
+                  <Route path="/Doctors" component={DoctorHomePage} />
+                  <Route path="/Users/:userId" component={UserHomePage} />
+                  <Route path="/Admen" component={DoctorHomePage} />
+                  <Route path="/" component={Homepage} />
+                </Switch>
+            <Footer />
+          </div>
+
+        </div>
+      )
     else
     return this.renderError();
   }
