@@ -145,7 +145,13 @@ class Login extends React.Component {
         this.setState({
             phoneNum: '',
             password: '',
+            formErrors: {
+                phoneNum: '',
+                password: ''
+            }
+            
         });
+        
 
     }
 
@@ -172,7 +178,7 @@ class Login extends React.Component {
                                         onChange={this.handleUserInput} value={this.state.password} />
                                     <div className="error-message">{this.state.formErrors.password}</div>
                                 </div>
-                                <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
+                                <button className="btn btn-secondary btn-block" disabled={!this.state.formValid} >
                                     Log in
                                 </button>
                                 <div className="error-message">{this.state.formErrors.wrongCredentials}</div>
