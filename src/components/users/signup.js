@@ -155,7 +155,14 @@ class Signup extends React.Component{
           phoneNum: '',
           password: '',
           confirmPassword: '',
-          formErrors: errors
+          formErrors: {
+            firstname: '', 
+            lastname: '',
+            email: '',
+            phoneNum: '',
+            password: '',
+            confirmPassword: ''
+            }
         });
       }
 

@@ -145,6 +145,11 @@ class Login extends React.Component {
         this.setState({
             phoneNum: '',
             password: '',
+            formErrors: {
+                phoneNum: '',
+                password: ''
+            }
+            
         });
         
 
