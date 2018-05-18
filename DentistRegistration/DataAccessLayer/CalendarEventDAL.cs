@@ -28,11 +28,13 @@ namespace DentistRegistration.DataAccessLayer
                     events = new CalendarEvent
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Title = reader.GetValue(1).ToString(),
-                        Desc = reader.GetValue(2).ToString(),
-                        Start = Convert.ToDateTime(reader.GetValue(3)),
-                        End = Convert.ToDateTime(reader.GetValue(4)),
-                        HasBeenBooked = Convert.ToBoolean(reader.GetValue(5))
+                        UserId = Convert.ToInt32(reader.GetValue(1)),
+                        DoctorId = Convert.ToInt32(reader.GetValue(2)),
+                        Title = reader.GetValue(3).ToString(),
+                        Desc = reader.GetValue(4).ToString(),
+                        Start = Convert.ToDateTime(reader.GetValue(5)),
+                        End = Convert.ToDateTime(reader.GetValue(6)),
+                        HasBeenBooked = Convert.ToBoolean(reader.GetValue(7))
                     };
 
                     lstevents.Add(events);
