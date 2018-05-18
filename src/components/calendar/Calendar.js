@@ -61,7 +61,6 @@ class Calendar extends React.Component {
     fetch(`${baseURL}/RandomEvents/${this.props.match.params.doctorId}`)
       .then(results => results.json())
       .then(results => {
-        // filter results by this.props.match.params.itemId
         this.setState({ 'allevents': results })
       });
   }
