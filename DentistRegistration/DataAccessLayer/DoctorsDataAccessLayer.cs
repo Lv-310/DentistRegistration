@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
-
 using DentistRegistration.Models;
+using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
@@ -43,6 +44,52 @@ namespace DentistRegistration.DataAccessLayer
             }
 
             return lstdoctors;
+        }
+
+        public bool InsertDoctor(Doctor doctor)
+        {
+            bool isInserted = false;
+            using (var con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                SqlCommand cmdCheck = new SqlCommand("spCheckDoctor", con);
+
+                cmdCheck.CommandType = CommandType.StoredProcedure;
+                cmdCheck.Parameters.AddWithValue("@PHONENUM", doctor.PhoneNum);
+                SqlParameter outPutParameter = new SqlParameter("@COUNT", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+
+                cmdCheck.Parameters.Add(outPutParameter);
+
+                cmdCheck.ExecuteNonQuery();
+
+                int count = int.Parse(outPutParameter.Value.ToString());
+
+                if (count == 0)
+                {
+                    SqlCommand cmd = new SqlCommand("spAddDoctor", con)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.AddWithValue("@FIRSTNAME", doctor.FirstName);
+                    cmd.Parameters.AddWithValue("@LASTNAME", doctor.LastName);
+                    cmd.Parameters.AddWithValue("@PHONENUM", doctor.PhoneNum);
+                    cmd.Parameters.AddWithValue("@CABNUM", doctor.CabNum);
+                    cmd.Parameters.AddWithValue("@SPECIALITY", doctor.Speciality);
+                    cmd.Parameters.AddWithValue("@DOC_PASSWORD", SecurePasswordHasher.Hash(doctor.Doc_password));
+
+
+                    cmd.ExecuteNonQuery();
+
+                    isInserted = true;
+                }
+            }
+
+            return isInserted;
         }
     }
 }
