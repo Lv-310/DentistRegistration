@@ -12,7 +12,8 @@ export function checkToken() {
         localStorage.removeItem("userId");
         localStorage.removeItem("userToken");
         localStorage.removeItem("tokenDurating");
-
+        localStorage.clear();
+        window.location.href = "/";
     } else {
         var timeOut = tokenDurating - Date.now();
         setTimeout(() => {
