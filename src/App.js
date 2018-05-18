@@ -8,6 +8,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {checkVersion} from './helpers/versionChecker';
 import UserHomePage from './components/userhomepage/UserHomePage';
 import DoctorHomePage from '../src/components/doctorhomepage/DoctorHomePage';
+import HttpsRedirect from 'react-https-redirect';
+import Providers from 'react-https-redirect';
 
 class App extends React.Component {
   constructor(props) {
@@ -46,6 +48,8 @@ class App extends React.Component {
   render() {
     if(this.state.canWork == true)
       return (
+        <Providers>
+        <HttpsRedirect>
         <div className="app" id="app-main">
           <div className="my-div">
               <NavBar />
@@ -58,6 +62,8 @@ class App extends React.Component {
               <Footer />            
             </div>
         </div>
+        </HttpsRedirect>
+        </Providers>
       )
     else
     return this.renderError();
