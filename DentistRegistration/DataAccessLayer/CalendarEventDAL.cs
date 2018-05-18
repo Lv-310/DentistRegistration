@@ -23,7 +23,7 @@ namespace DentistRegistration.DataAccessLayer
                     {
                         da.SelectCommand = new SqlCommand(sql, conn);
                         da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                    da.SelectCommand.Parameters.AddWithValue("@DOCTOR_ID", idDoctor);
+                        da.SelectCommand.Parameters.AddWithValue("@ID_DOCTOR", idDoctor);
 
                     DataSet ds = new DataSet();
                         da.Fill(ds, "Events");
