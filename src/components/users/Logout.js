@@ -1,23 +1,16 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class Logout extends React.Component {
     
     render(){
         return(
-                <a className="text-light mr-sm-4 nav-link" href=""  onClick={this.Logout}>
-                    Logout
-                </a>
-                      
+            <Link  className="text-light mr-sm-4 nav-link" to="/" onClick={this.Logout}>Logout</Link>                  
         )};
 
-        Logout(){
-            localStorage.clear();
-            window.location.reload();
-            window.location.replace('http://localhost:9090');
+        Logout(){      
+            localStorage.clear();              
+            this.props.history.push('/');       
         };
-
-
-
 }
-export default Logout
+export default withRouter(Logout)
