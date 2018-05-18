@@ -19,7 +19,7 @@ class Homepage extends React.Component{
                 <div className="col-md-10">
                     <Switch>
                         <Route exact path="/" component={Select} />
-                        <Route path="/doctor/:doctorId/:date/:view" component={Calendar} />
+                        <Route path="/doctor/:doctorId/:date/:view" component={() => <Calendar/> } />
                     </Switch>
                 </div>
             </div>
