@@ -5,6 +5,8 @@ import Signup from '../../users/signup';
 import MainMenu from '../navbar/mainMenu';
 import Logout from '../../users/Logout';
 
+var role = "";
+
 class NavBar extends React.Component {
 
     constructor(props) {
@@ -14,10 +16,11 @@ class NavBar extends React.Component {
         };
       }
 
-    componentWillMount() {
+    componentWillReceiveProps() {
         if (localStorage.getItem("userId")!=null)
         {
             this.setState({logout:true});
+            role = localStorage.getItem("role");
         }
     }
 
@@ -34,21 +37,25 @@ class NavBar extends React.Component {
                         </button>
                         <div className="collapse navbar-collapse" id="exCollapsingNavbar">
                             <ul className="nav navbar-nav float-left">
-                            <MainMenu />
+                            <MainMenu role={role}/>
                             </ul>
-                            <ul className="nav navbar-nav ml-auto float-right">
+                            <ul className="nav navbar-nav ml-auto float-right">                           
                                 {!this.state.logout?
                                 <li>
-                                    <a className="text-light mr-sm-4 nav-link" data-toggle="modal" data-target="#registerModal">Registration</a>
+                                    <a className="text-light mr-sm-4 nav-link" data-toggle="modal" href="" data-target="#registerModal">Registration</a>
                                 </li>
                                 :null}
                                 
                                 {!this.state.logout?
                                 <li>
-                                    <a className="text-light nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
+                                    <a className="text-light nav-link" data-toggle="modal" href=""  data-target="#loginModal">Login</a>
                                 </li>
                                 :null}
 
+                                 {this.state.logout?<li><a className="text-light mr-sm-4 nav-link" href="#">
+                                    {localStorage.getItem("FirstName") + " " + localStorage.getItem("LastName")}</a></li>
+                                :null}         
+                                                    
                                 {this.state.logout?<li><Logout/></li>:null}                                
                             </ul>  
                             </div>

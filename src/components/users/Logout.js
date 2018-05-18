@@ -5,8 +5,7 @@ class Logout extends React.Component {
     
     render(){
         return(
-            
-                <a className="text-light mr-sm-4 nav-link" onClick={this.Logout}>
+                <a className="text-light mr-sm-4 nav-link" href=""  onClick={this.Logout}>
                     Logout
                 </a>
                       

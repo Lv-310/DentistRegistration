@@ -49,6 +49,10 @@ class Login extends React.Component {
             checkToken();
             document.getElementById('login-modal-close').click();
             var role = user.data.authorizedUser.Role;
+            localStorage.setItem("role",role);
+            localStorage.setItem("FirstName",user.data.authorizedUser.FirstName);
+            localStorage.setItem("LastName",user.data.authorizedUser.LastName);
+
             switch(role) {
                 case 'user':
                     this.props.history.push('/Users/' + user.data.authorizedUser.Id);
