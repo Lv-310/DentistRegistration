@@ -29,7 +29,7 @@ class AdminServiceList extends React.Component {
             .then(results => this.setState({ 'services': results.data }));
     }
 
-    GetServicePrices(serviceId) {
+    GetServicePrice(serviceId) {
         fetchFrom('Price?id=' + serviceId, 'get', null)
             .then(results => this.setState({ 'prices': results.data }));
 
@@ -46,7 +46,7 @@ class AdminServiceList extends React.Component {
             <div className="list-group">
                 {this.state.services.map((service, index) => {
                     return <div>
-                        <a href="#" data-toggle="collapse" data-target="#service" onClick={() => this.GetServicePrices(service.Id)} key={index} className="list-group-item active my-list-header btn-secondary dropdown-toggle-split">
+                        <a href="#" data-toggle="collapse" data-target="#service" onClick={() => this.GetServicePrice(service.Id)} key={index} className="list-group-item active my-list-header btn-secondary dropdown-toggle-split">
                             {service.Name}
                             <i className="fas fa-sort-down" id="down-arrow"></i>
                         </a>
