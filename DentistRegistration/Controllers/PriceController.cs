@@ -21,6 +21,7 @@ namespace DentistRegistration.Controllers
 
         // POST: api/Price
         [HttpPost]
+        [Route("api/Price/add")]
         public IHttpActionResult InsertPrice([FromBody]PriceModel price)
         {
             try
@@ -31,6 +32,31 @@ namespace DentistRegistration.Controllers
                 }
                 string message;
                 bool isAdded = priceDal.InsertPrice(price, out message);
+                if (isAdded)
+                {
+                    return Ok(message);
+                }
+                return BadRequest(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/Price/edit")]
+        public IHttpActionResult EditPrice([FromBody]PriceModel price)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                string message;
+                bool isAdded = priceDal.EditPrice(price, out message);
                 if (isAdded)
                 {
                     return Ok(message);
