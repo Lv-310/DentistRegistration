@@ -9,15 +9,28 @@ class DoctorsProfileCard extends React.Component{
   constructor() {
     super();
     this.state = {
-      doctor: {}
+      doctor: {},
+      id: 0
     }
   }
   componentDidMount(){
     this.getDoctor();
   }
 
+  componentWillMount()
+    {
+        this.componentWillReceiveProps();
+    }
+    
+    componentWillReceiveProps() {
+        if (localStorage.getItem("userId")!=null)
+        {
+            this.setState({id:localStorage.getItem("userId")});
+        }
+    }
+
   getDoctor(){
-    fetch(`${baseURL}/Doctors/1`)
+    fetch(`${baseURL}/Doctors/${this.state.id}`)
     .then(results => results.json())
     .then(results => this.setState({doctor: results}));
   }
