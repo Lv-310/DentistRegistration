@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './doctors.css';
 import baseURL from '../../helpers/url';
-import {isMobile} from 'react-device-detect';
-import {withRouter} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
+import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { fetchFrom } from '../../helpers/fetcher';
 
-class DoctorsList extends React.Component{
+class DoctorsList extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -15,20 +15,20 @@ class DoctorsList extends React.Component{
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getDoctors();
     this.changeCollapse();
   }
 
-  getDoctors(){
-    fetchFrom('Doctors','get',null)
-    .then(results => this.setState({'items': results.data}));
+  getDoctors() {
+    fetchFrom('Doctors', 'get', null)
+      .then(results => this.setState({ 'items': results.data }));
   }
-  
-  changeCollapse(){
-    if(isMobile)
-    document.getElementById("demo").className="collapse";
-    else  document.getElementById("demo").className="collapse show";
+
+  changeCollapse() {
+    if (isMobile)
+      document.getElementById("demo").className = "collapse";
+    else document.getElementById("demo").className = "collapse show";
   }
 
   formatDate = (date) => {
@@ -54,20 +54,20 @@ class DoctorsList extends React.Component{
   render() {
     return (
       <div className="list-group">
-      <a href="#" data-toggle="collapse" data-target="#demo" className="list-group-item active my-list-header btn-secondary dropdown-toggle-split"  id="first">DOCTORS
+        <a href="#" data-toggle="collapse" data-target="#demo" className="list-group-item active my-list-header btn-secondary dropdown-toggle-split" id="first">DOCTORS
       <i className="fas fa-sort-down" id="down-arrow"></i>
-      </a>
+        </a>
 
         <div id="demo" className="collapse show">
-        {this.state.items.map((item,index) => {
-          return <div>
-          <button type="button" onClick={() => this.handleCustomerClick(item)} key={index} className="list-group-item list-group-item-action">
-              {item.FirstName} {item.LastName}
-          </button>
-          </div>
-        }
-        )}
-        </div> 
+          {this.state.items.map((item, index) => {
+            return <div>
+              <button type="button" onClick={() => this.handleCustomerClick(item)} key={index} className="list-group-item list-group-item-action">
+                {item.FirstName} {item.LastName}
+              </button>
+            </div>
+          }
+          )}
+        </div>
       </div>
     );
   }

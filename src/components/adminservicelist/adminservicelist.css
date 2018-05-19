@@ -1,0 +1,45 @@
+.btn.btn-secondary.doctor-list {
+    width: 100%;
+    margin-bottom: 10px;
+    color : rgb(255, 255, 255);
+    text-align: left;
+  }
+  li {
+    list-style-type: none;
+  }
+  .doctor-main{
+    align-content: center;
+  }
+
+  .btn.my-list-header{
+    background-color: grey;
+  }
+
+  .col-md-2>.list-group{
+    margin-left: 15px;
+    margin-bottom: 20px;
+  }
+
+  #down-arrow{
+    float: right;
+  }
+
+@media screen and (max-width: 770px) {
+    #demo.collapsed {
+      display: inline; 
+    }
+}
+
+@media screen and (min-width: 771px){
+  #demo:not(.collapsed) {
+    display: inline;
+  }
+  #first{
+    pointer-events: none;
+  }
+}
+
+
+
+
+  

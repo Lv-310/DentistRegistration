@@ -38,66 +38,78 @@ class Login extends React.Component {
         }
 
         loginUser(loginParams)
-            .then(user=> this.handleWrongUser(user))
+            .then(user => this.handleWrongUser(user))
             .then((user) => {
-            if(user.statusCode != 200) return;
-            localStorage.setItem("userId", user.data.authorizedUser.Id);
-            localStorage.setItem("userToken", user.data.token);
-            var decoded = jwt_decode(user.data.token);
-            var tokenDurating = decoded.exp * 1000;
-            localStorage.setItem("tokenDurating", tokenDurating);
-            checkToken();
-            document.getElementById('login-modal-close').click();
-            var role = user.data.authorizedUser.Role;
-            localStorage.setItem("role",role);
-            localStorage.setItem("FirstName",user.data.authorizedUser.FirstName);
-            localStorage.setItem("LastName",user.data.authorizedUser.LastName);
+                if (user.statusCode != 200) return;
 
-            switch(role) {
-                case 'user':
-                    this.props.history.push('/Users/' + user.data.authorizedUser.Id);
-                    break;
-                case 'doctor':
-                    this.props.history.push('/Doctors/' + user.data.authorizedUser.Id);
-                    break;
-                case 'admin':
-                    this.props.history.push('/Admins/' + user.data.authorizedUser.Id);
-                break;
-                default:
-                break;
-            }
-            
-        })
+                localStorage.setItem("userId", user.data.authorizedUser.Id);
+                localStorage.setItem("userToken", user.data.token);
+
+
+
+                var decoded = jwt_decode(user.data.token);
+                var tokenDurating = decoded.exp * 1000;
+
+                localStorage.setItem("tokenDurating", tokenDurating);
+                checkToken();
+                document.getElementById('login-modal-close').click();
+                var role = user.data.authorizedUser.Role;
+                localStorage.setItem("role", role);
+                localStorage.setItem("FirstName", user.data.authorizedUser.FirstName);
+                localStorage.setItem("LastName", user.data.authorizedUser.LastName);
+
+                let currentUsser =
+                    {
+                        userId: user.data.authorizedUser.Id,
+                        userToken: user.data.token,
+                        tokenDurating: tokenDurating,
+                        role: user.data.authorizedUser.role,
+                        FirstName: user.data.authorizedUser.FirstName,
+                        LastName: user.data.authorizedUser.LastName
+                    }
+
+                localStorage.setItem("currentUser", currentUsser);
+
+                switch (role) {
+                    case 'user':
+                        this.props.history.push('/Users/' + user.data.authorizedUser.Id);
+                        break;
+                    case 'doctor':
+                        this.props.history.push('/Doctors/' + user.data.authorizedUser.Id);
+                        break;
+                    case 'admin':
+                        this.props.history.push('/Admins/' + user.data.authorizedUser.Id);
+                        break;
+                    default:
+                        break;
+                }
+
+            })
 
     }
 
-    handleWrongUser(user)
-    {
-        if(user.statusCode!=200)
-        {
+    handleWrongUser(user) {
+        if (user.statusCode != 200) {
             this.state.wrongCredentials = true;
         }
 
-        if(user.data.Message != undefined)
-        {
+        if (user.data.Message != undefined) {
             this.showErrorMessage(user.data.Message);
         }
 
         return user;
     }
 
-    showErrorMessage(message)
-    {
+    showErrorMessage(message) {
         let errors = this.state.formErrors;
         errors.wrongCredentials = this.state.wrongCredentials ? message : '';
-        this.setState({formErrors: errors});
+        this.setState({ formErrors: errors });
     }
 
-    clearErrorMessage()
-    {
+    clearErrorMessage() {
         let errors = this.state.formErrors;
         errors.wrongCredentials = '';
-        this.setState({formErrors: errors});
+        this.setState({ formErrors: errors });
     }
 
     handleUserInput = (e) => {
@@ -106,7 +118,7 @@ class Login extends React.Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value },
-            () => { this.validateField(name, value) });       
+            () => { this.validateField(name, value) });
     }
 
     validateField(fieldName, value) {
@@ -153,9 +165,9 @@ class Login extends React.Component {
                 phoneNum: '',
                 password: ''
             }
-            
+
         });
-        
+
 
     }
 
