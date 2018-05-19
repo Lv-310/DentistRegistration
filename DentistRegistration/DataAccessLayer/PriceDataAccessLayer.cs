@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace DentistRegistration.DataAccessLayer
 {
@@ -76,7 +74,6 @@ namespace DentistRegistration.DataAccessLayer
                         CommandType = CommandType.StoredProcedure
                     };
 
-
                     cmd.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
                     cmd.Parameters.AddWithValue("@PRICE", price.Price);
                     cmd.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
@@ -86,7 +83,7 @@ namespace DentistRegistration.DataAccessLayer
                     isInserted = true;
 
                 }
-                else message = "U can not update previous prices";
+                else message = "You can not update previous prices";
             }
 
             return isInserted;

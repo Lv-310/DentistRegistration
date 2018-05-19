@@ -31,7 +31,7 @@ namespace DentistRegistration.Controllers
                 bool isAdded = eventsDAL.InsertEvent(cEvent);
                 return Ok("Event is added");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest(ModelState);
             }

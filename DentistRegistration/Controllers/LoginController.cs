@@ -35,7 +35,7 @@ namespace DentistRegistration.Controllers
                     token
                 });
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest("Something went wrong");
             }
