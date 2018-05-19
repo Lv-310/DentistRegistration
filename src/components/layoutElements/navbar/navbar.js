@@ -16,6 +16,11 @@ class NavBar extends React.Component {
         };
       }
 
+    componentWillMount()
+    {
+        this.componentWillReceiveProps();
+    }
+    
     componentWillReceiveProps() {
         if (localStorage.getItem("userId")!=null)
         {

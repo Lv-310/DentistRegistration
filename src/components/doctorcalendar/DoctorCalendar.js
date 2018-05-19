@@ -17,7 +17,8 @@ class DoctorCalendar extends React.Component {
       super()
       this.state = {
         'allevents': [],
-        selectedEvent : {}
+        selectedEvent : {},
+        doctorId: 0
       }
       this.handleDescription = this.handleDescription.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -64,13 +65,26 @@ class DoctorCalendar extends React.Component {
     }
   
     getItems(){
-      fetch(`${baseURL}/RandomEvents/`)
+      fetch(`${baseURL}/RandomEvents/${this.state.doctorId}`)
       .then(results => results.json())
       .then(results => {
         // filter results by this.props.match.params.itemId
         this.setState({'allevents': results})
       });
     }
+
+    componentWillMount()
+    {
+        this.componentWillReceiveProps();
+    }
+    
+    componentWillReceiveProps() {
+        if (localStorage.getItem("userId")!=null)
+        {
+            this.setState({doctorId:localStorage.getItem("userId")});
+        }
+    }
+
 
     checkIfMobile(){
       if(isMobile)

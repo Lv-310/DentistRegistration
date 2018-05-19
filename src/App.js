@@ -8,6 +8,8 @@ import { checkVersion } from './helpers/versionChecker';
 import UserHomePage from './components/userhomepage/UserHomePage';
 import DoctorHomePage from '../src/components/doctorhomepage/DoctorHomePage';
 import AdminHomePage from './components/admin/AdminHomePage';
+import HttpsRedirect from 'react-https-redirect';
+import Providers from 'react-https-redirect';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,19 +47,23 @@ class App extends React.Component {
   render() {
     if (this.state.canWork == true)
       return (
-        <div className="app" id="app-main">
-          <div className="my-div">
-            <NavBar />
-            <Switch>
-              <Route path="/Doctors" component={DoctorHomePage} />
-              <Route path="/Users/:userId" component={UserHomePage} />
-              <Route path="/Admins" component={DoctorHomePage} />
-              <Route path="/Admin" component={AdminHomePage} />
-              <Route path="/" component={Homepage} />
-            </Switch>
-            <Footer />
-          </div>
-        </div>
+        <Providers>
+          <HttpsRedirect>
+            <div className="app" id="app-main">
+              <div className="my-div">
+                <NavBar />
+                <Switch>
+                  <Route path="/Doctors" component={DoctorHomePage} />
+                  <Route path="/Users/:userId" component={UserHomePage} />
+                  <Route path="/Admins" component={DoctorHomePage} />
+                  <Route path="/Admin" component={AdminHomePage} />
+                  <Route path="/" component={Homepage} />
+                </Switch>
+                <Footer />
+              </div>
+            </div>
+          </HttpsRedirect>
+        </Providers>
       )
     else
       return this.renderError();
