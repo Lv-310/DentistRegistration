@@ -16,6 +16,13 @@ namespace DentistRegistration.Controllers
         {
             return eventsDAL.GetEvents().ToList();
         }
+        [HttpGet]
+        public List<CalendarEvent> GetEventsByDoctorId(int id)
+        {
+            List<CalendarEvent> listEvents = eventsDAL.GetEventsByDoctor(id).ToList();
+            return listEvents;
+        }
+
 
         // Post: api/CalendarEvent
         [HttpPost]

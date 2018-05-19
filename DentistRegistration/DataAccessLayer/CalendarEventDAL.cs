@@ -11,6 +11,51 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
+        public IEnumerable<CalendarEvent> GetEventsByDoctor(int idDoctor)
+        {
+            List<CalendarEvent> colectionEvents = new List<CalendarEvent>();
+            string sql = "spGetEvents";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                
+                    using (SqlDataAdapter da = new SqlDataAdapter())
+                    {
+                        da.SelectCommand = new SqlCommand(sql, conn);
+                        da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                        da.SelectCommand.Parameters.AddWithValue("@ID_DOCTOR", idDoctor);
+
+                    DataSet ds = new DataSet();
+                        da.Fill(ds, "Events");
+
+                        DataTable dt = ds.Tables["Events"];
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            CalendarEvent events = new CalendarEvent();
+
+                        events = new CalendarEvent();
+
+                        events.Id = Convert.ToInt32(row[0]);
+                        events.Title = row[3].ToString();
+                        events.Desc = row[4].ToString();
+                        events.Start = Convert.ToDateTime(row[5]);
+                        string DateTimeEnd = row[6].ToString();
+                        DateTimeEnd.Substring(DateTimeEnd.Length - 3);
+                        events.End = DateTime.Parse(DateTimeEnd);
+                        events.HasBeenBooked = Convert.ToBoolean(row[7]);
+                            
+
+                            colectionEvents.Add(events);
+                        }
+                    }
+            }
+
+            return colectionEvents;
+        }
+        
+
+
         public IEnumerable<CalendarEvent> GetEvents()
         {
             List<CalendarEvent> lstevents = new List<CalendarEvent>();
@@ -28,11 +73,13 @@ namespace DentistRegistration.DataAccessLayer
                     events = new CalendarEvent
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Title = reader.GetValue(1).ToString(),
-                        Desc = reader.GetValue(2).ToString(),
-                        Start = Convert.ToDateTime(reader.GetValue(3)),
-                        End = Convert.ToDateTime(reader.GetValue(4)),
-                        HasBeenBooked = Convert.ToBoolean(reader.GetValue(5))
+                        UserId = Convert.ToInt32(reader.GetValue(1)),
+                        DoctorId = Convert.ToInt32(reader.GetValue(2)),
+                        Title = reader.GetValue(3).ToString(),
+                        Desc = reader.GetValue(4).ToString(),
+                        Start = Convert.ToDateTime(reader.GetValue(5)),
+                        End = Convert.ToDateTime(reader.GetValue(6)),
+                        HasBeenBooked = Convert.ToBoolean(reader.GetValue(7))
                     };
 
                     lstevents.Add(events);
