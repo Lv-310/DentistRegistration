@@ -18,6 +18,12 @@ namespace DentistRegistration.Controllers
             return objdoctors.GetAllDoctors().ToList();
         }
 
+        [HttpGet]
+        public Doctor GetDoctor(int id)
+        {
+            return objdoctors.GetDoctorById(id);
+        }
+
         [HttpPost]
         public IHttpActionResult InsertDoctor([FromBody]Doctor doctor)
         {
