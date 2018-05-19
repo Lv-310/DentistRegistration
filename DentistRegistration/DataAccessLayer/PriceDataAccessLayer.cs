@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace DentistRegistration.DataAccessLayer
 {
@@ -75,7 +73,6 @@ namespace DentistRegistration.DataAccessLayer
                     {
                         CommandType = CommandType.StoredProcedure
                     };
-
 
                     cmd.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
                     cmd.Parameters.AddWithValue("@PRICE", price.Price);

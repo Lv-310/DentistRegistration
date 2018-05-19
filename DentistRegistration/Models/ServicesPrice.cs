@@ -2,11 +2,11 @@
 
 namespace DentistRegistration.Models
 {
-    public class PriceModel
+    public class Prices
     {
         public int Id { get; set; }
         public int Price { get; set; }
-        public DateTime DateStart { get; set; }
-        public int ServiceId { get; set; }
+        public DateTime DateStartPrice { get; set; }
+        public DateTime DateEndtPrice { get; set; }
     }
 }
