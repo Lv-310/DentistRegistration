@@ -30,13 +30,13 @@ namespace DentistRegistration.DataAccessLayer
 
                     doc = new Doctor
                     {
-                        Id = Convert.ToInt32(reader.GetValue(0)),
-                        FirstName = reader.GetValue(1).ToString(),
-                        LastName = reader.GetValue(2).ToString(),
-                        PhoneNum = Convert.ToInt64(reader.GetValue(3)),
-                        CabNum = Convert.ToByte(reader.GetValue(4)),
-                        Speciality = reader.GetValue(5).ToString(),
-                        Doc_password = reader.GetValue(6).ToString()
+                        FirstName = reader.GetValue(0).ToString(),
+                        LastName = reader.GetValue(1).ToString(),
+                        PhoneNum = Convert.ToInt64(reader.GetValue(2)),
+                        CabNum = Convert.ToByte(reader.GetValue(3)),
+                        Speciality = reader.GetValue(4).ToString(),
+                        Doc_password = reader.GetValue(5).ToString(),
+                        Id = Convert.ToInt32(reader.GetValue(7))
                     };
 
                     lstdoctors.Add(doc);
