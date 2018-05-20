@@ -2,7 +2,6 @@ import *as React from 'react';
 
 class MainMenu extends React.Component{
     render() {
-    
         var role = this.props.role;
         if(role=="")
         return(

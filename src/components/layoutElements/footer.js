@@ -10,8 +10,8 @@ class Footer extends React.Component{
                             <div className="col-md-auto text-light align-self-center">
                             &copy;{(new Date()).getFullYear()} - Softserve IT Academy. Created by Lv-310.Net  
                             </div>
-                        </div>
-                    <div className="row spacer-25-vertical"/>     
+                        </div> 
+                    <div className="row spacer-25-vertical"/>
                 </div>
             </footer>
         );

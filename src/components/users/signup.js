@@ -62,19 +62,7 @@ class Signup extends React.Component{
                     return;
                 }
                 document.getElementById('register-modal-close').click();
-                }).then(user=>{                      
-                loginUser(loginParams)
-                    .then((user) => {
-                    if(user.statusCode != 200) return;
-                    localStorage.setItem("userId", user.data.authorizedUser.Id);
-                    localStorage.setItem("userToken", user.data.token);
-                    var decoded = jwt_decode(user.data.token);
-                    var tokenDurating = decoded.exp * 1000;
-                    localStorage.setItem("tokenDurating", tokenDurating);
-                    checkToken();
-                    this.props.history.push('/Users/' + user.data.authorizedUser.Id);
                 })
-            })
       }
 
       handleUserInput = (e) => {

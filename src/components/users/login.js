@@ -41,44 +41,26 @@ class Login extends React.Component {
             .then(user => this.handleWrongUser(user))
             .then((user) => {
                 if (user.statusCode != 200) return;
-
-                localStorage.setItem("userId", user.data.authorizedUser.Id);
-                localStorage.setItem("userToken", user.data.token);
-
-
-
                 var decoded = jwt_decode(user.data.token);
+                alert(JSON.stringify(decoded));
                 var tokenDurating = decoded.exp * 1000;
-
+                localStorage.setItem("token",user.data.token);
                 localStorage.setItem("tokenDurating", tokenDurating);
                 checkToken();
                 document.getElementById('login-modal-close').click();
-                var role = user.data.authorizedUser.Role;
-                localStorage.setItem("role", role);
-                localStorage.setItem("FirstName", user.data.authorizedUser.FirstName);
-                localStorage.setItem("LastName", user.data.authorizedUser.LastName);
 
-                let currentUsser =
-                    {
-                        userId: user.data.authorizedUser.Id,
-                        userToken: user.data.token,
-                        tokenDurating: tokenDurating,
-                        role: user.data.authorizedUser.role,
-                        FirstName: user.data.authorizedUser.FirstName,
-                        LastName: user.data.authorizedUser.LastName
-                    }
-
-                localStorage.setItem("currentUser", currentUsser);
+                var role = decoded.Role;
+                var id = decoded.Id;
 
                 switch (role) {
                     case 'user':
-                        this.props.history.push('/Users/' + user.data.authorizedUser.Id);
+                        this.props.history.push('/Users/' + id);
                         break;
                     case 'doctor':
-                        this.props.history.push('/Doctors/' + user.data.authorizedUser.Id);
+                        this.props.history.push('/Doctors/' + id);
                         break;
                     case 'admin':
-                        this.props.history.push('/Admins/' + user.data.authorizedUser.Id);
+                        this.props.history.push('/Admins/' + id);
                         break;
                     default:
                         break;

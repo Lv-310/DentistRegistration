@@ -4,6 +4,7 @@ import Login from '../../users/login';
 import Signup from '../../users/signup';
 import MainMenu from '../navbar/mainMenu';
 import Logout from '../../users/Logout';
+import jwt_decode from 'jwt-decode';
 
 var role = "";
 
@@ -22,10 +23,10 @@ class NavBar extends React.Component {
     }
     
     componentWillReceiveProps() {
-        if (localStorage.getItem("userId")!=null)
+        if (localStorage.getItem("token")!=null)
         {
             this.setState({logout:true});
-            role = localStorage.getItem("role");
+            role = jwt_decode(localStorage.getItem("token")).Role;
         }
     }
 
@@ -58,7 +59,7 @@ class NavBar extends React.Component {
                                 :null}
 
                                  {this.state.logout?<li><a className="text-light mr-sm-4 nav-link" href="#">
-                                    {localStorage.getItem("FirstName") + " " + localStorage.getItem("LastName")}</a></li>
+                                    {jwt_decode(localStorage.getItem("token")).FirstName + " " + jwt_decode(localStorage.getItem("token")).LastName}</a></li>
                                 :null}         
                                                     
                                 {this.state.logout?<li><Logout/></li>:null}                                
