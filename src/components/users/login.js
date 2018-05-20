@@ -42,7 +42,6 @@ class Login extends React.Component {
             .then((user) => {
                 if (user.statusCode != 200) return;
                 var decoded = jwt_decode(user.data.token);
-                alert(JSON.stringify(decoded));
                 var tokenDurating = decoded.exp * 1000;
                 localStorage.setItem("token",user.data.token);
                 localStorage.setItem("tokenDurating", tokenDurating);
