@@ -44,6 +44,7 @@ namespace DentistRegistration.DataAccessLayer
                     cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
                     cmd.Parameters.AddWithValue("@USER_PASSWORD", SecurePasswordHasher.Hash(user.Password));
                     cmd.Parameters.AddWithValue("@EMAIL", user.Email);
+                    cmd.Parameters.AddWithValue("@ID_ROLE", 1);
 
                     cmd.ExecuteNonQuery();
 

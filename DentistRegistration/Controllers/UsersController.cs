@@ -27,7 +27,7 @@ namespace DentistRegistration.Controllers
                 }
                 return BadRequest("Phone already registered");
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return BadRequest(ModelState);
             }
