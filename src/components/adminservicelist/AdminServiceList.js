@@ -69,8 +69,7 @@ class AdminServiceList extends React.Component {
     }
 
     addCurentPriceValues(pricePrice) {
-
-        this.state.price.Price = pricePrice;
+        this.setState({price:{Price: pricePrice}});
     }
 
     render() {
@@ -112,7 +111,7 @@ class AdminServiceList extends React.Component {
                                     <div className="form-group">
                                         <label >{this.state.price.Id} </label>
                                         <input className="form-control" type="text" placeholder={this.state.price.Price} name="updatedPrice"
-                                            onChange={this.handleChange} value={this.state.price.Price} />
+                                            onChange={this.handleChange}  />
 
                                         <div className="error-message"></div>
 
