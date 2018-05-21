@@ -52,8 +52,8 @@ class AdminServiceList extends React.Component {
     GetServicePrice(serviceId, serviceName) {
         fetchFrom('Price?id=' + serviceId, 'get', null)
             .then(results => this.setState({ 'prices': results.data }));
-        this.state.service.Name = serviceName,
-            this.state.service.Id = serviceId
+        this.state.service.Name = serviceName;
+        this.state.service.Id = serviceId;
     }
 
     handleChange = (e) => {
@@ -68,9 +68,9 @@ class AdminServiceList extends React.Component {
         else document.getElementById("price").className = "collapse show";
     }
 
-    addCurentPriceValues(pricePrice) {
-        this.setState({price:{Price: pricePrice}});
-    }
+    // addCurentPriceValues(pricePrice) {
+    //     this.setState({ price: { Price: pricePrice } });
+    // }
 
     render() {
         return (
@@ -91,7 +91,7 @@ class AdminServiceList extends React.Component {
                             <span type="button" key={index} className="list-group-item list-group-item-action" >
                                 {price.Price}
                                 <a href="#" className="fas fa-edit float-right"
-                                    onClick={() => this.addCurentPriceValues(price.Price)} data-toggle="modal" data-target="#editPriceModal"></a>
+                                    /*onClick={() => this.addCurentPriceValues(price.Price)}*/ data-toggle="modal" data-target="#editPriceModal"></a>
                             </span>
                         </div>
                     }
@@ -110,8 +110,9 @@ class AdminServiceList extends React.Component {
                                 <form id="ajax-editPrice-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                                     <div className="form-group">
                                         <label >{this.state.price.Id} </label>
-                                        <input className="form-control" type="text" placeholder={this.state.price.Price} name="updatedPrice"
-                                            onChange={this.handleChange}  />
+                                        <input className="form-control" type="text" required="required"
+                                            placeholder={this.state.price.Price} name="updatedPrice"
+                                            onChange={this.handleChange} />
 
                                         <div className="error-message"></div>
 

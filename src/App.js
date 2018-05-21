@@ -59,7 +59,7 @@ class App extends React.Component {
                   <Route path="/Admins" component={DoctorHomePage} />
                   <Route path="/Admin" component={AdminHomePage} />
                   <Route path="/" component={Homepage} />
-                  {/* <Route component={PageNotFound} /> */}
+                  <Route component={PageNotFound} />
                 </Switch>
                 <Footer />
               </div>

@@ -13,7 +13,7 @@ export default class PageNotFound extends Component {
                         No match for {window.location.pathname}
                     </h3>
                     <h3 className="text-center">
-                        <Link to='/'> Redirect to the home page </Link> ?
+                        <Link to='/admin'> Redirect to the home page </Link> ?
                     </h3>
                 </div>
             </div>
