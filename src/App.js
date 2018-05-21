@@ -10,6 +10,7 @@ import DoctorHomePage from '../src/components/doctorhomepage/DoctorHomePage';
 import AdminHomePage from './components/admin/AdminHomePage';
 import HttpsRedirect from 'react-https-redirect';
 import Providers from 'react-https-redirect';
+import PageNotFound from './components/pagenotfound/PageNotFound';
 
 class App extends React.Component {
   constructor(props) {
@@ -58,6 +59,7 @@ class App extends React.Component {
                   <Route path="/Admins" component={DoctorHomePage} />
                   <Route path="/Admin" component={AdminHomePage} />
                   <Route path="/" component={Homepage} />
+                  {/* <Route component={PageNotFound} /> */}
                 </Switch>
                 <Footer />
               </div>
