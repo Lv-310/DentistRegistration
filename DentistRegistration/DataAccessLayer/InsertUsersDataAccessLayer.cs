@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using DentistRegistration.Models;
@@ -52,6 +53,31 @@ namespace DentistRegistration.DataAccessLayer
             }
 
             return isInserted;
+        }
+
+        internal bool UpdateUser(User user)
+        {
+            bool isUpdated = false;
+            using (var con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("spUpdateUser", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.AddWithValue("@ID", user.Id);
+                cmd.Parameters.AddWithValue("@FIRSTNAME", user.FirstName);
+                cmd.Parameters.AddWithValue("@LASTNAME", user.LastName);
+                cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
+                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
+
+                cmd.ExecuteNonQuery();
+
+                isUpdated = true;
+            }
+            return isUpdated;
         }
     }
 }

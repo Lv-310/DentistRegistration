@@ -48,5 +48,29 @@ namespace DentistRegistration.Controllers
             }
         }
 
+        [HttpPut]
+        public IHttpActionResult UpdateDoctor(int id, [FromBody]Doctor doctor)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                bool isUpdated = objdoctors.UpdateDoctor(doctor);
+
+                if (isUpdated)
+                {
+                    return Ok("Doctor updated");
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return BadRequest(ModelState);
+            }
+        }
     }
 }

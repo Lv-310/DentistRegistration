@@ -46,6 +46,32 @@ namespace DentistRegistration.DataAccessLayer
             return lstdoctors;
         }
 
+        public bool UpdateDoctor(Doctor doctor)
+        {
+            bool isUpdated = false;
+            using (var con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("spUpdateDoctor", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.AddWithValue("@ID", doctor.Id);
+                cmd.Parameters.AddWithValue("@FIRSTNAME", doctor.FirstName);
+                cmd.Parameters.AddWithValue("@LASTNAME", doctor.LastName);
+                cmd.Parameters.AddWithValue("@PHONENUM", doctor.PhoneNum);
+                cmd.Parameters.AddWithValue("@CABNUM", doctor.CabNum);
+                cmd.Parameters.AddWithValue("@SPECIALITY", doctor.Speciality);
+
+                cmd.ExecuteNonQuery();
+
+                isUpdated = true;
+            }
+
+            return isUpdated;
+        }
+
         public Doctor GetDoctorById(int id)
         {
             Doctor doc = new Doctor();
