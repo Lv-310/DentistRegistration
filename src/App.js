@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from '../src/components/layoutElements/navbar/navbar';
 import Footer from '../src/components/layoutElements/footer';
 import Homepage from '../src/components/pageBuilder/homepage';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { checkVersion } from './helpers/versionChecker';
 import UserHomePage from './components/userhomepage/UserHomePage';
 import DoctorHomePage from '../src/components/doctorhomepage/DoctorHomePage';
@@ -54,11 +54,11 @@ class App extends React.Component {
               <div className="my-div">
                 <NavBar />
                 <Switch>
-                  <Route path="/Doctors" component={DoctorHomePage} />
+                  <Route exact path='/' render={() => <Redirect to="/Home" />} />
+                  <Route path="/Home" component={Homepage} />
                   <Route path="/Users/:userId" component={UserHomePage} />
-                  <Route path="/Admins" component={DoctorHomePage} />
+                  <Route path="/Doctors" component={DoctorHomePage} />
                   <Route path="/Admin" component={AdminHomePage} />
-                  <Route path="/" component={Homepage} />
                   <Route component={PageNotFound} />
                 </Switch>
                 <Footer />

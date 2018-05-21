@@ -48,7 +48,7 @@ class DoctorsList extends React.Component {
 
   handleCustomerClick(doctor) {
     var currentDate = new Date()
-    this.props.history.push(`/doctor/${doctor.Id}/${this.formatDate(currentDate)}/${this.changeDefaultView()}`);
+    this.props.history.push(`/Home/doctor/${doctor.Id}/${this.formatDate(currentDate)}/${this.changeDefaultView()}`);
   }
   // <i class="fas fa-sort-down"></i>
   render() {

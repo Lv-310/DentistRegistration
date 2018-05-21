@@ -68,9 +68,9 @@ class AdminServiceList extends React.Component {
         else document.getElementById("price").className = "collapse show";
     }
 
-    // addCurentPriceValues(pricePrice) {
-    //     this.setState({ price: { Price: pricePrice } });
-    // }
+    addCurentPriceValues(pricePrice) {
+        this.setState({ price: { Price: pricePrice } });
+    }
 
     render() {
         return (
@@ -91,7 +91,7 @@ class AdminServiceList extends React.Component {
                             <span type="button" key={index} className="list-group-item list-group-item-action" >
                                 {price.Price}
                                 <a href="#" className="fas fa-edit float-right"
-                                    /*onClick={() => this.addCurentPriceValues(price.Price)}*/ data-toggle="modal" data-target="#editPriceModal"></a>
+                                    onClick={() => this.addCurentPriceValues(price.Price)} data-toggle="modal" data-target="#editPriceModal"></a>
                             </span>
                         </div>
                     }
