@@ -205,7 +205,6 @@
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="DataAccessLayer\DoctorsDataAccessLayer.cs" />
     <Compile Include="DataAccessLayer\InsertUsersDataAccessLayer.cs" />
-    <Compile Include="Models\AuthorizedUserModel.cs" />
     <Compile Include="Models\PriceModel.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\User.cs" />
