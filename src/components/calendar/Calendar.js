@@ -226,7 +226,7 @@ validateForm() {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4>Make an appointment {this.props.match.params.doctorId}</h4>
+                <h4>Make an appointment</h4>
                 <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}>&times;</button>
               </div>
               <div className="modal-body">
@@ -264,8 +264,8 @@ validateForm() {
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
-          onNavigate={date => this.props.history.push(`/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${this.props.match.params.view}`)}
-          onView={view => this.props.history.push(`/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)}
+          onNavigate={date => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${this.props.match.params.view}`)}
+          onView={view => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)}
           onSelectEvent={event => this.onEventClick(event)}
           components={{
             toolbar: Toolbar
