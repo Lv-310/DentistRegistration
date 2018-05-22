@@ -9,6 +9,7 @@ import Toolbar from '../customtoolbar/Toolbar';
 import { isMobile } from 'react-device-detect';
 import { withRouter } from 'react-router-dom';
 import { fetchFrom } from '../../helpers/fetcher';
+import jwt_decode from 'jwt-decode';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
@@ -19,22 +20,34 @@ class Calendar extends React.Component {
     super()
     this.state = {
       'allevents': [],
-      selectedEvent: {}
+      selectedEvent: {},
+      desc: "",
+      responseError: {
+        desc: "",
+        wrongCredentials: ""
+      },
+
+      descValid: false,
+      formValid: false,
+      wrongCredentials: false
     }
     this.handleDescription = this.handleDescription.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
-  handleDescription = (event) => {
-    this.setState({ description: this.state.selectedEvent.description })
-
+  handleDescription = (e) => {
+    this.wrongCredentials = false;
+        this.clearErrorMessage();
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({[name]: value},
+    () => { this.validateField(name, value) });
   }
 
   BookEvent = (eventParams) => {
     fetchFrom('CalendarEvent', 'post', eventParams)
       .then((res) => {
-        alert(res.statusCode);
         return res;
       })
       .then((res) => {
@@ -43,15 +56,74 @@ class Calendar extends React.Component {
       )
   }
 
+  handleWrongBooking(event) {
+    if (event.statusCode != 200) {
+        this.state.wrongCredentials = true;
+    }
+
+    if (event.data.Message != undefined) {
+        this.showErrorMessage(event.data.Message);
+    }
+
+    return event;
+}
+
+showErrorMessage(message) {
+    let errors = this.state.responseError;
+    errors.wrongCredentials = this.state.wrongCredentials ? message : '';
+    this.setState({ responseError: errors });
+}
+
+clearErrorMessage() {
+    let errors = this.state.responseError;
+    errors.wrongCredentials = '';
+    this.setState({ responseError: errors });
+}
+
   handleSubmit = (event) => {
     event.preventDefault()
 
     const eventParams = {
-      selectedEvent: {}
+      selectedEvent: {},
+
+      desc: this.state.desc,
+      userId: jwt_decode(localStorage.getItem("token")).Id,
+      doctorId: this.props.match.params.doctorId,
+      title: this.state.selectedEvent.title,
+      start: this.state.selectedEvent.start,
+      end: this.state.selectedEvent.end,
+      hasBeenBooked: true
     }
     this.BookEvent(eventParams);
-
   }
+
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.responseError;
+    let descValid = this.state.descValid;
+
+
+    switch (fieldName) {
+        case 'desc':
+        descValid = value.length > 0 && value.length <= 50;
+            fieldValidationErrors.desc = descValid ? '' : 'Input incorrect description';
+            break;
+        default:
+            break;
+    }
+
+    this.setState({
+        responseErrors: fieldValidationErrors,
+        descValid: descValid,
+    }, this.validateForm);
+}
+validateForm() {
+    this.setState({
+        formValid:
+            this.state.descValid
+    });
+}
+
 
   componentDidMount() {
     this.getItems();
@@ -120,6 +192,7 @@ class Calendar extends React.Component {
     this.setState({ selectedEvent: event });
   }
 
+  
   formatURLDate = (date) => {
 
     var day = date.getDate();
@@ -128,6 +201,11 @@ class Calendar extends React.Component {
 
     return year + '-' + month + '-' + day;
   }
+
+  clearForm = () => {
+    this.setState({
+        desc: '',
+    })}
 
   render() {
     this.state.allevents.forEach(a => {
@@ -138,6 +216,7 @@ class Calendar extends React.Component {
     var x = window.matchMedia("(max-width: 700px)")
 
     var currentDate = new Date(this.props.match.params.date)
+    
 
     return (
       <div>
@@ -148,11 +227,11 @@ class Calendar extends React.Component {
             <div className="modal-content">
               <div className="modal-header">
                 <h4>Make an appointment {this.props.match.params.doctorId}</h4>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}>&times;</button>
               </div>
               <div className="modal-body">
                 <div className="modal-body col-sm-12">
-                  <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
+                  <form id="ajax-event-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                       <label>Date of an appointment</label>
                       <input type="text" className="form-control" value={this.formatDate(new Date(this.state.selectedEvent.start)) + " (" +
@@ -164,11 +243,13 @@ class Calendar extends React.Component {
                     </div>
                     <div className="form-group">
                       <label>Input a purpose of an appointment</label>
-                      <textarea type="text" className="form-control" onChange={this.handleDescription} value={this.state.selectedEvent.description} />
+                      <textarea type="text" className="form-control" name="desc" onChange={this.handleDescription} value={this.state.desc} required />
+                      <div className="error-message">{this.state.responseError.desc}</div>
                     </div>
                     <button className="btn btn-secondary btn-block">
-                      Visit hell
-                            </button>
+                      Confirm
+                    </button>
+                    <div className="error-message">{this.state.responseError.wrongCredentials} </div>
                   </form>
                 </div>
               </div>
@@ -183,8 +264,8 @@ class Calendar extends React.Component {
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
-          onNavigate={date => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${this.props.match.params.view}`)}
-          onView={view => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)}
+          onNavigate={date => this.props.history.push(`/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${this.props.match.params.view}`)}
+          onView={view => this.props.history.push(`/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)}
           onSelectEvent={event => this.onEventClick(event)}
           components={{
             toolbar: Toolbar
