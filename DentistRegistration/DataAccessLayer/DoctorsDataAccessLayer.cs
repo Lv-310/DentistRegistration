@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class DoctorsDataAccessLayer
+    public class DoctorsDataAccessLayer:IRepository<Doctor>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
@@ -145,5 +146,7 @@ namespace DentistRegistration.DataAccessLayer
 
             return isInserted;
         }
+
+      
     }
 }

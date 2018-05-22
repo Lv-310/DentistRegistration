@@ -197,6 +197,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="DataAccessLayer\LoginUserDataAccessLayer.cs" />
     <Compile Include="Models\CalendarEventRule.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Services\EncryptingConfiguration.cs" />
     <Compile Include="Services\RequireHttpsAttribute.cs" />
     <Compile Include="Services\SecurePasswordHasher.cs" />
+    <Compile Include="Services\TokenAuthenticationAttribute.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
