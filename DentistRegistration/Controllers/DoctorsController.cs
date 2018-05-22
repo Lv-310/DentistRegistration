@@ -38,7 +38,7 @@ namespace DentistRegistration.Controllers
             }
             catch (Exception)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Something went wrong");
             }
         }
 

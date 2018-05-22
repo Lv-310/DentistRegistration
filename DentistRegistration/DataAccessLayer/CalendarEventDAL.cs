@@ -40,9 +40,7 @@ namespace DentistRegistration.DataAccessLayer
                         events.Title = row[3].ToString();
                         events.Desc = row[4].ToString();
                         events.Start = Convert.ToDateTime(row[5]);
-                        string DateTimeEnd = row[6].ToString();
-                        DateTimeEnd.Substring(DateTimeEnd.Length - 3);
-                        events.End = DateTime.Parse(DateTimeEnd);
+                        events.End = Convert.ToDateTime(row[6]);
                         events.HasBeenBooked = Convert.ToBoolean(row[7]);
                             
 
