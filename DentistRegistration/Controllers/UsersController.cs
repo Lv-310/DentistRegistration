@@ -27,6 +27,31 @@ namespace DentistRegistration.Controllers
                 }
                 return BadRequest("Phone already registered");
             }
+            catch (Exception e)
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPut]
+        public IHttpActionResult UpdateUser(int id, [FromBody]User user)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                bool isUpdated = insertUserLayer.UpdateUser(user);
+
+                if (isUpdated)
+                {
+                    return Ok("User updated");
+                }
+
+                return BadRequest();
+            }
             catch (Exception)
             {
                 return BadRequest(ModelState);

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class DoctorsDataAccessLayer
+    public class DoctorsDataAccessLayer:IRepository<Doctor>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
@@ -30,6 +31,63 @@ namespace DentistRegistration.DataAccessLayer
 
                     doc = new Doctor
                     {
+                        FirstName = reader.GetValue(0).ToString(),
+                        LastName = reader.GetValue(1).ToString(),
+                        PhoneNum = Convert.ToInt64(reader.GetValue(2)),
+                        CabNum = Convert.ToByte(reader.GetValue(3)),
+                        Speciality = reader.GetValue(4).ToString(),
+                        Doc_password = reader.GetValue(5).ToString(),
+                        Id = Convert.ToInt32(reader.GetValue(7))
+                    };
+
+                    lstdoctors.Add(doc);
+                }
+            }
+
+            return lstdoctors;
+        }
+
+        public bool UpdateDoctor(Doctor doctor)
+        {
+            bool isUpdated = false;
+            using (var con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("spUpdateDoctor", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.AddWithValue("@ID", doctor.Id);
+                cmd.Parameters.AddWithValue("@FIRSTNAME", doctor.FirstName);
+                cmd.Parameters.AddWithValue("@LASTNAME", doctor.LastName);
+                cmd.Parameters.AddWithValue("@PHONENUM", doctor.PhoneNum);
+                cmd.Parameters.AddWithValue("@CABNUM", doctor.CabNum);
+                cmd.Parameters.AddWithValue("@SPECIALITY", doctor.Speciality);
+
+                cmd.ExecuteNonQuery();
+
+                isUpdated = true;
+            }
+
+            return isUpdated;
+        }
+
+        public Doctor GetDoctorById(int id)
+        {
+            Doctor doc = new Doctor();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("spGetDoctorById", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_DOCTOR", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    doc = new Doctor
+                    {
                         Id = Convert.ToInt32(reader.GetValue(0)),
                         FirstName = reader.GetValue(1).ToString(),
                         LastName = reader.GetValue(2).ToString(),
@@ -38,12 +96,9 @@ namespace DentistRegistration.DataAccessLayer
                         Speciality = reader.GetValue(5).ToString(),
                         Doc_password = reader.GetValue(6).ToString()
                     };
-
-                    lstdoctors.Add(doc);
                 }
             }
-
-            return lstdoctors;
+            return doc;
         }
 
         public bool InsertDoctor(Doctor doctor)
@@ -91,5 +146,7 @@ namespace DentistRegistration.DataAccessLayer
 
             return isInserted;
         }
+
+      
     }
 }

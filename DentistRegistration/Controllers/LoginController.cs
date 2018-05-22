@@ -27,15 +27,14 @@ namespace DentistRegistration.Controllers
                 if (authorizedUser == null)
                     return BadRequest("Invalid login or password");
 
-                var token = authServise.GetAccessToken(user.PhoneNum.ToString());
+                var token = authServise.GetAccessToken(authorizedUser);
 
                 return Ok(new
                 {
-                    authorizedUser,
                     token
                 });
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest("Something went wrong");
             }

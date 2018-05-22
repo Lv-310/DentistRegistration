@@ -2,9 +2,6 @@
 using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DentistRegistration.Controllers
@@ -12,7 +9,7 @@ namespace DentistRegistration.Controllers
     public class ServiceController : ApiController
     {
         private ServicesDataAccessLayer servDal = new ServicesDataAccessLayer();
-  
+
         // GET: api/Service
         public IEnumerable<Service> Get()
         {
@@ -43,7 +40,7 @@ namespace DentistRegistration.Controllers
                 }
                 return BadRequest("Service already exist");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest(ModelState);
             }

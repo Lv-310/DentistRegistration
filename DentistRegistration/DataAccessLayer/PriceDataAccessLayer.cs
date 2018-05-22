@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace DentistRegistration.DataAccessLayer
 {
@@ -76,7 +74,6 @@ namespace DentistRegistration.DataAccessLayer
                         CommandType = CommandType.StoredProcedure
                     };
 
-
                     cmd.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
                     cmd.Parameters.AddWithValue("@PRICE", price.Price);
                     cmd.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
@@ -86,10 +83,73 @@ namespace DentistRegistration.DataAccessLayer
                     isInserted = true;
 
                 }
-                else message = "U can not update previous prices";
+                else message = "U cannot add previous prices";
             }
 
             return isInserted;
+        }
+
+        public bool EditPrice(PriceModel price, out string message)
+        {
+                bool isInserted = false;
+                using (var con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+
+                    SqlCommand cmdCheck = new SqlCommand("spCheckDateForEdit", con);
+
+                    cmdCheck.CommandType = CommandType.StoredProcedure;
+                    cmdCheck.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
+                    SqlParameter outPutParameter = new SqlParameter("@Result", SqlDbType.NVarChar, 30)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    cmdCheck.Parameters.Add(outPutParameter);
+
+                    cmdCheck.ExecuteNonQuery();
+
+                    string check = outPutParameter.Value.ToString();
+
+                    if (check.ToLower() == "edit")
+                    {
+
+                        SqlCommand cmd = new SqlCommand("spEditPrice", con)
+                        {
+                            CommandType = CommandType.StoredProcedure
+                        };
+
+                        cmd.Parameters.AddWithValue("@ID_PRICE", price.Id);
+                        cmd.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
+                        cmd.Parameters.AddWithValue("@PRICE", price.Price);
+                        cmd.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
+
+                        cmd.ExecuteNonQuery();
+                        message = "Price is updated";
+                        isInserted = true;
+
+                    }
+                    else if (check.ToLower() == "add")
+                    {
+                        SqlCommand cmd = new SqlCommand("spInsertPrice", con)
+                        {
+                            CommandType = CommandType.StoredProcedure
+                        };
+                        cmd.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
+                        cmd.Parameters.AddWithValue("@PRICE", price.Price);
+                        cmd.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart.AddDays(1));
+                        cmd.ExecuteNonQuery();
+                        message = "Price is inserted to the next day";
+                        isInserted = true;
+                    }
+                    else
+                    {
+                        message = "U can not update previous prices";
+                        isInserted = false;
+                    }
+                }
+
+                return isInserted;
         }
     }
 }
