@@ -22,7 +22,7 @@ namespace DentistRegistration.Models
         [Required(ErrorMessage = "Field can't be empty")]
         public byte CabNum { get; set; }
 
-        [StringLength(30, MinimumLength = 1, ErrorMessage = "Speciality should be minimum 1 character and maximum 30 characters")]
+        [StringLength(15, MinimumLength = 6, ErrorMessage = "Speciality should be minimum 6 character and maximum 15 characters")]
         [Required(ErrorMessage = "Field can't be empty")]
         public string Speciality { get; set; }
 
