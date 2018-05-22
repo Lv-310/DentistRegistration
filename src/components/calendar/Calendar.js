@@ -54,6 +54,9 @@ class Calendar extends React.Component {
         return res.data;
       }
       )
+      alert("Your request is accepted.")
+      document.getElementById('event-modal-close').click();
+      window.location.reload();
   }
 
   handleWrongBooking(event) {
@@ -64,7 +67,7 @@ class Calendar extends React.Component {
     if (event.data.Message != undefined) {
         this.showErrorMessage(event.data.Message);
     }
-
+   
     return event;
 }
 
@@ -227,7 +230,7 @@ validateForm() {
             <div className="modal-content">
               <div className="modal-header">
                 <h4>Make an appointment</h4>
-                <button type="button" className="close" data-dismiss="modal" onClick={this.clearForm}>&times;</button>
+                <button type="button" className="close" id="event-modal-close" data-dismiss="modal" onClick={this.clearForm}>&times;</button>
               </div>
               <div className="modal-body">
                 <div className="modal-body col-sm-12">
