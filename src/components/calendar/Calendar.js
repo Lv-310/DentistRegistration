@@ -196,6 +196,7 @@ validateForm() {
 
 
   onEventClick(event) {
+    if(event.hasBeenBooked) return;
     $("#Modalbtn").click();
     this.setState({ selectedEvent: event });
   }
