@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import baseURL from '../../helpers/url';
 import {isMobile} from 'react-device-detect';
-
-
+import jwt_decode from 'jwt-decode'
+import {fetchFrom} from '../../helpers/fetcher';
 
 class DoctorsProfileCard extends React.Component{
   constructor() {
@@ -23,16 +23,15 @@ class DoctorsProfileCard extends React.Component{
     }
     
     componentWillReceiveProps() {
-        if (localStorage.getItem("userId")!=null)
+        if (localStorage.getItem("token")!=null)
         {
-            this.setState({id:localStorage.getItem("userId")});
+            this.setState({id:jwt_decode(localStorage.getItem("token")).Id});
         }
     }
 
   getDoctor(){
-    fetch(`${baseURL}/Doctors/${this.state.id}`)
-    .then(results => results.json())
-    .then(results => this.setState({doctor: results}));
+    fetchFrom("Doctors/"+this.state.id,'get',null)
+    .then(results => this.setState({doctor: results.data}));
   }
 
   // <i class="fas fa-sort-down"></i>
