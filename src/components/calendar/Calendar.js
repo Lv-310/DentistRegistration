@@ -51,12 +51,11 @@ class Calendar extends React.Component {
         this.handleWrongBooking(res)
         return res.data;
       }
-      )
+      ).then((res=>{
+        this.getItems();
+      }))
       alert("Your request is accepted.");   
       document.getElementById('event-modal-close').click(); 
-      var obj = this;
-      setTimeout(function(){obj.getItems()},1000); 
-      //window.location.reload();
   }
 
   handleWrongBooking(event) {
@@ -161,7 +160,7 @@ validateForm() {
 
   setStyle(event) {
     let newStyle = {
-      backgroundColor: "green",
+      backgroundColor: "seagreen",
       color: 'white',
       borderRadius: "0px",
       border: "none",
@@ -169,7 +168,7 @@ validateForm() {
     };
 
     if (event.hasBeenBooked) {
-      newStyle.backgroundColor = "red"
+      newStyle.backgroundColor = "crimson"
     }
     return newStyle;
   }

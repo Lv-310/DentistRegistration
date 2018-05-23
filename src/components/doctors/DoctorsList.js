@@ -22,7 +22,7 @@ class DoctorsList extends React.Component {
 
   getDoctors() {
     fetchFrom('Doctors', 'get', null)
-      .then(results => this.setState({ 'items': results.data }));
+      .then(results =>{this.setState({ 'items': results.data }); return results;});
   }
 
   changeCollapse() {
@@ -50,7 +50,6 @@ class DoctorsList extends React.Component {
     var currentDate = new Date()
     this.props.history.push(`/Home/doctor/${doctor.Id}/${this.formatDate(currentDate)}/${this.changeDefaultView()}`);
   }
-  // <i class="fas fa-sort-down"></i>
   render() {
     return (
       <div className="list-group">
@@ -61,7 +60,8 @@ class DoctorsList extends React.Component {
         <div id="demo" className="collapse show">
           {this.state.items.map((item, index) => {
             return <div>
-              <button type="button" onClick={() => this.handleCustomerClick(item)} key={index} className="list-group-item list-group-item-action">
+              <button type="button" id={"doc-"+item.Id} onClick={() => this.handleCustomerClick(item)} key={index} className={item.Id==this.props.match.params.doctorId?
+              "list-group-item list-group-item-action active":"list-group-item list-group-item-action"}>
                 {item.FirstName} {item.LastName}
               </button>
             </div>
