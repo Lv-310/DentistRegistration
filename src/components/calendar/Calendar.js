@@ -48,15 +48,15 @@ class Calendar extends React.Component {
   BookEvent = (eventParams) => {
     fetchFrom('CalendarEvent', 'post', eventParams)
       .then((res) => {
-        return res;
-      })
-      .then((res) => {
+        this.handleWrongBooking(res)
         return res.data;
       }
       )
-      alert("Your request is accepted.")
-      document.getElementById('event-modal-close').click();
-      window.location.reload();
+      alert("Your request is accepted.");   
+      document.getElementById('event-modal-close').click(); 
+      var obj = this;
+      setTimeout(function(){obj.getItems()},1000); 
+      //window.location.reload();
   }
 
   handleWrongBooking(event) {
@@ -85,7 +85,14 @@ clearErrorMessage() {
 
   handleSubmit = (event) => {
     event.preventDefault()
-
+    if(localStorage.getItem("token") === null)
+    {
+      alert("You must be registred to perform this action");
+      document.getElementById('event-modal-close').click(); 
+      return;
+    }
+    var start = moment(this.state.selectedEvent.start);
+    var end = moment(this.state.selectedEvent.end);
     const eventParams = {
       selectedEvent: {},
 
@@ -93,8 +100,8 @@ clearErrorMessage() {
       userId: jwt_decode(localStorage.getItem("token")).Id,
       doctorId: this.props.match.params.doctorId,
       title: this.state.selectedEvent.title,
-      start: this.state.selectedEvent.start,
-      end: this.state.selectedEvent.end,
+      start: moment(start).add(start.utcOffset(), 'm').utc(),
+      end: moment(end).add(end.utcOffset(), 'm').utc(),
       hasBeenBooked: true
     }
     this.BookEvent(eventParams);
@@ -133,11 +140,10 @@ validateForm() {
   }
 
   getItems() {
-    fetch(`${baseURL}/RandomEvents/${this.props.match.params.doctorId}`)
-      .then(results => results.json())
+    fetchFrom("RandomEvents/"+this.props.match.params.doctorId, "get", null)
       .then(results => {
-        this.setState({ 'allevents': results })
-      });
+        this.setState({ 'allevents': results.data })
+      })
   }
 
   checkIfMobile() {
