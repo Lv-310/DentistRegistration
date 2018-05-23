@@ -86,11 +86,11 @@ class Signup extends React.Component {
 
         switch (fieldName) {
             case 'firstname':
-                firstnameValid = value.match(/^[a-zA-Z]+$/) && value.length > 0;
+                firstnameValid = value.match(/^([^-])([a-zA-Z%-?])+$/) && value.length > 0;
                 fieldValidationErrors.firstname = firstnameValid ? '' : 'First name is incorrect';
                 break;
             case 'lastname':
-                lastnameValid = value.match(/^[a-zA-Z]+$/) && value.length > 0;
+                lastnameValid = value.match(/^([^-])([a-zA-Z%-?])+$/) && value.length > 0;
                 fieldValidationErrors.lastname = lastnameValid ? '' : 'Last name is incorrect';
                 break;
             case 'email':
