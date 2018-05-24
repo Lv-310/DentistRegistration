@@ -42,6 +42,7 @@ class UserList extends React.Component{
             </a>
     
             <div id="demo" className="collapse show">
+            <div className="height-scroll">
               {this.state.userList.map((item, index) => {
                 return <div>
                  <button type="button" key={index} className="list-group-item list-group-item-action">
@@ -50,6 +51,7 @@ class UserList extends React.Component{
                 </div>
               }
               )}
+              </div>
             </div>
           </div>
         );

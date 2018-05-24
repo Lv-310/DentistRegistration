@@ -45,7 +45,33 @@
   overflow-y: auto;
 }
 
+.height-scroll{
+  max-height: calc(100vh - 240px);
+  overflow-y: scroll;
+}
+
+.height-scroll-small{
+  max-height: calc(100vh - 290px);
+  overflow-y: scroll;
+}
+
+
 .list-group button.active{
   background-color: rgb(94, 110, 110);
   border-color: #fff;
+}
+
+@media screen and (max-width: 770px) {
+  #demo3.collapsed {
+    display: inline; 
+  }
+}
+
+@media screen and (min-width: 771px){
+#demo3:not(.collapsed) {
+  display: inline;
+}
+#first1{
+  pointer-events: none;
+}
 }

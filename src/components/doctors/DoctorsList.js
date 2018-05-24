@@ -58,6 +58,7 @@ class DoctorsList extends React.Component {
         </a>
 
         <div id="demo" className="collapse show">
+        <div className="height-scroll">
           {this.state.items.map((item, index) => {
             return <div>
               <button type="button" id={"doc-"+item.Id} onClick={() => this.handleCustomerClick(item)} key={index} className={item.Id==this.props.match.params.doctorId?
@@ -67,6 +68,7 @@ class DoctorsList extends React.Component {
             </div>
           }
           )}
+          </div>
         </div>
       </div>
     );

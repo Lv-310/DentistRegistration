@@ -15,14 +15,14 @@ class AdminHomePage extends React.Component {
                     </div>
                     <div className="col-md-2">
                         <AdminAddNewService />
-                        <button className="text-red mr-sm-4 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#addService">Add New Service
+                        <button className="text-red mr-sm-4 nav-link btn btn-secondary mb-4 mx-3" data-toggle="modal" href="" data-target="#addService">Add New Service
                         </button>
                     </div>
                     <div className="col-md-2">
                     <UserList/>
                     </div>
                     <div className="col-md-2">
-                         <a  className="text-red mb-1 ml-3 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#registerModalDoctor">Add new Doctor!</a>
+                         <a  className="text-red mb-1 ml-3 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#registerModalDoctor">Add new Doctor</a>
                      <DoctorListForAdminPage/>  
                     </div>
                     <InsertDoctor />

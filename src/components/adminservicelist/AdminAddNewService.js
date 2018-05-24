@@ -41,7 +41,7 @@ class AdminAddNewService extends React.Component {
                 this.setState(state);
                 return;
             }
-            document.getElementById('register-modal-close').click();
+            document.getElementById('service-modal-close').click();
             window.location.reload();
         }));
     }
@@ -116,7 +116,7 @@ class AdminAddNewService extends React.Component {
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4>Add New Service</h4>
-                            <button type="button" id="register-modal-close" className="close" data-dismiss="modal" onClick={this.clearForm}
+                            <button type="button" id="service-modal-close" className="close" data-dismiss="modal" onClick={this.clearForm}
                                 data-target="#addService"> &times;
                             </button>
 

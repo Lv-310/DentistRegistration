@@ -42,6 +42,7 @@ class DoctorListForAdminPage extends React.Component{
             </a>
     
             <div id="demo2" className="collapse show">
+            <div className="height-scroll-small">
               {this.state.DoctorsList.map((item, index) => {
                 return <div>
                  <button type="button" key={index} className="list-group-item list-group-item-action">
@@ -53,6 +54,7 @@ class DoctorListForAdminPage extends React.Component{
                 </div>
               }
               )}
+              </div>
             </div>
           </div>
         );
