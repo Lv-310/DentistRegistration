@@ -5,6 +5,8 @@ import {isMobile} from 'react-device-detect';
 import jwt_decode from 'jwt-decode'
 import {fetchFrom} from '../../helpers/fetcher';
 
+import "./doctorprofilecard.css";
+
 class DoctorsProfileCard extends React.Component{
   constructor() {
     super();
@@ -40,15 +42,17 @@ class DoctorsProfileCard extends React.Component{
         <div className="container">
             <div className="row" align="middle">
                 <div className="col-md-12" >
-                    <h2> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h2>
-                        <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="" className="center-block rounded-circle img-responsive" /> 
+                   
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalHrvEmJmi7Ui0Mkv3J3CN9-g10g_QEsclAB5mokha5KgRf7T" 
+                        alt="no image" className="my-img center-block    img-responsive" /> 
+                         <h2> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h2>
                     <div className="panel panel-default">
                     <div className="panel-body">
                                 <div className="row">
                                 <div className="col-md-12">
+
                                     <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p> 
-                                    <p><strong>Speciality: {this.state.doctor.Speciality}  </strong>
-                                    </p>
+                                    <p><strong>Speciality: {this.state.doctor.Speciality}  </strong></p>
                                 </div>         
                                 <div className="col-md-12">
                                     <button className="btn btn-success btn-block"><span className="fas fa-user-edit"></span> Change profile </button>

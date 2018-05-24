@@ -44,3 +44,8 @@
   height:75%;
   overflow-y: auto;
 }
+
+.list-group button.active{
+  background-color: rgb(94, 110, 110);
+  border-color: #fff;
+}

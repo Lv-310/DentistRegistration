@@ -1,0 +1,12 @@
+.center-block {
+    margin-bottom: 20px;
+}
+
+.my-img{
+    border-radius: 40%;
+}
+
+.btn.btn-success{
+    width:40%;
+    background-color: seagreen;
+}

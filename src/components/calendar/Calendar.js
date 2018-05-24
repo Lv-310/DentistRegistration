@@ -54,7 +54,7 @@ class Calendar extends React.Component {
       ).then((res=>{
         this.getItems();
       }))
-      alert("Your request is accepted.");   
+      alert("Event has been booked.");   
       document.getElementById('event-modal-close').click(); 
   }
 
@@ -67,7 +67,6 @@ class Calendar extends React.Component {
         this.showErrorMessage(event.data.Message);
     }
    
-    return event;
 }
 
 showErrorMessage(message) {

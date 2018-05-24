@@ -3,7 +3,7 @@ import NavBar from '../layoutElements/navbar/navbar';
 import Footer from '../layoutElements/footer';
 import Calendar from '../calendar/Calendar';
 import DoctorProfileCard from '../doctorprofilecard/DoctorProfileCard';
-import DoctorCalendar from '../doctorcalendar/DoctorCalendar'
+import DoctorCalendar from '../doctorcalendar/DoctorCalendar';
 import "./doctorhome.css";
 
 class DoctorHomePage extends React.Component{

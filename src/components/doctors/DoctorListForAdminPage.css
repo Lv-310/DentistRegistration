@@ -24,6 +24,8 @@
     float: right;
   }
 
+  
+
 @media screen and (max-width: 770px) {
     #demo.collapsed {
       display: inline; 
