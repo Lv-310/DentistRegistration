@@ -7,6 +7,7 @@ import $ from 'jquery';
 import {ModalComponent} from 'react-modal';
 import Toolbar from '../customtoolbar/Toolbar';
 import {isMobile} from 'react-device-detect';
+import jwt_decode from 'jwt-decode';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './doctorcalendar.css';
@@ -20,14 +21,8 @@ class DoctorCalendar extends React.Component {
         selectedEvent : {},
         doctorId: 0
       }
-      this.handleDescription = this.handleDescription.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
 
-    }
-
-    handleDescription = (event) => {
-      this.setState({description: this.state.selectedEvent.description})
-  
     }
 
     BookEvent=(eventParams) => {
@@ -79,9 +74,9 @@ class DoctorCalendar extends React.Component {
     }
     
     componentWillReceiveProps() {
-        if (localStorage.getItem("userId")!=null)
+        if (localStorage.getItem("token")!=null)
         {
-            this.setState({doctorId:localStorage.getItem("userId")});
+            this.setState({doctorId:jwt_decode(localStorage.getItem("token")).Id});
         }
     }
 
@@ -101,7 +96,7 @@ class DoctorCalendar extends React.Component {
 
     setStyle(event) {
       let newStyle = {
-        backgroundColor: "green",
+        backgroundColor: "seagreen",
         color: 'white',
         borderRadius: "0px",
         border: "none",
@@ -109,7 +104,7 @@ class DoctorCalendar extends React.Component {
       };
 
       if (event.hasBeenBooked){
-        newStyle.backgroundColor = "red"
+        newStyle.backgroundColor = "crimson"
       }
       return newStyle;
     }
@@ -137,6 +132,7 @@ class DoctorCalendar extends React.Component {
 
     
     onEventClick(event){
+      if(!event.hasBeenBooked) return;
       $("#Modalbtn").click();
       this.setState({selectedEvent : event});
     }
@@ -148,7 +144,15 @@ class DoctorCalendar extends React.Component {
       })   
 
       
-      
+      let formats = {
+        dayFormat: (date, culture, localizer) =>
+        
+          localizer.format(date, 'ddd MM/dd', culture),
+          eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
+            return ""
+          },
+      }
+  
 
       var x = window.matchMedia("(max-width: 700px)")
       
@@ -177,11 +181,8 @@ class DoctorCalendar extends React.Component {
                             </div>
                             <div className="form-group">
                             <label>Description of an appointment</label>
-                                <textarea type="text" className="form-control" onChange={this.handleDescription} value={this.state.selectedEvent.description}/>
+                                <textarea type="text" className="form-control" value={this.state.selectedEvent.desc} disabled/>
                             </div>
-                            <button className="btn btn-secondary btn-block">
-                                 Cancel appointment
-                            </button>
                         </form>
                     </div>
                   </div>
@@ -200,6 +201,7 @@ class DoctorCalendar extends React.Component {
               components={{
                 toolbar : Toolbar
               }}
+              formats = {formats} 
               eventPropGetter={
                 (event, start, end, isSelected) => {
                   return {

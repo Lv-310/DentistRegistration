@@ -35,7 +35,6 @@ class Signup extends React.Component {
         }
 
         this.handleUserInput = this.handleUserInput.bind(this);
-
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
