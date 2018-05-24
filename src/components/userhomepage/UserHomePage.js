@@ -4,6 +4,7 @@ import Footer from '../layoutElements/footer';
 import Calendar from '../calendar/Calendar';
 import Select from '../pageBuilder/Select';
 import DoctorsList from '../doctors/DoctorsList';
+import jwt_decode from 'jwt-decode'
 
 class UserHomePage extends React.Component{
     render() {
@@ -14,7 +15,7 @@ class UserHomePage extends React.Component{
                 </div>
                 <div className="col-md-10">
                     <div className="h1">
-                        Hello, user with ID {this.props.location.pathname.substr(this.props.location.pathname.lastIndexOf('/') + 1)}
+                        Hello, {jwt_decode(localStorage.getItem("token")).FirstName + " " + jwt_decode(localStorage.getItem("token")).LastName} 
                     </div>
                     <Select />
                 </div>

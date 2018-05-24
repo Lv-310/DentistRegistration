@@ -9,6 +9,7 @@ import Toolbar from '../customtoolbar/Toolbar';
 import { isMobile } from 'react-device-detect';
 import { withRouter } from 'react-router-dom';
 import { fetchFrom } from '../../helpers/fetcher';
+import jwt_decode from 'jwt-decode';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
@@ -19,50 +20,129 @@ class Calendar extends React.Component {
     super()
     this.state = {
       'allevents': [],
-      selectedEvent: {}
+      selectedEvent: {},
+      desc: "",
+      responseError: {
+        desc: "",
+        wrongCredentials: ""
+      },
+
+      descValid: false,
+      formValid: false,
+      wrongCredentials: false
     }
     this.handleDescription = this.handleDescription.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
-  handleDescription = (event) => {
-    this.setState({ description: this.state.selectedEvent.description })
-
+  handleDescription = (e) => {
+    this.wrongCredentials = false;
+        this.clearErrorMessage();
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({[name]: value},
+    () => { this.validateField(name, value) });
   }
 
   BookEvent = (eventParams) => {
     fetchFrom('CalendarEvent', 'post', eventParams)
       .then((res) => {
-        alert(res.statusCode);
-        return res;
-      })
-      .then((res) => {
+        this.handleWrongBooking(res)
         return res.data;
       }
-      )
+      ).then((res=>{
+        this.getItems();
+      }))
+      alert("Your request is accepted.");   
+      document.getElementById('event-modal-close').click(); 
   }
+
+  handleWrongBooking(event) {
+    if (event.statusCode != 200) {
+        this.state.wrongCredentials = true;
+    }
+
+    if (event.data.Message != undefined) {
+        this.showErrorMessage(event.data.Message);
+    }
+   
+    return event;
+}
+
+showErrorMessage(message) {
+    let errors = this.state.responseError;
+    errors.wrongCredentials = this.state.wrongCredentials ? message : '';
+    this.setState({ responseError: errors });
+}
+
+clearErrorMessage() {
+    let errors = this.state.responseError;
+    errors.wrongCredentials = '';
+    this.setState({ responseError: errors });
+}
 
   handleSubmit = (event) => {
     event.preventDefault()
-
+    if(localStorage.getItem("token") === null)
+    {
+      alert("You must be registred to perform this action");
+      document.getElementById('event-modal-close').click(); 
+      return;
+    }
+    var start = moment(this.state.selectedEvent.start);
+    var end = moment(this.state.selectedEvent.end);
     const eventParams = {
-      selectedEvent: {}
+      selectedEvent: {},
+
+      desc: this.state.desc,
+      userId: jwt_decode(localStorage.getItem("token")).Id,
+      doctorId: this.props.match.params.doctorId,
+      title: this.state.selectedEvent.title,
+      start: moment(start).add(start.utcOffset(), 'm').utc(),
+      end: moment(end).add(end.utcOffset(), 'm').utc(),
+      hasBeenBooked: true
     }
     this.BookEvent(eventParams);
-
   }
+
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.responseError;
+    let descValid = this.state.descValid;
+
+
+    switch (fieldName) {
+        case 'desc':
+        descValid = value.length > 0 && value.length <= 50;
+            fieldValidationErrors.desc = descValid ? '' : 'Input incorrect description';
+            break;
+        default:
+            break;
+    }
+
+    this.setState({
+        responseErrors: fieldValidationErrors,
+        descValid: descValid,
+    }, this.validateForm);
+}
+validateForm() {
+    this.setState({
+        formValid:
+            this.state.descValid
+    });
+}
+
 
   componentDidMount() {
     this.getItems();
   }
 
   getItems() {
-    fetch(`${baseURL}/RandomEvents/${this.props.match.params.doctorId}`)
-      .then(results => results.json())
+    fetchFrom("RandomEvents/"+this.props.match.params.doctorId, "get", null)
       .then(results => {
-        this.setState({ 'allevents': results })
-      });
+        this.setState({ 'allevents': results.data })
+      })
   }
 
   checkIfMobile() {
@@ -80,7 +160,7 @@ class Calendar extends React.Component {
 
   setStyle(event) {
     let newStyle = {
-      backgroundColor: "green",
+      backgroundColor: "seagreen",
       color: 'white',
       borderRadius: "0px",
       border: "none",
@@ -88,7 +168,7 @@ class Calendar extends React.Component {
     };
 
     if (event.hasBeenBooked) {
-      newStyle.backgroundColor = "red"
+      newStyle.backgroundColor = "crimson"
     }
     return newStyle;
   }
@@ -116,10 +196,12 @@ class Calendar extends React.Component {
 
 
   onEventClick(event) {
+    if(event.hasBeenBooked) return;
     $("#Modalbtn").click();
     this.setState({ selectedEvent: event });
   }
 
+  
   formatURLDate = (date) => {
 
     var day = date.getDate();
@@ -128,6 +210,11 @@ class Calendar extends React.Component {
 
     return year + '-' + month + '-' + day;
   }
+
+  clearForm = () => {
+    this.setState({
+        desc: '',
+    })}
 
   render() {
     this.state.allevents.forEach(a => {
@@ -138,6 +225,7 @@ class Calendar extends React.Component {
     var x = window.matchMedia("(max-width: 700px)")
 
     var currentDate = new Date(this.props.match.params.date)
+    
 
     return (
       <div>
@@ -147,12 +235,12 @@ class Calendar extends React.Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4>Make an appointment {this.props.match.params.doctorId}</h4>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h4>Make an appointment</h4>
+                <button type="button" className="close" id="event-modal-close" data-dismiss="modal" onClick={this.clearForm}>&times;</button>
               </div>
               <div className="modal-body">
                 <div className="modal-body col-sm-12">
-                  <form id="ajax-login-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
+                  <form id="ajax-event-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                       <label>Date of an appointment</label>
                       <input type="text" className="form-control" value={this.formatDate(new Date(this.state.selectedEvent.start)) + " (" +
@@ -164,11 +252,13 @@ class Calendar extends React.Component {
                     </div>
                     <div className="form-group">
                       <label>Input a purpose of an appointment</label>
-                      <textarea type="text" className="form-control" onChange={this.handleDescription} value={this.state.selectedEvent.description} />
+                      <textarea type="text" className="form-control" name="desc" onChange={this.handleDescription} value={this.state.desc} required />
+                      <div className="error-message">{this.state.responseError.desc}</div>
                     </div>
                     <button className="btn btn-secondary btn-block">
-                      Visit hell
-                            </button>
+                      Confirm
+                    </button>
+                    <div className="error-message">{this.state.responseError.wrongCredentials} </div>
                   </form>
                 </div>
               </div>

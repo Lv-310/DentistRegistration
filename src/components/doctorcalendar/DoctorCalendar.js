@@ -101,7 +101,7 @@ class DoctorCalendar extends React.Component {
 
     setStyle(event) {
       let newStyle = {
-        backgroundColor: "green",
+        backgroundColor: "seagreen",
         color: 'white',
         borderRadius: "0px",
         border: "none",
@@ -109,7 +109,7 @@ class DoctorCalendar extends React.Component {
       };
 
       if (event.hasBeenBooked){
-        newStyle.backgroundColor = "red"
+        newStyle.backgroundColor = "crimson"
       }
       return newStyle;
     }

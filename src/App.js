@@ -56,7 +56,7 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path='/' render={() => <Redirect to="/Home" />} />
                   <Route path="/Home" component={Homepage} />
-                  <Route path="/Users/:userId" component={UserHomePage} />
+                  <Route path="/Users" component={UserHomePage} />
                   <Route path="/Doctors" component={DoctorHomePage} />
                   <Route path="/Admin" component={AdminHomePage} />
                   <Route component={PageNotFound} />

@@ -13,7 +13,10 @@ class Homepage extends React.Component {
         return (
             <div className="row" id="main-content">
                 <div className="col-md-2">
-                    <DoctorsList />
+                    <Switch>
+                        <Route exact path="/Home" component={DoctorsList} />
+                        <Route path="/Home/doctor/:doctorId/:date/:view" component={DoctorsList} />
+                    </Switch>
                 </div>
                 <div className="col-md-10">
                     <Switch>

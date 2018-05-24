@@ -53,13 +53,13 @@ class Login extends React.Component {
 
                 switch (role) {
                     case 'user':
-                        this.props.history.push('/Users/' + id);
+                        this.props.history.push('/Users/');
                         break;
                     case 'doctor':
-                        this.props.history.push('/Doctors/' + id);
+                        this.props.history.push('/Doctors/');
                         break;
                     case 'admin':
-                        this.props.history.push('/Admins/' + id);
+                        this.props.history.push('/Admin');
                         break;
                     default:
                         break;

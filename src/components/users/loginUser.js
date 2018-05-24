@@ -9,4 +9,8 @@ export function loginUser(loginParams){
 export function signupUser(signupParams){
   return fetchFrom('Users','post',signupParams);
 }
+
+export function signupUser1(signupParams){
+  return fetchFrom('Doctors','post',signupParams);
+}
 //#endregion

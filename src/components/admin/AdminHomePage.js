@@ -1,6 +1,8 @@
 import * as React from 'react';
 import AdminServiceList from '../adminservicelist/AdminServiceList';
-import AdminAddNewService from '../adminservicelist/AdminAddNewService';
+import UserList from '../userList/UserList';
+import InsertDoctor from '../doctors/InsertDoctor';
+import DoctorListForAdminPage from '../doctors/DoctorListForAdminPage';
 
 class AdminHomePage extends React.Component {
     render() {
@@ -11,12 +13,12 @@ class AdminHomePage extends React.Component {
                         <AdminServiceList />
                     </div>
                     <div className="col-md-2">
-                        <AdminAddNewService />
-                        <button className="btn btn-secondary btn-block" data-toggle="modal" href=""
-                            data-target="#addService">Add New Service
-                        </button>
+                    <UserList />
                     </div>
-
+                    <div> 
+                     <DoctorListForAdminPage/>  <a className="text-red mr-sm-4 nav-link" data-toggle="modal" href="" data-target="#registerModalDoctor">Add new Doctor!</a>
+                    </div>
+                    <InsertDoctor/>
                 </div>
             </div>
         );
