@@ -28,7 +28,7 @@ namespace DentistRegistration.DataAccessLayer
 
         public string GetBackEndVersion()
         {
-           return File.ReadAllLines(HttpContext.Current.Server.MapPath("~/") + "../version.txt")[0].Trim();
+           return File.ReadAllLines(HttpContext.Current.Server.MapPath("~/version.txt"))[0].Trim();
         }
     }
 }

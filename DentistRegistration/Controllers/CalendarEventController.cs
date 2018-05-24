@@ -36,7 +36,9 @@ namespace DentistRegistration.Controllers
                 }
 
                 bool isAdded = eventsDAL.InsertEvent(cEvent);
+                if(isAdded)
                 return Ok("Event is added");
+                return BadRequest("Event is already booked");
             }
             catch (Exception)
             {

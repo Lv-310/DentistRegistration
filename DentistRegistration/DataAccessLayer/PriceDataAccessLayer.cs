@@ -119,7 +119,6 @@ namespace DentistRegistration.DataAccessLayer
                             CommandType = CommandType.StoredProcedure
                         };
 
-                        cmd.Parameters.AddWithValue("@ID_PRICE", price.Id);
                         cmd.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
                         cmd.Parameters.AddWithValue("@PRICE", price.Price);
                         cmd.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
@@ -140,6 +139,19 @@ namespace DentistRegistration.DataAccessLayer
                         cmd.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart.AddDays(1));
                         cmd.ExecuteNonQuery();
                         message = "Price is inserted to the next day";
+                        isInserted = true;
+                    }
+                    else if (check.ToLower() == "editnextday")
+                    {
+                        SqlCommand cmd = new SqlCommand("spEditNextDayPrice", con)
+                        {
+                            CommandType = CommandType.StoredProcedure
+                        };
+                        cmd.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
+                        cmd.Parameters.AddWithValue("@PRICE", price.Price);
+                        cmd.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart.AddDays(1));
+                        cmd.ExecuteNonQuery();
+                        message = "The next day price was updated";
                         isInserted = true;
                     }
                     else
