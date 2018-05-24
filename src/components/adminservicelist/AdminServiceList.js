@@ -48,11 +48,10 @@ class AdminServiceList extends React.Component {
                 this.setState(state);
                 return;
             }
-            document.getElementById('modal-close').click();
+            document.getElementById('register-modal-close').click();
             window.location.reload();
         }));
-
-        savePrice(EditedPriceData)
+        // savePrice(EditedPriceData)
     }
 
 
@@ -134,8 +133,6 @@ class AdminServiceList extends React.Component {
     }
 
 
-
-
     changeCollapse() {
         if (isMobile)
             document.getElementById("service").className = "collapse";
@@ -169,7 +166,7 @@ class AdminServiceList extends React.Component {
         var monthIndex = date.getMonth() + 1;
         var year = date.getFullYear();
 
-        return day + '/' + monthIndex + '/' + year;
+        return day + '-' + monthIndex + '-' + year;
     }
 
 
@@ -207,7 +204,7 @@ class AdminServiceList extends React.Component {
                         <div className="modal-content">
                             <div className="modal-header text-center">
                                 <h4>{this.state.service.Name}</h4>
-                                <button onClick={this.clearForm} type="button" id="modal-close" className="close" data-dismiss="modal" > &times;</button>
+                                <button onClick={this.clearForm} type="button" id="register-modal-close" className="close" data-dismiss="modal" > &times;</button>
                             </div>
 
                             <div className="modal-body col-lg-12">
