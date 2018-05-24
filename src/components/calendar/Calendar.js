@@ -211,6 +211,15 @@ validateForm() {
     return year + '-' + month + '-' + day;
   }
 
+  changeCurrentView = () => {
+    if(isMobile){
+      return 'day';
+    }
+    else {
+      return this.props.match.params.view;
+    } 
+  }
+  
   clearForm = () => {
     this.setState({
         desc: '',
@@ -226,6 +235,7 @@ validateForm() {
 
     var currentDate = new Date(this.props.match.params.date)
     
+    var currentView = this.changeCurrentView();
 
     return (
       <div>
@@ -267,7 +277,7 @@ validateForm() {
         </div>
         <BigCalendar
           events={this.state.allevents}
-          defaultView={this.props.match.params.view}
+          defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
           defaultDate={currentDate}
           views={this.checkIfMobile()}
