@@ -18,7 +18,7 @@ namespace DentistRegistration.Models
         [Required(ErrorMessage = "Field can't be empty")]
         public long PhoneNum { get; set; }
 
-        [Range(1, 999, ErrorMessage = "Cubinet number should be from 1 to 3 digits")]
+        [Range(1, 250, ErrorMessage = "Cubinet number should be from 1 to 250 ")]
         [Required(ErrorMessage = "Field can't be empty")]
         public byte CabNum { get; set; }
 
