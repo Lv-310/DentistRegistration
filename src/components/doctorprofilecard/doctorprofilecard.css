@@ -4,9 +4,14 @@
 
 .my-img{
     border-radius: 40%;
+    width: 50%;
 }
 
 .btn.btn-success{
-    width:40%;
+    width:50%;
     background-color: seagreen;
+}
+
+.container{
+    vertical-align: middle;
 }

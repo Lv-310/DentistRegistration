@@ -42,10 +42,10 @@ class DoctorsProfileCard extends React.Component{
         <div className="container">
             <div className="row" align="middle">
                 <div className="col-md-12" >
-                   
+                <h1> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h1>
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalHrvEmJmi7Ui0Mkv3J3CN9-g10g_QEsclAB5mokha5KgRf7T" 
                         alt="no image" className="my-img center-block    img-responsive" /> 
-                         <h2> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h2>
+                        
                     <div className="panel panel-default">
                     <div className="panel-body">
                                 <div className="row">
