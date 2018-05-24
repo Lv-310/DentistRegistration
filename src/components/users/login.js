@@ -25,8 +25,6 @@ class Login extends React.Component {
 
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
-
     }
 
     handleSubmit = (event) => {
@@ -43,7 +41,7 @@ class Login extends React.Component {
                 if (user.statusCode != 200) return;
                 var decoded = jwt_decode(user.data.token);
                 var tokenDurating = decoded.exp * 1000;
-                localStorage.setItem("token",user.data.token);
+                localStorage.setItem("token", user.data.token);
                 localStorage.setItem("tokenDurating", tokenDurating);
                 checkToken();
                 document.getElementById('login-modal-close').click();
