@@ -92,6 +92,11 @@ namespace DentistRegistration.DataAccessLayer
         public bool EditPrice(PriceModel price, out string message)
         {
                 bool isInserted = false;
+                if (price.Price < 0)
+                {
+                    message = "incorrect price";
+                    return false;
+                }
                 using (var con = new SqlConnection(connectionString))
                 {
                     con.Open();
