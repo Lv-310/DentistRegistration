@@ -21,10 +21,12 @@ class AdminServiceList extends React.Component {
             datePrice: '',
 
             formErrors: {
-                price: ''
+                price: '',
+                datePrice: ''
             },
 
-            priceValid: false
+            priceValid: false,
+            datePriceValid: false
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -39,6 +41,17 @@ class AdminServiceList extends React.Component {
             DateStart: this.state.price.DateStart
 
         }
+        savePrice(EditedPriceData).then((item => {
+            if (item.statusCode != 200) {
+                var state = this.state;
+                state.formErrors.userExist = item.data.Message;
+                this.setState(state);
+                return;
+            }
+            document.getElementById('modal-close').click();
+            window.location.reload();
+        }));
+
         savePrice(EditedPriceData)
     }
 
@@ -75,17 +88,24 @@ class AdminServiceList extends React.Component {
         this.setState({
             formValid:
                 this.state.priceValid
+
+
         });
     }
 
     validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
         let priceValid = this.state.priceValid;
+        let datePriceValid = this.state.datePriceValid;
 
         switch (fieldName) {
             case 'updatedPrice':
                 priceValid = value.match(/^[1-9][0-9]*$/) && value.length >= 0;
                 fieldValidationErrors.price = priceValid ? '' : 'You input incorrect data, please try again';
+                break;
+            case 'datePrice':
+                datePriceValid = value.length > 0;
+                fieldValidationErrors.datePrice = datePriceValid ? '' : 'You input incorrect data, please try again';
                 break;
             default:
                 break;
@@ -93,7 +113,8 @@ class AdminServiceList extends React.Component {
 
         this.setState({
             formErrors: fieldValidationErrors,
-            priceValid: priceValid
+            priceValid: priceValid,
+            datePriceValid: datePriceValid
         }, this.validateForm);
     }
 
@@ -106,9 +127,13 @@ class AdminServiceList extends React.Component {
             updatedPrice: '',
             formErrors: {
                 price: '',
+                datePrice: ''
+
             }
         });
     }
+
+
 
 
     changeCollapse() {
@@ -138,6 +163,15 @@ class AdminServiceList extends React.Component {
         });
     }
 
+    formatDate = (date) => {
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        return day + '/' + monthIndex + '/' + year;
+    }
+
 
     render() {
         return (
@@ -155,8 +189,10 @@ class AdminServiceList extends React.Component {
                 <div id="price" className="collapse show">
                     {this.state.prices.map((price, index) => {
                         return <div>
+
                             <span type="button" key={index} className="list-group-item list-group-item-action" >
-                                {price.Price}
+                                <span>{price.Price}</span>
+                                <span> {this.formatDate(new Date(price.DateStart))}</span>
                                 <a href="#" className="fas fa-edit float-right"
                                     onClick={() => this.addCurentPriceValues(price)} data-toggle="modal" data-target="#editPriceModal">
                                 </a>
@@ -171,7 +207,7 @@ class AdminServiceList extends React.Component {
                         <div className="modal-content">
                             <div className="modal-header text-center">
                                 <h4>{this.state.service.Name}</h4>
-                                <button onClick={this.clearForm} type="button" id="login-modal-close" className="close" data-dismiss="modal" > &times;</button>
+                                <button onClick={this.clearForm} type="button" id="modal-close" className="close" data-dismiss="modal" > &times;</button>
                             </div>
 
                             <div className="modal-body col-lg-12">
@@ -193,6 +229,7 @@ class AdminServiceList extends React.Component {
                                             value={this.state.datePrice}
                                             onChange={this.updatedInputDate}
                                         />
+                                        <div className="error-message">{this.state.formErrors.datePrice}</div>
                                     </div>
                                     <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
                                         Save
@@ -203,7 +240,7 @@ class AdminServiceList extends React.Component {
                     </div>
                 </div>
             </div>
-           
+
 
 
         );

@@ -15,7 +15,7 @@ class AdminHomePage extends React.Component {
                     </div>
                     <div className="col-md-2">
                         <AdminAddNewService />
-                        <button className="text-red mr-sm-4 nav-link" data-toggle="modal" href="" data-target="#addService">Add New Service
+                        <button className="text-red mr-sm-4 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#addService">Add New Service
                         </button>
                     </div>
                     <div className="col-md-2">

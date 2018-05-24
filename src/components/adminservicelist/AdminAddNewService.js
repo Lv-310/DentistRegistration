@@ -33,18 +33,17 @@ class AdminAddNewService extends React.Component {
             Description: this.state.Description
 
         }
-        AddService(insertParams)
 
-
-        // AddService(insertParams).then((item => {
-        //     if (item.statusCode != 200) {
-        //         var state = this.state;
-        //         state.formErrors.userExist = item.data.Message;
-        //         this.setState(state);
-        //         return;
-        //     }
-        //     document.getElementById('register-modal-close').click();
-        // }));
+        AddService(insertParams).then((item => {
+            if (item.statusCode != 200) {
+                var state = this.state;
+                state.formErrors.userExist = item.data.Message;
+                this.setState(state);
+                return;
+            }
+            document.getElementById('register-modal-close').click();
+            window.location.reload();
+        }));
     }
 
     handleAdminInput = (e) => {
