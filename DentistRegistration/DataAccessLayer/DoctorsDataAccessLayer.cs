@@ -22,7 +22,7 @@ namespace DentistRegistration.DataAccessLayer
             {
                 SqlCommand cmd = new SqlCommand("Select * from Doctors", con);
                 
-                con.Open();
+                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 
                 while (reader.Read())
