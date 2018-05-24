@@ -58,7 +58,8 @@ class InsertDoctor extends React.Component {
                 this.setState(state);
                 return;
             }
-            document.getElementById('register-modal-close').click();
+            document.getElementById('modal-close').click();
+            window.location.reload();
         }));
     }
 
@@ -84,11 +85,11 @@ class InsertDoctor extends React.Component {
 
         switch (fieldName) {
             case 'FirstName':
-                FirstNameValid = value.match(/^[a-zA-Z]+$/) && value.length > 0;
+                FirstNameValid = value.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/) && value.length > 0;
                 fieldValidationErrors.FirstName = FirstNameValid ? '' : 'First name is incorrect';
                 break;
             case 'LastName':
-                LastNameValid = value.match(/^[a-zA-Z]+$/) && value.length > 0;
+                LastNameValid = value.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/) && value.length > 0;
                 fieldValidationErrors.LastName = LastNameValid ? '' : 'Last name is incorrect';
                 break;
             case 'PhoneNum':
@@ -96,8 +97,8 @@ class InsertDoctor extends React.Component {
                 fieldValidationErrors.PhoneNum = PhoneNumValid ? '' : 'PhoneNumber less than 12 or incorrect';
                 break;
             case 'CabNum':
-                CabNumValid = value.match(/^[0-9]+$/) && value.length >= 1 && value.length <= 3 ;
-                fieldValidationErrors.CabNum = CabNumValid ? '' : 'CabinetNumber less than 1 digit and biggest than 3 digit or incorrect';
+                CabNumValid = value.match(/^[0-9]+$/) && value >= 1 && value <= 250 ;
+                fieldValidationErrors.CabNum = CabNumValid ? '' : 'CabinetNumber must be from 1 to 250  or incorrect';
                 break;
             case 'Speciality':
                 SpecialityValid = value.length >= 6 && value.length <= 15;
@@ -130,8 +131,8 @@ class InsertDoctor extends React.Component {
     validateForm() {
         this.setState({
             formValid:
-                this.state.FirstNameValid && this.state.LastNameValid &&
-                this.state.PhoneNumValid && this.CabNumValid && this.SpecialityValid && this.state.Doc_passwordValid && this.state.confirmDoc_passwordValid
+            this.state.FirstNameValid  && this.state.LastNameValid && 
+                this.state.PhoneNumValid && this.state.Doc_passwordValid && this.state.confirmDoc_passwordValid 
         });
 
     }
@@ -169,10 +170,10 @@ class InsertDoctor extends React.Component {
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4>Add new Doctor</h4>
-                            <button type="button" id="register-modal-close" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
+                            <button type="button" id="modal-close" className="close" data-dismiss="modal" onClick={this.clearForm}> &times;</button>
                         </div>
                         <div className="modal-body col-lg-12">
-                            <form id="ajax-register-form" action="" value={this.state.value} method="post" autoComplete="off" onSubmit={this.handleSubmit}>
+                            <form id="ajax-registerDoctor-form" action="" value={this.state.value} method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.FirstName)}`} placeholder="First Name" required="required" name="FirstName"
                                         onChange={this.handleUserInput} value={this.state.FirstName} />
@@ -199,7 +200,7 @@ class InsertDoctor extends React.Component {
                                     <div className="error-message">{this.state.formErrors.Speciality}</div>
                                 </div>
                                 <div className="form-group">
-                                    <input type="password" className={`form-control ${this.errorBorder(this.state.formErrors.Doc_password)}`} placeholder="Password!" required="required" name="Doc_password"
+                                    <input type="password" className={`form-control ${this.errorBorder(this.state.formErrors.Doc_password)}`} placeholder="Password" required="required" name="Doc_password"
                                         onChange={this.handleUserInput} value={this.state.Doc_password} />
                                     <div className="error-message">{this.state.formErrors.Doc_password}</div>
                                 </div>
@@ -209,14 +210,14 @@ class InsertDoctor extends React.Component {
                                         onChange={this.handleUserInput} value={this.state.confirmDoc_password} />
                                     <div className="error-message">{this.state.formErrors.confirmDoc_password}</div>
                                 </div>
-                                <button className="btn btn-secondary btn-block" >
+                                <button className="btn btn-secondary btn-block" disabled={!this.state.formValid} onClick={document.getElementById("modal-close")}>
                                     Register Doctor 
                                 </button>
                                 <div className="error-message">{this.state.formErrors.userExist}</div>
                             </form>
                         </div>
                     </div>
-                </div>
+                      </div>
             </div>
         );
     }

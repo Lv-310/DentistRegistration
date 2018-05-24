@@ -1,40 +1,40 @@
 .btn.btn-secondary.doctor-list {
-    width: 100%;
-    margin-bottom: 10px;
-    color : white;
-    text-align: left;
-  }
-  li {
-    list-style-type: none;
-  }
-  .doctor-main{
-    align-content: center;
-  }
+  width: 100%;
+  margin-bottom: 10px;
+  color : white;
+  text-align: left;
+}
+li {
+  list-style-type: none;
+}
+.doctor-main{
+  align-content: center;
+}
 
-  .btn.my-list-header{
-    background-color: grey;
-  }
+.btn.my-list-header{
+  background-color: grey;
+}
 
-  .col-md-2>.list-group{
-    margin-left: 15px;
-    margin-bottom: 20px;
-  }
+.col-md-2>.list-group{
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
 
-  #down-arrow{
-    float: right;
-  }
+#down-arrows{
+  float: right;
+}
 
 @media screen and (max-width: 770px) {
-    #demo.collapsed {
-      display: inline; 
-    }
+  #demo2.collapsed {
+    display: inline; 
+  }
 }
 
 @media screen and (min-width: 771px){
-  #demo:not(.collapsed) {
-    display: inline;
-  }
-  #first{
-    pointer-events: none;
-  }
+#demo2:not(.collapsed) {
+  display: inline;
+}
+#first1{
+  pointer-events: none;
+}
 }
