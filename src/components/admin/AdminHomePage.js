@@ -15,8 +15,9 @@ class AdminHomePage extends React.Component {
                     <div className="col-md-2">
                     <UserList />
                     </div>
-                    <div> 
-                     <DoctorListForAdminPage/>  <a className="text-red mr-sm-4 nav-link" data-toggle="modal" href="" data-target="#registerModalDoctor">Add new Doctor!</a>
+                    <div className="col-md-2">
+                         <a  className="text-red mb-1 ml-3 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#registerModalDoctor">Add new Doctor!</a>
+                     <DoctorListForAdminPage/>  
                     </div>
                     <InsertDoctor/>
                 </div>
