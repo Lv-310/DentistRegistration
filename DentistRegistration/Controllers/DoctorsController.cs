@@ -13,7 +13,7 @@ namespace DentistRegistration.Controllers
 
        
         [HttpGet]
-        public List<Doctor> GetData()
+        public IEnumerable<Doctor> GetData()
         {
             return objdoctors.GetAllDoctors().ToList();
         }
