@@ -30,6 +30,14 @@ class NavBar extends React.Component {
         }
     }
 
+    getUserHref()
+    {
+        if(role=="") return "#"
+        if(role=="user") return "/Users"
+        if(role=="doctor") return "/Doctors"
+        if(role=="admin") return "/Admin"
+    }
+
     render() {
        return (
             <div className="container">
@@ -58,7 +66,7 @@ class NavBar extends React.Component {
                                 </li>
                                 :null}
 
-                                 {this.state.logout?<li><a className="text-light mr-sm-4 nav-link" href="#">
+                                 {this.state.logout?<li><a className="text-light mr-sm-4 nav-link" href={this.getUserHref()}>
                                     {jwt_decode(localStorage.getItem("token")).FirstName + " " + jwt_decode(localStorage.getItem("token")).LastName}</a></li>
                                 :null}         
                                                     

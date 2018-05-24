@@ -34,9 +34,11 @@
   #demo:not(.collapsed) {
     display: inline;
   }
+
   #first{
     pointer-events: none;
   }
+  
 }
 
 
