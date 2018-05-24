@@ -65,15 +65,6 @@ namespace DentistRegistration.Controllers
             }
         }
 
-        // PUT: api/Price/5
-        public IHttpActionResult Put([FromBody]PriceModel price)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("Not a valid model");
-            PriceModel m = price;
-            return Ok(price);
-        }
-
         // DELETE: api/Price/5
         public void Delete(int id)
         {

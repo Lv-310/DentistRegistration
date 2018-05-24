@@ -22,7 +22,7 @@ namespace DentistRegistration.Servises
                 issuer: AllConstants.JwtTokenConstants.Issuer,
                 audience: AllConstants.JwtTokenConstants.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: cred);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

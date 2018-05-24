@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,6 +11,84 @@ namespace DentistRegistration.DataAccessLayer
     public class InsertUsersDataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            List<User> userList = new List<User>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM USERS;", con);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    User user = new User
+                    {
+                        FirstName = reader.GetValue(0).ToString(),
+                        LastName = reader.GetValue(1).ToString(),
+                        PhoneNum = Convert.ToInt64(reader.GetValue(2)),
+                        Password = reader.GetValue(3).ToString(),
+                        Email = reader.GetValue(4).ToString(),
+                        Id = Convert.ToInt32(reader.GetValue(5))
+                    };
+
+                    userList.Add(user);
+                }
+                reader.Close();
+            }
+            return userList;
+        }
+
+        public User GetUserById(int id)
+        {
+            User user = new User();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("spGetUserById", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_USER", user.Id);
+                SqlParameter outPutFirstName = new SqlParameter("@FIRSTNAME", SqlDbType.VarChar)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outPutFirstName);
+
+                SqlParameter outPutLastName = new SqlParameter("@LASTNAME", SqlDbType.VarChar)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outPutLastName);
+
+                SqlParameter outPutPhoneNum = new SqlParameter("@PHONENUM", SqlDbType.BigInt)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outPutPhoneNum);
+
+                SqlParameter outPutEmail = new SqlParameter("@EMAIL", SqlDbType.VarChar)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outPutEmail);
+
+                cmd.ExecuteNonQuery();
+
+                user = new User
+                {
+                    FirstName = cmd.Parameters["@FIRSTNAME"].Value.ToString(),
+                    LastName = cmd.Parameters["@LASTNAME"].Value.ToString(),
+                    PhoneNum = Convert.ToInt64(cmd.Parameters["@PHONENUM"].Value),
+                    Email = cmd.Parameters["@EMAIL"].Value.ToString(),
+                    Id = id
+                };
+            }
+            return user;
+        }
 
         public bool InsertUser(User user)
         {
@@ -54,31 +133,6 @@ namespace DentistRegistration.DataAccessLayer
             }
 
             return isInserted;
-        }
-
-        internal bool UpdateUser(User user)
-        {
-            bool isUpdated = false;
-            using (var con = new SqlConnection(connectionString))
-            {
-                con.Open();
-
-                SqlCommand cmd = new SqlCommand("spUpdateUser", con)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                cmd.Parameters.AddWithValue("@ID", user.Id);
-                cmd.Parameters.AddWithValue("@FIRSTNAME", user.FirstName);
-                cmd.Parameters.AddWithValue("@LASTNAME", user.LastName);
-                cmd.Parameters.AddWithValue("@PHONENUM", user.PhoneNum);
-                cmd.Parameters.AddWithValue("@EMAIL", user.Email);
-
-                cmd.ExecuteNonQuery();
-
-                isUpdated = true;
-            }
-            return isUpdated;
         }
     }
 }

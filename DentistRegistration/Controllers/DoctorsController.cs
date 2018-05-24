@@ -13,7 +13,7 @@ namespace DentistRegistration.Controllers
         private DoctorsDataAccessLayer objdoctors = new DoctorsDataAccessLayer();
 
         [HttpGet]
-        public List<Doctor> GetData()
+        public IEnumerable<Doctor> GetData()
         {
             return objdoctors.GetAllDoctors().ToList();
         }
@@ -42,9 +42,9 @@ namespace DentistRegistration.Controllers
                 }
                 return BadRequest("Phone already registered");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Something went wrong");
             }
         }
 
