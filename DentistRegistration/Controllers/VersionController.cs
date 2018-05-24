@@ -13,7 +13,7 @@ namespace DentistRegistration.Controllers
         // GET: api/Version
         public IEnumerable<string> Get()
         {
-            return new string[]{ versions.GetDatabaseVersion() , versions.GetBackEndVersion()};
+            return new string[] { versions.GetDatabaseVersion(), versions.GetBackEndVersion() };
         }
 
         public string Get(string version)
