@@ -278,6 +278,7 @@
   }
   .rbc-row-segment {
     padding: 0 1px 1px 1px;
+    min-width: 14.2857%;
   }
   .rbc-selected-cell {
     background-color: rgba(0, 0, 0, 0.1);
