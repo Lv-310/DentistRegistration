@@ -222,6 +222,15 @@ validateForm() {
       a.end = new Date(a.end);
     })
 
+    let formats = {
+      dayFormat: (date, culture, localizer) =>
+      
+        localizer.format(date, 'ddd MM/dd', culture),
+        eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
+          return ""
+        },
+    }
+
     var x = window.matchMedia("(max-width: 700px)")
 
     var currentDate = new Date(this.props.match.params.date)
@@ -279,6 +288,7 @@ validateForm() {
           components={{
             toolbar: Toolbar
           }}
+          formats = {formats} 
           eventPropGetter={
             (event, start, end, isSelected) => {
               return {
