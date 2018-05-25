@@ -84,7 +84,7 @@ namespace DentistRegistration.DataAccessLayer
                     isInserted = true;
 
                 }
-                else message = "U cannot add previous prices";
+                else message = "You cannot add previous or already existing prices";
             }
 
             return isInserted;
@@ -162,7 +162,7 @@ namespace DentistRegistration.DataAccessLayer
                     }
                     else
                     {
-                        message = "U can not update previous prices";
+                        message = "You can not update previous prices";
                         isInserted = false;
                     }
                 }
