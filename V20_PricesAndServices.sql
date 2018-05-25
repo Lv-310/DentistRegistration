@@ -26,10 +26,10 @@ IF object_id('spCheckDate') IS NULL
     EXEC ('create procedure dbo.spCheckDate  as select 1')
 GO
 ALTER PROCEDURE spCheckDate
-@DATE_START_PRICE DATE, @RESULT BIT OUTPUT
+@DATE_START_PRICE DATE, @SERVICE_ID INT,  @RESULT BIT OUTPUT
 AS
 BEGIN
-IF (@DATE_START_PRICE > (select cast(getdate() as date)) AND (Select count(*) from Prices where DATE_START_PRICE = @DATE_START_PRICE) = 0)
+IF (@DATE_START_PRICE > (select cast(getdate() as date)) AND (Select count(*) from Prices where DATE_START_PRICE = @DATE_START_PRICE and SERVICE_ID=@SERVICE_ID) = 0)
 	set @Result=1
 ELSE set @Result=0
 END;
