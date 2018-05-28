@@ -32,6 +32,7 @@ namespace DentistRegistration.Controllers
         [HttpPost]
         public IHttpActionResult InsertService([FromBody]Service service)
         {
+
             try
             {
                 if (!ModelState.IsValid)
