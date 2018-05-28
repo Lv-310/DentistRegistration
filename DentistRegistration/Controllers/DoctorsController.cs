@@ -10,18 +10,23 @@ namespace DentistRegistration.Controllers
 {
     public class DoctorsController : ApiController
     {
-        private DoctorsDataAccessLayer objdoctors = new DoctorsDataAccessLayer();
+        private IRepositoryCRU<Doctor> repo;
+
+        public DoctorsController(IRepositoryCRU<Doctor> r)
+        {
+            repo = r;
+        }
 
         [HttpGet]
         public IEnumerable<Doctor> GetData()
         {
-            return objdoctors.GetAllDoctors().ToList();
+            return repo.GetAll().ToList();
         }
 
         [HttpGet]
         public Doctor GetDoctor(int id)
         {
-            return objdoctors.GetDoctorById(id);
+            return repo.GetById(id);
         }
 
         [HttpPost]
@@ -34,7 +39,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isAdded = objdoctors.InsertDoctor(doctor);
+                bool isAdded = repo.Insert(doctor);
 
                 if (isAdded)
                 {
@@ -58,7 +63,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isUpdated = objdoctors.UpdateDoctor(doctor);
+                bool isUpdated = repo.Update(doctor);
 
                 if (isUpdated)
                 {

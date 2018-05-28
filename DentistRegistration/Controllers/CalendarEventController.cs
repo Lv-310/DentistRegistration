@@ -9,17 +9,17 @@ namespace DentistRegistration.Controllers
 {
     public class CalendarEventController : ApiController
     {
-        private CalendarEventDAL eventsDAL = new CalendarEventDAL();
+        private CalendarEventsDAL eventsDAL = new CalendarEventsDAL();
 
         // GET: api/CalendarEvent
         public List<CalendarEvent> GetAllEvents()
         {
-            return eventsDAL.GetEvents().ToList();
+            return eventsDAL.GetAll().ToList();
         }
         [HttpGet]
         public List<CalendarEvent> GetEventsByDoctorId(int id)
         {
-            List<CalendarEvent> listEvents = eventsDAL.GetEventsByDoctor(id).ToList();
+            List<CalendarEvent> listEvents = eventsDAL.GetById(id).ToList();
             return listEvents;
         }
 
@@ -35,7 +35,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isAdded = eventsDAL.InsertEvent(cEvent);
+                bool isAdded = eventsDAL.Insert(cEvent);
                 if(isAdded)
                 return Ok("Event is added");
                 return BadRequest("Event is already booked");
