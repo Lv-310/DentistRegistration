@@ -2,10 +2,14 @@
 using System.Web.Http;
 using System.Web.Http.Cors;
 using DentistRegistration.Constants;
+using DentistRegistration.DataAccessLayer;
+using DentistRegistration.Interfaces;
+using DentistRegistration.Models;
 using DentistRegistration.Services;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
 using Owin;
+using Unity;
 
 namespace DentistRegistration
 {
@@ -44,6 +48,13 @@ namespace DentistRegistration
 
             //Redirect http tp https
             config.Filters.Add(new RequireHttpsAttribute());
+
+
+            var container = new UnityContainer();
+            container.RegisterType<IRepositoryCRU<Doctor>, DoctorsDAL>();
+            container.RegisterType<IRepositoryCRU<Service>, ServicesDAL>();
+            container.RegisterType<IRepositoryCRU<User>, UsersDAL>();
+            config.DependencyResolver = new UnityResolver(container);
         }
     }
 }

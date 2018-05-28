@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class InsertUsersDataAccessLayer
+    public class UsersDAL: IRepositoryCRU<User>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<User> GetAll()
         {
             List<User> userList = new List<User>();
 
@@ -42,7 +43,7 @@ namespace DentistRegistration.DataAccessLayer
             return userList;
         }
 
-        public User GetUserById(int id)
+        public User GetById(int id)
         {
             User user = new User();
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -90,7 +91,7 @@ namespace DentistRegistration.DataAccessLayer
             return user;
         }
 
-        public bool InsertUser(User user)
+        public bool Insert(User user)
         {
             bool isInserted = false;
             using (var con = new SqlConnection(connectionString))
@@ -133,6 +134,11 @@ namespace DentistRegistration.DataAccessLayer
             }
 
             return isInserted;
+        }
+
+        public bool Update(User entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

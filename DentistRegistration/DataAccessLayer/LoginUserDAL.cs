@@ -7,7 +7,7 @@ using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class LoginUserDataAccessLayer
+    public class LoginUserDAL
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 

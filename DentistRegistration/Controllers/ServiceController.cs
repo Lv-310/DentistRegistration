@@ -1,4 +1,5 @@
 ﻿using DentistRegistration.DataAccessLayer;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,17 @@ namespace DentistRegistration.Controllers
 {
     public class ServiceController : ApiController
     {
-        private ServicesDataAccessLayer servDal = new ServicesDataAccessLayer();
+        private IRepositoryCRU<Service> repo;
+
+        public ServiceController(IRepositoryCRU<Service> r)
+        {
+            repo = r;
+        }
 
         // GET: api/Service
-        public IEnumerable<Service> Get()
+        public IEnumerable<Service> GetAll()
         {
-            return servDal.GetAllServices();
+            return repo.GetAll();
         }
 
         // GET: api/Service/5
@@ -33,7 +39,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isAdded = servDal.InsertService(service);
+                bool isAdded = repo.Insert(service);
                 if (isAdded)
                 {
                     return Ok("Service is added");

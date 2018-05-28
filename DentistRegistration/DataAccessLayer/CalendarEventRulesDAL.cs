@@ -12,7 +12,7 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public IEnumerable<CalendarEventRule> GetEventRules()
+        public IEnumerable<CalendarEventRule> GetAll()
         {
             List<CalendarEventRule> lseventRules = new List<CalendarEventRule>();
 

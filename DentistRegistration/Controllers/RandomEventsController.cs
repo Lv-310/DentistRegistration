@@ -9,7 +9,7 @@ namespace DentistRegistration.Controllers
 {
     public class RandomEventsController : ApiController
     {
-        private CalendarEventDAL eventsDAL = new CalendarEventDAL();
+        private CalendarEventsDAL eventsDAL = new CalendarEventsDAL();
         // GET: api/RandomEvents
         public IEnumerable<CalendarEvent> Get()
         {
@@ -19,7 +19,7 @@ namespace DentistRegistration.Controllers
         // GET: api/RandomEvents/5
         public IEnumerable<CalendarEvent> Get(int id)
         {
-            var listEvents = eventsDAL.GetEventsByDoctor(id).ToList();
+            var listEvents = eventsDAL.GetById(id).ToList();
             var fakeEvents = GenerateEvents(DateTime.Now - new TimeSpan(10,0,0,0), DateTime.Now.AddDays(10)).ToList();
             return RemoveExistingEvents(fakeEvents, listEvents);
         }

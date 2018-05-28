@@ -9,12 +9,12 @@ using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class DoctorsDataAccessLayer:IRepository<Doctor>
+    public class DoctorsDAL:IRepositoryCRU<Doctor>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         // To View all Doctors details    
-        public IEnumerable<Doctor> GetAllDoctors()
+        public IEnumerable<Doctor> GetAll()
         {
             List<Doctor> lstdoctors = new List<Doctor>();
 
@@ -47,7 +47,7 @@ namespace DentistRegistration.DataAccessLayer
             return lstdoctors;
         }
 
-        public bool UpdateDoctor(Doctor doctor)
+        public bool Update(Doctor doctor)
         {
             bool isUpdated = false;
             using (var con = new SqlConnection(connectionString))
@@ -73,7 +73,7 @@ namespace DentistRegistration.DataAccessLayer
             return isUpdated;
         }
 
-        public Doctor GetDoctorById(int id)
+        public Doctor GetById(int id)
         {
             Doctor doc = new Doctor();
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -101,7 +101,7 @@ namespace DentistRegistration.DataAccessLayer
             return doc;
         }
 
-        public bool InsertDoctor(Doctor doctor)
+        public bool Insert(Doctor doctor)
         {
             bool isInserted = false;
             using (var con = new SqlConnection(connectionString))

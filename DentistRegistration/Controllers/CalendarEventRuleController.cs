@@ -13,7 +13,7 @@ namespace DentistRegistration.Controllers
         // GET: api/CalendarEventRule
         public List<CalendarEventRule> GetAllEvents()
         {
-            return eventRulesDAL.GetEventRules().ToList();
+            return eventRulesDAL.GetAll().ToList();
         }
     }
 }

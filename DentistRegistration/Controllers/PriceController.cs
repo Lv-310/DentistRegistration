@@ -8,12 +8,12 @@ namespace DentistRegistration.Controllers
 {
     public class PriceController : ApiController
     {
-        private PriceDataAccessLayer priceDal = new PriceDataAccessLayer();
+        private PricesDAL priceDal = new PricesDAL();
 
         // GET: api/Price/5
         public IEnumerable<PriceModel> Get(int id)
         {
-            return priceDal.GetAllPricesById(id);
+            return priceDal.GetById(id);
         }
 
         // POST: api/Price
@@ -27,7 +27,7 @@ namespace DentistRegistration.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                bool isAdded = priceDal.InsertPrice(price, out string message);
+                bool isAdded = priceDal.Insert(price, out string message);
                 if (isAdded)
                 {
                     return Ok(message);
@@ -52,7 +52,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
                 string message;
-                bool isAdded = priceDal.EditPrice(price, out message);
+                bool isAdded = priceDal.Update(price, out message);
                 if (isAdded)
                 {
                     return Ok(message);

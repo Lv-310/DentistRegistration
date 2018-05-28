@@ -1,4 +1,5 @@
-﻿using DentistRegistration.Models;
+﻿using DentistRegistration.Interfaces;
+using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,12 +8,12 @@ using System.Data.SqlClient;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class PriceDataAccessLayer
+    public class PricesDAL
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         // To View all Prices    
-        public IEnumerable<PriceModel> GetAllPricesById(int id)
+        public IEnumerable<PriceModel> GetById(int id)
         {
             List<PriceModel> lstprices = new List<PriceModel>();
 
@@ -42,7 +43,7 @@ namespace DentistRegistration.DataAccessLayer
             return lstprices;
         }
 
-        public bool InsertPrice(PriceModel price, out string message)
+        public bool Insert(PriceModel price, out string message)
         {
             bool isInserted = false;
             using (var con = new SqlConnection(connectionString))
@@ -89,7 +90,7 @@ namespace DentistRegistration.DataAccessLayer
             return isInserted;
         }
 
-        public bool EditPrice(PriceModel price, out string message)
+        public bool Update(PriceModel price, out string message)
         {
                 bool isInserted = false;
                 using (var con = new SqlConnection(connectionString))

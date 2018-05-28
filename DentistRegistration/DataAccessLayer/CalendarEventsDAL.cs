@@ -7,32 +7,32 @@ using System.Data.SqlClient;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class CalendarEventDAL
+    public class CalendarEventsDAL
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public IEnumerable<CalendarEvent> GetEventsByDoctor(int idDoctor)
+        public IEnumerable<CalendarEvent> GetById(int idDoctor)
         {
             List<CalendarEvent> colectionEvents = new List<CalendarEvent>();
             string sql = "spGetEvents";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                
-                    using (SqlDataAdapter da = new SqlDataAdapter())
-                    {
-                        da.SelectCommand = new SqlCommand(sql, conn);
-                        da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                        da.SelectCommand.Parameters.AddWithValue("@ID_DOCTOR", idDoctor);
+
+                using (SqlDataAdapter da = new SqlDataAdapter())
+                {
+                    da.SelectCommand = new SqlCommand(sql, conn);
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@ID_DOCTOR", idDoctor);
 
                     DataSet ds = new DataSet();
-                        da.Fill(ds, "Events");
+                    da.Fill(ds, "Events");
 
-                        DataTable dt = ds.Tables["Events"];
+                    DataTable dt = ds.Tables["Events"];
 
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            CalendarEvent events = new CalendarEvent();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        CalendarEvent events = new CalendarEvent();
 
                         events = new CalendarEvent();
 
@@ -42,19 +42,19 @@ namespace DentistRegistration.DataAccessLayer
                         events.Start = Convert.ToDateTime(row[5]);
                         events.End = Convert.ToDateTime(row[6]);
                         events.HasBeenBooked = Convert.ToBoolean(row[7]);
-                            
 
-                            colectionEvents.Add(events);
-                        }
+
+                        colectionEvents.Add(events);
                     }
+                }
             }
 
             return colectionEvents;
         }
-        
 
 
-        public IEnumerable<CalendarEvent> GetEvents()
+
+        public IEnumerable<CalendarEvent> GetAll()
         {
             List<CalendarEvent> lstevents = new List<CalendarEvent>();
 
@@ -86,7 +86,7 @@ namespace DentistRegistration.DataAccessLayer
             }
         }
 
-        public bool InsertEvent(CalendarEvent cEvent)
+        public bool Insert(CalendarEvent cEvent)
         {
             bool isInserted = false;
             using (var con = new SqlConnection(connectionString))

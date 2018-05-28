@@ -9,7 +9,7 @@ namespace DentistRegistration.Controllers
 
     public class LoginController : ApiController
     {
-        private LoginUserDataAccessLayer Login = new LoginUserDataAccessLayer();
+        private LoginUserDAL Login = new LoginUserDAL();
 
 
         [HttpPost]

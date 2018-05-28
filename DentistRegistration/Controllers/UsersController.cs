@@ -3,24 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using DentistRegistration.DataAccessLayer;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 
 namespace DentistRegistration.Controllers
 {
     public class UsersController : ApiController
     {
-        private InsertUsersDataAccessLayer UserLayer = new InsertUsersDataAccessLayer();
+        IRepositoryCRU<User> repo;
+
+        public UsersController(IRepositoryCRU<User> r)
+        {
+            repo = r;
+        }
 
         [HttpGet]
         public List<User> GetUsers()
         {
-            return UserLayer.GetAllUsers().ToList();
+            return repo.GetAll().ToList();
         }
 
         [HttpGet]
         public User GetUser(int id)
         {
-            return UserLayer.GetUserById(id);
+            return repo.GetById(id);
         }
 
         [HttpPost]
@@ -33,7 +39,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isAdded = UserLayer.InsertUser(user);
+                bool isAdded = repo.Insert(user);
 
                 if (isAdded)
                 {

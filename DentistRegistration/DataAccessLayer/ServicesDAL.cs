@@ -1,4 +1,5 @@
-﻿using DentistRegistration.Models;
+﻿using DentistRegistration.Interfaces;
+using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,12 +8,12 @@ using System.Data.SqlClient;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class ServicesDataAccessLayer
+    public class ServicesDAL: IRepositoryCRU<Service>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         // To View all Service details    
-        public IEnumerable<Service> GetAllServices()
+        public IEnumerable<Service> GetAll()
         {
             List<Service> lstservices = new List<Service>();
 
@@ -39,7 +40,12 @@ namespace DentistRegistration.DataAccessLayer
             return lstservices;
         }
 
-        public bool InsertService(Service service)
+        public Service GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Insert(Service service)
         {
             bool isInserted = false;
             using (var con = new SqlConnection(connectionString))
@@ -81,6 +87,11 @@ namespace DentistRegistration.DataAccessLayer
             }
 
             return isInserted;
+        }
+
+        public bool Update(Service entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
