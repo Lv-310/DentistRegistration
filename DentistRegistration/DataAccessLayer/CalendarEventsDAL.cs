@@ -37,6 +37,8 @@ namespace DentistRegistration.DataAccessLayer
                         events = new CalendarEvent();
 
                         events.Id = Convert.ToInt32(row[0]);
+                        events.UserId = Convert.ToInt32(row[2]);
+                        events.DoctorId = Convert.ToInt32(row[1]);
                         events.Title = row[3].ToString();
                         events.Desc = row[4].ToString();
                         events.Start = Convert.ToDateTime(row[5]);

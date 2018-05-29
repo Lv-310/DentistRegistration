@@ -52,14 +52,14 @@ namespace DentistRegistration.DataAccessLayer
                 SqlCommand cmd = new SqlCommand("spGetUserById", con);
 
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ID_USER", user.Id);
-                SqlParameter outPutFirstName = new SqlParameter("@FIRSTNAME", SqlDbType.VarChar)
+                cmd.Parameters.AddWithValue("@ID_USER", id);
+                SqlParameter outPutFirstName = new SqlParameter("@FIRSTNAME", SqlDbType.VarChar, 30)
                 {
                     Direction = ParameterDirection.Output
                 };
                 cmd.Parameters.Add(outPutFirstName);
 
-                SqlParameter outPutLastName = new SqlParameter("@LASTNAME", SqlDbType.VarChar)
+                SqlParameter outPutLastName = new SqlParameter("@LASTNAME", SqlDbType.VarChar, 30)
                 {
                     Direction = ParameterDirection.Output
                 };
@@ -71,7 +71,7 @@ namespace DentistRegistration.DataAccessLayer
                 };
                 cmd.Parameters.Add(outPutPhoneNum);
 
-                SqlParameter outPutEmail = new SqlParameter("@EMAIL", SqlDbType.VarChar)
+                SqlParameter outPutEmail = new SqlParameter("@EMAIL", SqlDbType.VarChar,320)
                 {
                     Direction = ParameterDirection.Output
                 };
