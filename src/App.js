@@ -11,6 +11,7 @@ import AdminHomePage from './components/admin/AdminHomePage';
 import HttpsRedirect from 'react-https-redirect';
 import Providers from 'react-https-redirect';
 import PageNotFound from './components/pagenotfound/PageNotFound';
+import DoctorSwitcher from './components/doctorhomepage/DoctorSwitcher';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class App extends React.Component {
                   <Route exact path='/' render={() => <Redirect to="/Home" />} />
                   <Route path="/Home" component={Homepage} />
                   <Route path="/Users" component={UserHomePage} />
-                  <Route path="/Doctors" component={DoctorHomePage} />
+                  <Route path="/Doctors" component={DoctorSwitcher} />
                   <Route path="/Admin" component={AdminHomePage} />
                   <Route component={PageNotFound} />
                 </Switch>

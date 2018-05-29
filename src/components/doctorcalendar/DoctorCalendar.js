@@ -8,6 +8,7 @@ import {ModalComponent} from 'react-modal';
 import Toolbar from '../customtoolbar/Toolbar';
 import {isMobile} from 'react-device-detect';
 import jwt_decode from 'jwt-decode';
+import { withRouter } from 'react-router-dom';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './doctorcalendar.css';
@@ -53,6 +54,11 @@ class DoctorCalendar extends React.Component {
       }
       this.BookEvent(eventParams).then(console.log("hi"));
     
+  }
+
+  handleCustomerClick(doctor) {
+    var currentDate = new Date()
+    this.props.history.push(`/Home/doctor/${doctor.Id}/${this.formatDate(currentDate)}/${this.changeDefaultView()}`);
   }
 
     componentDidMount(){
@@ -137,6 +143,10 @@ class DoctorCalendar extends React.Component {
       this.setState({selectedEvent : event});
     }
 
+    handleCustomerClick(event) {
+      this.props.history.push(`/Doctors/Visit/${event.userId}`);
+    }
+
     render() {
       this.state.allevents.forEach(a => {
         a.start = new Date(a.start);
@@ -183,6 +193,9 @@ class DoctorCalendar extends React.Component {
                             <label>Description of an appointment</label>
                                 <textarea type="text" className="form-control" value={this.state.selectedEvent.desc} disabled/>
                             </div>
+                            <div className="form-group">
+                                    <button className="btn btn-success btn-block"  data-dismiss="modal" onClick={() => this.handleCustomerClick(this.state.selectedEvent)}><span className="fas fa-user-edit"></span> Change profile </button>
+                            </div>
                         </form>
                     </div>
                   </div>
@@ -216,4 +229,4 @@ class DoctorCalendar extends React.Component {
     }
 }
 
-  export default DoctorCalendar;
+  export default withRouter(DoctorCalendar);
