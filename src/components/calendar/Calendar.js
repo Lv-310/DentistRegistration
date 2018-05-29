@@ -54,6 +54,7 @@ class Calendar extends React.Component {
       ).then((res=>{
         this.getItems();
       }))
+      if(this.state.wrongCredentials) return;
       alert("Event has been booked.");   
       document.getElementById('event-modal-close').click(); 
   }
@@ -195,7 +196,10 @@ validateForm() {
 
 
   onEventClick(event) {
-    if(event.hasBeenBooked) return;
+    if(event.hasBeenBooked){
+      alert("This event is alredy booked. Choose another one");
+      return;
+      }
     $("#Modalbtn").click();
     this.setState({ selectedEvent: event });
   }
