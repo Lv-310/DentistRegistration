@@ -22,7 +22,16 @@ class DoctorsList extends React.Component {
 
   getDoctors() {
     fetchFrom('Doctors', 'get', null)
-      .then(results =>{this.setState({ 'items': results.data }); return results;});
+      .then(results =>{this.setState({ 'items': results.data });
+      if(isMobile)
+      {
+        var doctor = document.getElementById("doc-"+this.props.match.params.doctorId);
+        if(doctor!=null)
+        {
+          document.getElementById("first").innerText ="Doctor " + doctor.innerText;
+        }
+      }
+      return results;});
   }
 
   changeCollapse() {
@@ -49,6 +58,11 @@ class DoctorsList extends React.Component {
   handleCustomerClick(doctor) {
     var currentDate = new Date()
     this.props.history.push(`/Home/doctor/${doctor.Id}/${this.formatDate(currentDate)}/${this.changeDefaultView()}`);
+    if (isMobile)
+    {
+      document.getElementById("first").click();
+      document.getElementById("first").innerText="Doctor " + doctor.FirstName + " " + doctor.LastName;
+    }
   }
   render() {
     return (
@@ -72,6 +86,7 @@ class DoctorsList extends React.Component {
         </div>
       </div>
     );
+    
   }
 }
 
