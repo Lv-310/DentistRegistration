@@ -12,6 +12,7 @@ import { withRouter } from 'react-router-dom';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './doctorcalendar.css';
+import { fetchFrom } from '../../helpers/fetcher';
 BigCalendar.momentLocalizer(moment);
 
 class DoctorCalendar extends React.Component {
@@ -20,7 +21,8 @@ class DoctorCalendar extends React.Component {
       this.state = {
         'allevents': [],
         selectedEvent : {},
-        doctorId: 0
+        doctorId: 0,
+        patients:[]
       }
       this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -139,12 +141,26 @@ class DoctorCalendar extends React.Component {
     
     onEventClick(event){
       if(!event.hasBeenBooked) return;
-      $("#Modalbtn").click();
-      this.setState({selectedEvent : event});
+      if(isMobile){
+        $("#Modalbtn").click();
+        this.setState({selectedEvent : event});
+      }
+      else{
+      this.props.history.push(`/Doctors/Visit/${event.userId}`);
+      }
     }
 
     handleCustomerClick(event) {
       this.props.history.push(`/Doctors/Visit/${event.userId}`);
+    }
+
+
+    getPatient(id)
+    {
+      if(id==0) return;
+      if(this.state.patients[id]!=null && this.state.patients[id]!=undefined) return this.state.patients[id].FirstName + " " + this.state.patients[id].LastName;
+      fetchFrom("Users/"+id,"get",null)
+      .then(res=>{this.state.patients[id]=res.data;}).then(()=>this.setState(this.state))
     }
 
     render() {
@@ -171,7 +187,7 @@ class DoctorCalendar extends React.Component {
       <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
       </div>
         <div id="EventModal" className="modal fade" role="dialog">
-                <div className="modal-dialog">
+                <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                     <div className="modal-header">
                       <h4>Check an appointment</h4>
@@ -190,11 +206,13 @@ class DoctorCalendar extends React.Component {
                                 <input type="text" className="form-control" value={this.formatTime(String(this.state.selectedEvent.title))} disabled/>
                             </div>
                             <div className="form-group">
+                            <label>Patient</label>
+                                <textarea type="text" className="form-control" value={this.getPatient(this.state.selectedEvent.userId)} disabled/>
                             <label>Description of an appointment</label>
                                 <textarea type="text" className="form-control" value={this.state.selectedEvent.desc} disabled/>
                             </div>
                             <div className="form-group">
-                                    <button className="btn btn-success btn-block"  data-dismiss="modal" onClick={() => this.handleCustomerClick(this.state.selectedEvent)}><span className="fas fa-user-edit"></span> Change profile </button>
+                                    <button className="btn btn-secondary btn-block"  data-dismiss="modal" onClick={() => this.handleCustomerClick(this.state.selectedEvent)}>View visit details </button>
                             </div>
                         </form>
                     </div>
@@ -223,6 +241,7 @@ class DoctorCalendar extends React.Component {
                   };
                 }
               }
+              tooltipAccessor={(event)=>event.hasBeenBooked?this.getPatient(event.userId) + "\n" + event.desc:null}
             />
             </div>
       )
