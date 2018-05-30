@@ -75,3 +75,7 @@
   pointer-events: none;
 }
 }
+
+.modal-dialog-center {
+  margin-top: 25%;
+}

@@ -13,6 +13,7 @@ import jwt_decode from 'jwt-decode';
 
 //import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
+import { modalAlert, MSG_TYPE_INFO, MSG_TYPE_ERROR, MSG_TYPE_WARNING } from '../../helpers/modalAlert';
 BigCalendar.momentLocalizer(moment);
 
 class Calendar extends React.Component {
@@ -86,7 +87,7 @@ clearErrorMessage() {
     event.preventDefault()
     if(localStorage.getItem("token") === null)
     {
-      alert("You must be registred to perform this action");
+      modalAlert("You must be logged in","You must be registred user to perform this action",MSG_TYPE_ERROR);
       document.getElementById('event-modal-close').click(); 
       return;
     }
@@ -197,9 +198,15 @@ validateForm() {
 
   onEventClick(event) {
     if(event.hasBeenBooked){
-      alert("This event is alredy booked. Choose another one");
+      modalAlert("Already booked","This event is already booked. Choose another one",MSG_TYPE_INFO);
       return;
       }
+    if(localStorage.getItem("token") === null)
+    {
+      modalAlert("You must be logged in","You must be registred user to perform this action",MSG_TYPE_ERROR);
+      document.getElementById('event-modal-close').click(); 
+      return;
+    }
     $("#Modalbtn").click();
     this.setState({ selectedEvent: event });
   }
@@ -254,7 +261,7 @@ validateForm() {
         <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
         </div>
         <div id="EventModal" className="modal fade" role="dialog">
-          <div className="modal-dialog">
+          <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
                 <h4>Make an appointment</h4>

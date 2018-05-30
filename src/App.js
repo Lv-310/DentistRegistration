@@ -12,12 +12,14 @@ import HttpsRedirect from 'react-https-redirect';
 import Providers from 'react-https-redirect';
 import PageNotFound from './components/pagenotfound/PageNotFound';
 import DoctorSwitcher from './components/doctorhomepage/DoctorSwitcher';
+import { renderAlertBody } from './helpers/modalAlert';
+import { checkToken } from './components/users/tokenService';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      canWork: false,
+      canWork: false
     };
   }
 
@@ -44,7 +46,13 @@ class App extends React.Component {
     checkVersion().then(result => { return result; }).then(result => { this.setState({ canWork: result }); });
     var obj = this;
     setTimeout(function () { obj.showError(); }, 5000);
+    if("token" in localStorage)
+    {
+      checkToken();
+    }
   }
+
+
 
   render() {
     if (this.state.canWork == true)
@@ -52,6 +60,7 @@ class App extends React.Component {
         <Providers>
           <HttpsRedirect>
             <div className="app" id="app-main">
+              {renderAlertBody()}
               <div className="my-div">
                 <NavBar />
                 <Switch>
