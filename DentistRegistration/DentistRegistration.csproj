@@ -215,6 +215,7 @@
     <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\RandomEventsController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\ToothController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="DataAccessLayer\CalendarEventsDAL.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="DataAccessLayer\CalendarEventsDataAccessLayer.cs" />
     <Compile Include="DataAccessLayer\PricesDAL.cs" />
     <Compile Include="DataAccessLayer\ServicesDAL.cs" />
+    <Compile Include="DataAccessLayer\ToothDAL.cs" />
     <Compile Include="DataAccessLayer\VersionDataAccessLayer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -238,6 +240,7 @@
     <Compile Include="DataAccessLayer\UsersDAL.cs" />
     <Compile Include="Models\PriceModel.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\Tooth.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthServices.cs" />
