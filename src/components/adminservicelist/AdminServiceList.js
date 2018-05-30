@@ -21,6 +21,7 @@ class AdminServiceList extends React.Component {
             updatedPrice: '',
             datePrice: '',
             add: '',
+            collapsedLast: 0,
 
             formErrors: {
                 price: '',
@@ -89,6 +90,21 @@ class AdminServiceList extends React.Component {
         srvc.Name = serviceName;
         srvc.Id = serviceId;
         this.setState({service:srvc});
+
+        if(this.state.collapsedLast==serviceId)
+        {
+            this.state.collapsedLast = null;
+            document.getElementById("price").className="collapse";
+        }
+        else
+        {
+            document.getElementById("price").className="collapse show";
+            this.state.collapsedLast = serviceId;
+        }
+
+        var serviceDiv = document.getElementById("s-"+serviceId);
+        var priceList = document.getElementById("price");
+        serviceDiv.parentNode.insertBefore(priceList,serviceDiv.nextSibling);
     }
 
     handleChange = (e) => {
@@ -199,12 +215,13 @@ class AdminServiceList extends React.Component {
                     Services
                     <i className="fas fa-sort-down" id="down-arrow"></i>
                     </a>
-                <div id="demo3" className="height-scroll collapse show">
+                <div id="demo3" className="height-scroll collapse">
                 {this.state.services.map((service, index) => {
-                    return <div>
+                    return <div id={"s-"+service.Id}>
                         <a href="#" data-toggle="collapse" data-target="#service" onClick={() => {this.getServicePrice(service.Id, service.Name);
                         }}
-                            key={index} className="list-group-item list-group-item-action dropdown-toggle-split">{service.Name}
+                            key={index} className="list-group-item my-list-header active btn-info dropdown-toggle-split">{service.Name}
+                            <i className="fas fa-sort-down" id="down-arrow"></i>
                         </a>
                     </div>
                 })}
@@ -277,4 +294,3 @@ class AdminServiceList extends React.Component {
     }
 }
 export default AdminServiceList;
-
