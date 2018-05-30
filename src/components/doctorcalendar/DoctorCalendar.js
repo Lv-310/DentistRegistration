@@ -157,7 +157,7 @@ class DoctorCalendar extends React.Component {
 
     getPatient(id)
     {
-      if(id==0) return;
+      if(id==0 || id==undefined || id == null) return;
       if(this.state.patients[id]!=null && this.state.patients[id]!=undefined) return this.state.patients[id].FirstName + " " + this.state.patients[id].LastName;
       fetchFrom("Users/"+id,"get",null)
       .then(res=>{this.state.patients[id]=res.data;}).then(()=>this.setState(this.state))
