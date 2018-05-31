@@ -79,3 +79,7 @@
 .modal-dialog-center {
   margin-top: 25%;
 }
+
+.margin-top-negative{
+  margin-top: -30px;
+}

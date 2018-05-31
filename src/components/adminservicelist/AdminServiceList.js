@@ -217,7 +217,7 @@ class AdminServiceList extends React.Component {
                     </a>
                 <div id="demo3" className="height-scroll collapse">
                 {this.state.services.map((service, index) => {
-                    return <div id={"s-"+service.Id}>
+                    return <div id={"s-"+service.Id} key={index}>
                         <a href="#" data-toggle="collapse" data-target="#service" onClick={() => {this.getServicePrice(service.Id, service.Name);
                         }}
                             key={index} className="list-group-item my-list-header active btn-info dropdown-toggle-split">{service.Name}
@@ -229,7 +229,7 @@ class AdminServiceList extends React.Component {
 
                 <div id="price" className="collapse show">
                     {this.state.prices.map((price, index) => {
-                        return <div>
+                        return <div key={index}>
 
                             <span type="button" key={index} className="list-group-item list-group-item-action" >
                                 <span>{price.Price}</span>
@@ -251,7 +251,7 @@ class AdminServiceList extends React.Component {
                 </div>
 
                 <div id="editPriceModal" className="modal fade" role="dialog">
-                    <div className="modal-dialog">
+                    <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header text-center">
                                 <h4>{this.state.service.Name}</h4>

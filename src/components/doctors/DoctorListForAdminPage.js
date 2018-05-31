@@ -44,7 +44,7 @@ class DoctorListForAdminPage extends React.Component{
             <div id="demo2" className="collapse show">
             <div className="height-scroll-small">
               {this.state.DoctorsList.map((item, index) => {
-                return <div>
+                return <div key={index}>
                  <button type="button" key={index} className="list-group-item list-group-item-action">
                                
                                 {item.FirstName} {item.LastName}
