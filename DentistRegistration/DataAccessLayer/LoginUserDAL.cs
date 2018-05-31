@@ -2,12 +2,13 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using DentistRegistration.Servises;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class LoginUserDAL
+    public class LoginUserDAL: ILoginDIService
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 

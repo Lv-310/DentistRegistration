@@ -204,8 +204,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants\AllConstants.cs" />
     <Compile Include="Controllers\CalendarEventController.cs" />
@@ -224,12 +222,16 @@
     <Compile Include="DataAccessLayer\PricesDAL.cs" />
     <Compile Include="DataAccessLayer\ServicesDAL.cs" />
     <Compile Include="DataAccessLayer\ToothDAL.cs" />
-    <Compile Include="DataAccessLayer\VersionDataAccessLayer.cs" />
+    <Compile Include="DataAccessLayer\VersionDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IRepositoryCRU.cs" />
+    <Compile Include="Interfaces\IRepositoryCRUcollection.cs" />
     <Compile Include="Interfaces\IRepositoryCRUD.cs" />
+    <Compile Include="Interfaces\ILoginDIService.cs" />
+    <Compile Include="Interfaces\IRepositoryCRUDcollection.cs" />
+    <Compile Include="Interfaces\IVersionDIService.cs" />
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="DataAccessLayer\LoginUserDAL.cs" />
     <Compile Include="Models\CalendarEventRule.cs" />

@@ -52,9 +52,13 @@ namespace DentistRegistration
 
             var container = new UnityContainer();
             container.RegisterType<IRepositoryCRU<Doctor>, DoctorsDAL>();
-            container.RegisterType<IRepositoryCRU<Service>, ServicesDAL>();
+            container.RegisterType<IRepositoryCRUD<Service>, ServicesDAL>();
             container.RegisterType<IRepositoryCRU<User>, UsersDAL>();
+            container.RegisterType<IRepositoryCRUcollection<CalendarEvent>, CalendarEventsDAL>();
+            container.RegisterType<ILoginDIService, LoginUserDAL>();
+            container.RegisterType<IVersionDIService, VersionDAL>();
             config.DependencyResolver = new UnityResolver(container);
+            
         }
     }
 }

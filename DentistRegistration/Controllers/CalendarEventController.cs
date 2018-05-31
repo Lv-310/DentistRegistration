@@ -1,4 +1,5 @@
 ﻿using DentistRegistration.DataAccessLayer;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
@@ -9,17 +10,22 @@ namespace DentistRegistration.Controllers
 {
     public class CalendarEventController : ApiController
     {
-        private CalendarEventsDAL eventsDAL = new CalendarEventsDAL();
+        private IRepositoryCRUcollection<CalendarEvent> repo;
+
+        public CalendarEventController(IRepositoryCRUcollection<CalendarEvent> r)
+        {
+            repo = r;
+        }
 
         // GET: api/CalendarEvent
         public List<CalendarEvent> GetAllEvents()
         {
-            return eventsDAL.GetAll().ToList();
+            return repo.GetAll().ToList();
         }
         [HttpGet]
         public List<CalendarEvent> GetEventsByDoctorId(int id)
         {
-            List<CalendarEvent> listEvents = eventsDAL.GetById(id).ToList();
+            List<CalendarEvent> listEvents = repo.GetByTiedId(id).ToList();
             return listEvents;
         }
 
@@ -35,7 +41,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool isAdded = eventsDAL.Insert(cEvent);
+                bool isAdded = repo.Insert(cEvent);
                 if(isAdded)
                 return Ok("Event is added");
                 return BadRequest("Event is already booked");

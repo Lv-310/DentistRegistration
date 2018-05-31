@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class ServicesDAL: IRepositoryCRU<Service>
+    public class ServicesDAL: IRepositoryCRUD<Service>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
@@ -90,6 +90,11 @@ namespace DentistRegistration.DataAccessLayer
         }
 
         public bool Update(Service entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }

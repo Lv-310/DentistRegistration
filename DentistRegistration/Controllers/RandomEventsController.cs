@@ -19,7 +19,7 @@ namespace DentistRegistration.Controllers
         // GET: api/RandomEvents/5
         public IEnumerable<CalendarEvent> Get(int id)
         {
-            var listEvents = eventsDAL.GetById(id).ToList();
+            var listEvents = eventsDAL.GetByTiedId(id).ToList();
             var fakeEvents = GenerateEvents(DateTime.Now - new TimeSpan(10,0,0,0), DateTime.Now.AddDays(10)).ToList();
             return RemoveExistingEvents(fakeEvents, listEvents);
         }

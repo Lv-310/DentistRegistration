@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using DentistRegistration.Interfaces;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Web;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class VersionDataAccessLayer
+    public class VersionDAL: IVersionDIService
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 

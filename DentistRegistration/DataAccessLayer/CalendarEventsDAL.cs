@@ -1,4 +1,5 @@
-﻿using DentistRegistration.Models;
+﻿using DentistRegistration.Interfaces;
+using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,11 +8,11 @@ using System.Data.SqlClient;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class CalendarEventsDAL
+    public class CalendarEventsDAL: IRepositoryCRUcollection<CalendarEvent>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public IEnumerable<CalendarEvent> GetById(int idDoctor)
+        public IEnumerable<CalendarEvent> GetByTiedId(int idDoctor)
         {
             List<CalendarEvent> colectionEvents = new List<CalendarEvent>();
             string sql = "spGetEvents";
@@ -134,6 +135,16 @@ namespace DentistRegistration.DataAccessLayer
             }
 
             return isInserted;
+        }
+
+        public bool Update(CalendarEvent entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CalendarEvent GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

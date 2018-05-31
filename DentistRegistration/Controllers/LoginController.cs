@@ -1,6 +1,7 @@
 using System;
 using System.Web.Http;
 using DentistRegistration.DataAccessLayer;
+using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using DentistRegistration.Servises;
 
@@ -9,7 +10,12 @@ namespace DentistRegistration.Controllers
 
     public class LoginController : ApiController
     {
-        private LoginUserDAL Login = new LoginUserDAL();
+        private ILoginDIService repo;
+
+        public LoginController(ILoginDIService r)
+        {
+            repo = r;
+        }
 
 
         [HttpPost]
@@ -22,7 +28,7 @@ namespace DentistRegistration.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var authorizedUser = Login.CheckLogin(user);
+                var authorizedUser = repo.CheckLogin(user);
 
                 if (authorizedUser == null)
                     return BadRequest("Invalid login or password");

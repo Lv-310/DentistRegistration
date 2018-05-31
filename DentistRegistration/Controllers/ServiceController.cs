@@ -9,9 +9,9 @@ namespace DentistRegistration.Controllers
 {
     public class ServiceController : ApiController
     {
-        private IRepositoryCRU<Service> repo;
+        private IRepositoryCRUD<Service> repo;
 
-        public ServiceController(IRepositoryCRU<Service> r)
+        public ServiceController(IRepositoryCRUD<Service> r)
         {
             repo = r;
         }
