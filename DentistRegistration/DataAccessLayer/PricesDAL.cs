@@ -170,5 +170,47 @@ namespace DentistRegistration.DataAccessLayer
 
                 return isInserted;
         }
+
+        public bool Delete(PriceModel price)
+        {
+            bool isDeleted = false;
+            using (var con = new SqlConnection(connectionString))
+            {
+                con.Open();
+
+                SqlCommand cmdCheck = new SqlCommand("spCheckPriceForDelete", con);
+
+                cmdCheck.CommandType = CommandType.StoredProcedure;
+                cmdCheck.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
+                cmdCheck.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
+                SqlParameter outPutParameter = new SqlParameter("@Result", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Output
+                };
+
+                cmdCheck.Parameters.Add(outPutParameter);
+
+                cmdCheck.ExecuteNonQuery();
+
+                string check = outPutParameter.Value.ToString();
+
+                if (check.ToLower() == "true")
+                {
+
+                    SqlCommand cmd = new SqlCommand("spDeletePrice", con)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.AddWithValue("@ID_PRICE", price.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                    isDeleted = true;
+
+                }
+            }
+            return isDeleted;
+        }
     }
 }

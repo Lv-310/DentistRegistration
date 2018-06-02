@@ -65,9 +65,25 @@ namespace DentistRegistration.Controllers
             }
         }
 
-        // DELETE: api/Price/5
-        public void Delete(int id)
+        public IHttpActionResult Delete([FromBody]PriceModel price)
         {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                bool isDeleted = priceDal.Delete(price);
+                if (isDeleted)
+                {
+                    return Ok("Price is deleted");
+                }
+                return BadRequest("U cannot delete this price");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(ModelState);
+            }
         }
     }
 }
