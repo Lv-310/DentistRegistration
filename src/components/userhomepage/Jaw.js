@@ -5,17 +5,15 @@ import ToothVisitInfo from '../visitpage/ToothVisitInfo';
 //import "./jaw.css"
 import './NewJaw.css';
 
-
-
-
-
 class Jaw extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
           'items': [],
-          tooth : NaN
+          tooth : NaN,
+          toothinfoComp: []
         }
+        this.addItem = this.addItem.bind(this)
     }
 
 
@@ -23,9 +21,17 @@ class Jaw extends React.Component {
        this.setState({tooth : tooth})
       return tooth;  
     }
+   
+    addItem = () => {
+        this.state.toothinfoComp.push(<ToothVisitInfo />)
+        this.setState(
+          this.state
+        )
+    }
+   
 
     render() { 
-
+        
         let arrayUpLeft = [18,17,16,15,14,13,12,11]
         let arrayUpRight = [21,22,23,24,25,26,27,28]
         let arrayDownRight = [31,32,33,34,35,36,37,38]
@@ -50,8 +56,10 @@ class Jaw extends React.Component {
             return <div  key={image} className={(`tooth-${image}`)} onClick={() =>this.info(image)}>
             </div>
         });
-        
 
+       
+        
+        
       return (
         <div className="container"> 
             <div className="row">
@@ -75,9 +83,15 @@ class Jaw extends React.Component {
                     <div className="card">
                         <div class="card-header">
                             Selected Tooth visit info: {this.state.tooth}
+                        <i onClick={this.addItem}    class="fas fa-plus"></i>
                         </div>
                     <div className="card-body">
-                    <ToothVisitInfo/>
+                    {this.state.toothinfoComp.map((item, index) => {
+                        return <div key={index}>
+                            {item}
+                        </div>
+                    }
+                    )}
                 </div>
             </div>
             </div> 
@@ -86,6 +100,8 @@ class Jaw extends React.Component {
       )
     }
   }
+
+  
   
   
   
