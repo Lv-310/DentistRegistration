@@ -57,6 +57,7 @@ namespace DentistRegistration
             container.RegisterType<IRepositoryCRUcollection<CalendarEvent>, CalendarEventsDAL>();
             container.RegisterType<ILoginDIService, LoginUserDAL>();
             container.RegisterType<IVersionDIService, VersionDAL>();
+            container.RegisterType<IRepositoryCRU<VisitInfo>, VisitInfoDAL>();
             config.DependencyResolver = new UnityResolver(container);
             
         }
