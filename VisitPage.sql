@@ -93,7 +93,7 @@ BEGIN
 	ServiceId int not null,
 	ToothNum int not null,
 	ServicePrice int not null,
-	ServiceDescription int not null,
+	ServiceDescription nvarchar(1024),
 	CONSTRAINT PK_VisitService PRIMARY KEY (ID),
 	CONSTRAINT FK_Visit FOREIGN KEY(VisitId) REFERENCES VisitInfo(ID),
 	CONSTRAINT FK_Service FOREIGN KEY(ServiceId) REFERENCES [SERVICES](ID_SERVICE))
