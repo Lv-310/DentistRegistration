@@ -12,7 +12,7 @@ class Visitpage extends React.Component{
                     <VisitProfileCard idfromParent={this.props.match.params.userId}/>
                     </div>
                     <div className="col-md-8">
-                    <Jaw />
+                    
                     </div>
             </div>  
         );
