@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import VisitProfileCard from './VisitProfileCard'
-import Jaw from '../userhomepage/Jaw'
 
 class Visitpage extends React.Component{ 
 
