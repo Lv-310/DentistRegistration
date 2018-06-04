@@ -1,7 +1,7 @@
 import * as React from 'react';
 import NavBar from '../layoutElements/navbar/navbar';
 import Footer from '../layoutElements/footer';
-import Calendar from '../calendar/Calendar';
+//import Calendar from '../calendar/Calendar';
 import DoctorsList from '../doctors/DoctorsList';
 import UserHomePage from '../userhomepage/UserHomePage'
 import Select from './Select';
@@ -32,7 +32,7 @@ class Homepage extends React.Component {
                 <DoctorsList />
             </div>
             <div className="col-md-10">
-                <Calendar />
+                {/*<Calendar />*/}
             </div>
         </div>
         )
