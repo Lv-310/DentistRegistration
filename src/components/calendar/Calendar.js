@@ -234,11 +234,12 @@ validateForm() {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
     currentDate = new Date(this.props.match.params.date)
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth()+1;
-    var year = currentDate.getFullYear();
-    alert(new Date(year,month,day));
-    return new Date(year,month,day);
+   
+    var t = currentDate.split(/[- :]/);
+
+    var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+    var actiondate = new Date(d); 
+    return  
   }
   
   clearForm = () => {
@@ -307,7 +308,7 @@ validateForm() {
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          date={this.getCurrentDateFromURL()}
+          date={new Date(2018,5,4)}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
