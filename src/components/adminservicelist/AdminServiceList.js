@@ -169,7 +169,7 @@ class AdminServiceList extends React.Component {
 
     changeCollapse() {
         if (isMobile)
-            document.getElementById("service").className = "collapse";
+            document.getElementById("demo3").className = "collapse";
         else document.getElementById("price").className = "collapse show";
     }
 

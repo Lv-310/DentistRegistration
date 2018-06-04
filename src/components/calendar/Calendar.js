@@ -229,6 +229,30 @@ validateForm() {
       return this.props.match.params.view;
     } 
   }
+
+  getCurrentDateFromURL = () => {
+    var currentDate = new Date(new Date());
+    if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
+    currentDate = new Date(this.props.match.params.date)
+   
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth();
+    
+    var year = currentDate.getFullYear(); 
+    var dateAr = [];
+    dateAr.push(year);
+    dateAr.push(month);
+    dateAr.push(day);
+   
+    alert(dateAr[0]+" "+dateAr[1]+" "+dateAr[2])
+    var d = this.SetDate(dateAr);
+    
+    return d;
+  }
+
+  SetDate = (mydate) =>{
+    return new Date(mydate[0],mydate[1],mydate[2]);
+  }
   
   clearForm = () => {
     this.setState({
@@ -252,8 +276,6 @@ validateForm() {
 
     var x = window.matchMedia("(max-width: 700px)")
 
-    var currentDate = new Date(this.props.match.params.date)
-    
     var currentView = this.changeCurrentView();
 
     return (
@@ -298,7 +320,7 @@ validateForm() {
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          defaultDate={currentDate}
+          date={this.getCurrentDateFromURL()}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
@@ -316,8 +338,7 @@ validateForm() {
                 style: this.setStyle(event)
               };
             }
-          }
-        />
+          } />
       </div>
     )
   }
