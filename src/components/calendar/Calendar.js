@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import baseURL from '../../helpers/url';
-import 'moment/locale/uk';
+import 'moment/locale/en-gb';
 import $ from 'jquery';
 import { ModalComponent } from 'react-modal';
 import Toolbar from '../customtoolbar/Toolbar';
@@ -15,7 +15,6 @@ import jwt_decode from 'jwt-decode';
 import './calendar.css';
 import { modalAlert, MSG_TYPE_INFO, MSG_TYPE_ERROR, MSG_TYPE_WARNING } from '../../helpers/modalAlert';
 BigCalendar.momentLocalizer(moment);
-
 
 class Calendar extends React.Component {
   constructor() {
@@ -235,9 +234,8 @@ validateForm() {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
     currentDate = new Date(this.props.match.params.date)
-    moment( currentDate , "YYYY-MM-DD hh:mm a").format("YYYY-MM-DDTHH:mm:ss")
-    alert(currentDate);
-    return currentDate;
+    alert(moment(currentDate));
+    return moment(currentDate);
   }
   
   clearForm = () => {
