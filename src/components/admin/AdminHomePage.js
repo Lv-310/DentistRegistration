@@ -1,5 +1,5 @@
 import * as React from 'react';
-//import AdminServiceList from '../adminservicelist/AdminServiceList';
+import AdminServiceList from '../adminservicelist/AdminServiceList';
 //import UserList from '../userList/UserList';
 //import InsertDoctor from '../doctors/InsertDoctor';
 //import DoctorListForAdminPage from '../doctors/DoctorListForAdminPage';
@@ -25,7 +25,7 @@ class AdminHomePage extends React.Component {
                         <div className="col-md-auto">
                             <a className="text-red mb-1 ml-3 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#addService">Add New Service </a>
                             <div className="ml-3">
-                            {/*<AdminServiceList/>*/}
+                            <AdminServiceList/>
                             {/*<AdminAddNewService />*/}
                             </div>
                         </div>                          
