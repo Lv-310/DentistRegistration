@@ -237,6 +237,7 @@ validateForm() {
    
     var day = currentDate.getDate();
     var month = currentDate.getMonth();
+    
     var year = currentDate.getFullYear(); 
     var dateAr = [];
     dateAr.push(year);
