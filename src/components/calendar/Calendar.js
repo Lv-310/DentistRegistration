@@ -230,11 +230,11 @@ validateForm() {
     } 
   }
 
-  getCurrentDateFromURL()
-  {
+  getCurrentDateFromURL = () => {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
     currentDate = new Date(this.props.match.params.date)
+    alert(currentDate);
     return currentDate;
   }
   
