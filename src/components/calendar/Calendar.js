@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import baseURL from '../../helpers/url';
-import 'moment/locale/en-gb';
+import 'moment/locale/uk';
 import $ from 'jquery';
 import { ModalComponent } from 'react-modal';
 import Toolbar from '../customtoolbar/Toolbar';
