@@ -226,6 +226,7 @@ validateForm() {
       return 'day';
     }
     else {
+      return 'week';
       return this.props.match.params.view;
     } 
   }
@@ -296,7 +297,7 @@ validateForm() {
         </div>
         <BigCalendar
           events={this.state.allevents}
-          defaultView={this.changeDefaultView()}
+          defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
           defaultDate={currentDate}
           views={this.checkIfMobile()}
