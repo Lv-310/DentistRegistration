@@ -236,7 +236,7 @@ validateForm() {
     currentDate = new Date(this.props.match.params.date)
     alert( moment( currentDate).format("YYYY-MM-DDTHH:mm:ss"));
   
-    return  new Date(moment( currentDate).format("YYYY-MM-DDTHH:mm:ss"));
+    return  new Date(moment(currentDate));
   }
   
   clearForm = () => {
