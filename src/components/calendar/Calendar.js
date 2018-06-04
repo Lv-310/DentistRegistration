@@ -252,7 +252,9 @@ validateForm() {
 
     var x = window.matchMedia("(max-width: 700px)")
 
-    var currentDate = new Date(this.props.match.params.date)
+    var currentDate = new Date(new Date());
+    if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
+    currentDate = new Date(this.props.match.params.date)
     
     var currentView = this.changeCurrentView();
 
@@ -298,7 +300,7 @@ validateForm() {
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          defaultDate={new Date(new Date())}
+          defaultDate={currentDate}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
