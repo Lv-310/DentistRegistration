@@ -258,7 +258,6 @@ validateForm() {
 
     return (
       <div>
-        {/*
         <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
         </div>
         <div id="EventModal" className="modal fade" role="dialog">
@@ -294,12 +293,12 @@ validateForm() {
               </div>
             </div>
           </div>
-        </div>*/}
+        </div>
         <BigCalendar
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          defaultDate={currentDate}
+          defaultDate={new Date(new Date())}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
