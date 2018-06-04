@@ -16,6 +16,7 @@ import './calendar.css';
 import { modalAlert, MSG_TYPE_INFO, MSG_TYPE_ERROR, MSG_TYPE_WARNING } from '../../helpers/modalAlert';
 BigCalendar.momentLocalizer(moment);
 
+
 class Calendar extends React.Component {
   constructor() {
     super()
@@ -234,6 +235,7 @@ validateForm() {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
     currentDate = new Date(this.props.match.params.date)
+    moment( currentDate , "YYYY-MM-DD hh:mm a").format("YYYY-MM-DDTHH:mm:ss")
     alert(currentDate);
     return currentDate;
   }
