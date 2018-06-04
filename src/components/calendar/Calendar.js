@@ -258,6 +258,7 @@ validateForm() {
 
     return (
       <div>
+        {/*
         <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
         </div>
         <div id="EventModal" className="modal fade" role="dialog">
@@ -293,7 +294,7 @@ validateForm() {
               </div>
             </div>
           </div>
-        </div>
+        </div>*/}
         <BigCalendar
           events={this.state.allevents}
           defaultView={currentView}
