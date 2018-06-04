@@ -1,7 +1,7 @@
 import * as React from 'react';
 //import AdminServiceList from '../adminservicelist/AdminServiceList';
 import UserList from '../userList/UserList';
-//import InsertDoctor from '../doctors/InsertDoctor';
+import InsertDoctor from '../doctors/InsertDoctor';
 import DoctorListForAdminPage from '../doctors/DoctorListForAdminPage';
 import AdminAddNewService from '../adminservicelist/AdminAddNewService';
 
@@ -40,7 +40,7 @@ class AdminHomePage extends React.Component {
                             <DoctorListForAdminPage />
                             </div>
                         </div>
-                        {/*<InsertDoctor />*/}
+                        <InsertDoctor />
 				    </div>
 			    </div>
             </div>
