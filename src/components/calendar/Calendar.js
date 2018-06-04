@@ -316,8 +316,7 @@ validateForm() {
                 style: this.setStyle(event)
               };
             }
-          }
-        />
+          } />
       </div>
     )
   }
