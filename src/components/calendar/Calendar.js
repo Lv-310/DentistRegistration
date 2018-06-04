@@ -229,6 +229,14 @@ validateForm() {
       return this.props.match.params.view;
     } 
   }
+
+  getCurrentDateFromURL()
+  {
+    var currentDate = new Date(new Date());
+    if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
+    currentDate = new Date(this.props.match.params.date)
+    return currentDate;
+  }
   
   clearForm = () => {
     this.setState({
@@ -252,10 +260,6 @@ validateForm() {
 
     var x = window.matchMedia("(max-width: 700px)")
 
-    var currentDate = new Date(new Date());
-    if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
-    currentDate = new Date(this.props.match.params.date)
-    
     var currentView = this.changeCurrentView();
 
     return (
@@ -300,7 +304,7 @@ validateForm() {
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          date={currentDate}
+          date={this.getCurrentDateFromURL()}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
