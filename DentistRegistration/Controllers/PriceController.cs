@@ -10,6 +10,13 @@ namespace DentistRegistration.Controllers
     {
         private PricesDAL priceDal = new PricesDAL();
 
+        [HttpGet]
+        [Route("api/Price/Service/{id}")]
+        public int GetByServiceId(int id)
+        {
+            return priceDal.GetByServiceId(id);
+        }
+
         // GET: api/Price/5
         public IEnumerable<PriceModel> Get(int id)
         {

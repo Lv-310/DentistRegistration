@@ -12,8 +12,30 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        // To View all Prices    
-        public IEnumerable<PriceModel> GetById(int id)
+        public int GetByServiceId(int id)
+        {
+            int priceService=0;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("spGetCurrentPriceByServiceId", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID", id);
+                SqlParameter output = new SqlParameter();
+                output.DbType = DbType.Int32;
+                output.ParameterName = "@currentprice";
+                output.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(output);
+                SqlDataReader reader = cmd.ExecuteReader();
+                priceService = Convert.ToInt32(output.Value);
+            }
+
+            return priceService;
+        }
+            // To View all Prices    
+            public IEnumerable<PriceModel> GetById(int id)
         {
             List<PriceModel> lstprices = new List<PriceModel>();
 
