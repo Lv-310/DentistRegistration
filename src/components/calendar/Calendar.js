@@ -302,8 +302,6 @@ validateForm() {
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
-          onNavigate={date => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${this.props.match.params.view}`)}
-          onView={view => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)}
           onSelectEvent={event => this.onEventClick(event)}
           components={{
             toolbar: Toolbar
