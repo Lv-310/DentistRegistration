@@ -226,7 +226,6 @@ validateForm() {
       return 'day';
     }
     else {
-      return 'week';
       return this.props.match.params.view;
     } 
   }
