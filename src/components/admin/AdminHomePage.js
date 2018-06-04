@@ -1,8 +1,8 @@
 import * as React from 'react';
-import AdminServiceList from '../adminservicelist/AdminServiceList';
-//import UserList from '../userList/UserList';
+//import AdminServiceList from '../adminservicelist/AdminServiceList';
+import UserList from '../userList/UserList';
 //import InsertDoctor from '../doctors/InsertDoctor';
-//import DoctorListForAdminPage from '../doctors/DoctorListForAdminPage';
+import DoctorListForAdminPage from '../doctors/DoctorListForAdminPage';
 import AdminAddNewService from '../adminservicelist/AdminAddNewService';
 
 class AdminHomePage extends React.Component {
@@ -25,19 +25,19 @@ class AdminHomePage extends React.Component {
                         <div className="col-md-auto">
                             <a className="text-red mb-1 ml-3 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#addService">Add New Service </a>
                             <div className="ml-3">
-                            <AdminServiceList/>
+                            {/*<AdminServiceList/>*/}
                             <AdminAddNewService />
                             </div>
                         </div>                          
 				    </div>
 				    <div className="tab-pane row justify-content-md-center ml-3 mr-1" id="2a">
-                        {/*<UserList />*/}
+                        <UserList />
 				    </div>
                     <div className="tab-pane row justify-content-md-center" id="3a">
                         <div className="col-md-auto">
                             <a  className="text-red mb-1 ml-3 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#registerModalDoctor">Add new Doctor</a>
                             <div className="ml-3">
-                            {/*<DoctorListForAdminPage />*/}
+                            <DoctorListForAdminPage />
                             </div>
                         </div>
                         {/*<InsertDoctor />*/}
