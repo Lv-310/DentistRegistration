@@ -234,9 +234,11 @@ validateForm() {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
     currentDate = new Date(this.props.match.params.date)
-    alert (currentDate.getTime());
-  
-    return  new Date(currentDate.getTime());
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth()+1;
+    var year = currentDate.getFullYear();
+    alert(new Date(year,month,day));
+    return new Date(year,month,day);
   }
   
   clearForm = () => {
