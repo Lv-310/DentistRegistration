@@ -308,7 +308,7 @@ validateForm() {
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          date={new Date(this.getCurrentDateFromURL())}
+          date={this.getCurrentDateFromURL()}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
