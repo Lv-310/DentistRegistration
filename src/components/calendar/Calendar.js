@@ -218,7 +218,7 @@ validateForm() {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
 
-    return year + '-' + month + '-' + day;
+    return `${year}-${month}-${day}`;
   }
 
   changeCurrentView = () => {
@@ -235,22 +235,12 @@ validateForm() {
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
     currentDate = new Date(this.props.match.params.date)
    
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth();
-    
-    var year = currentDate.getFullYear(); 
-    var dateAr = [];
-    dateAr.push(year);
-    dateAr.push(month);
-    dateAr.push(day);
    
-    alert(dateAr[0]+" "+dateAr[1]+" "+dateAr[2])
-    var d = this.SetDate(dateAr);
-    
-    return d;
+    return currentDate;
   }
 
   SetDate = (mydate) =>{
+    alert(mydate[0]);
     return new Date(mydate[0],mydate[1],mydate[2]);
   }
   
