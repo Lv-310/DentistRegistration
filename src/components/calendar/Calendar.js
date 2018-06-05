@@ -233,9 +233,7 @@ validateForm() {
   getCurrentDateFromURL = () => {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
-    currentDate = new Date(this.props.match.params.date)
-   
-   
+    currentDate = new Date(this.props.match.params.date + "T00:00:01")
     return currentDate;
   }
 
@@ -310,7 +308,7 @@ validateForm() {
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          date={this.getCurrentDateFromURL()}
+          date={new Date(this.getCurrentDateFromURL())}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
