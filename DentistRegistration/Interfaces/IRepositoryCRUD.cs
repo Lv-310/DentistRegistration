@@ -7,6 +7,6 @@ namespace DentistRegistration.Interfaces
 {
     public interface IRepositoryCRUD<T>: IRepositoryCRU<T> where T : class
     {
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

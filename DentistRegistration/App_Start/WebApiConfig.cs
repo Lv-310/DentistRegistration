@@ -45,7 +45,7 @@ namespace DentistRegistration
             });
 
             app.UseWebApi(config);
-
+            
             //Redirect http tp https
             config.Filters.Add(new RequireHttpsAttribute());
 
@@ -55,6 +55,7 @@ namespace DentistRegistration
             container.RegisterType<IRepositoryCRUD<Service>, ServicesDAL>();
             container.RegisterType<IRepositoryCRU<User>, UsersDAL>();
             container.RegisterType<IRepositoryCRUcollection<CalendarEvent>, CalendarEventsDAL>();
+            container.RegisterType<IRepositoryCRUD<CalendarEventRule>, CalendarEventRulesDAL>();
             container.RegisterType<ILoginDIService, LoginUserDAL>();
             container.RegisterType<IVersionDIService, VersionDAL>();
             container.RegisterType<IRepositoryCRU<VisitInfo>, VisitInfoDAL>();
