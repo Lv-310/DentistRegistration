@@ -218,6 +218,9 @@ validateForm() {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
 
+    if(month < 10) month = '0' + month;
+    if(day < 10) day = '0' + day;
+
     return `${year}-${month}-${day}`;
   }
 
@@ -234,10 +237,10 @@ validateForm() {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
     // currentDate = new Date(`${this.props.match.params.date}T00:00:01`);
-    currentDate = new Date(`2018-01-01T00:00:01`)
+    currentDate = new Date(currentDate)
 
     // alert(`${this.props.match.params.date}T00:00:01`);
-    alert(currentDate);
+   // alert(currentDate);
     return currentDate;
   }
 
