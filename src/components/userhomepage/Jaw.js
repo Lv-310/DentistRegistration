@@ -60,8 +60,8 @@ class Jaw extends React.Component {
             <div className="collapse" id="collapseExample">
                 <div className="container">
                     <div className="card">
-                        <div class="card-header">
-                            Selected Tooth visit info: {this.state.tooth}
+                        <div className="card-header">
+                            Tooth name: {this.state.tooth}
                         </div>
                     <div className="card-body service-holder">
                     {this.state.toothinfoComp.map((item, index) => {

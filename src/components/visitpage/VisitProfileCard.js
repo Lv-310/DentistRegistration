@@ -31,23 +31,27 @@ class VisitProfileCard extends React.Component{
         <div className="container">
             <div className="row" align="middle">
                 <div className="col-md-12" >
-                <h1> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h1>
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalHrvEmJmi7Ui0Mkv3J3CN9-g10g_QEsclAB5mokha5KgRf7T" 
-                        alt="no image" className="my-img center-block    img-responsive" /> 
-                        
-                    <div className="panel panel-default">
-                    <div className="panel-body">
-                                <div className="row">
-                                <div className="col-md-12">
-                                    <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p>  
-                                </div>         
-                                <div className="col-md-12">
-                                    <button className="btn btn-success btn-block"><span className="fas fa-user-edit"></span> Change profile </button>
-                                </div>
-                                </div>
-                        </div>
+                  <div className="card">
+                    <div className="card-header">
+                      <h3>Patient info</h3>
                     </div>
-            </div>
+                    <div className="card-body">
+                      <h4> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h4>
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalHrvEmJmi7Ui0Mkv3J3CN9-g10g_QEsclAB5mokha5KgRf7T" 
+                        alt="no image" className="user-profile-image center-block    img-responsive" /> 
+                        
+                      <div className="panel panel-default">
+                        <div className="panel-body">
+                          <div className="row">
+                            <div className="col-md-12">
+                              <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p>  
+                            </div>         
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
             </div>
         </div>
      

@@ -2,3 +2,8 @@
     color : #495057;
     margin-bottom: 3px;
 }
+
+.user-profile-image{
+    border-radius: 40%;
+    width: 20%;
+}
