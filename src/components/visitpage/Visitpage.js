@@ -7,10 +7,10 @@ class Visitpage extends React.Component{
     render(){
         return(
             <div className="row">
-                <div className="col-md-4">
+                <div className="col-sm-5">
                     <VisitProfileCard idfromParent={this.props.match.params.userId}/>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-sm-7">
                     <Jaw />
                     </div>
             </div>  
