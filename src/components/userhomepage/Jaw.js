@@ -48,12 +48,12 @@ class Jaw extends React.Component {
       return (
         <div className="container"> 
             <div className="row">
-                <div className="col-sm-12 upTeeth">
+                <div className="upTeeth">
                     {imagesUp}
                 </div>
             </div>
             <div className="row">
-                <div className="col-sm-12 downTeeth">
+                <div className="downTeeth">
                     {imagesDown}
                 </div>
             </div>

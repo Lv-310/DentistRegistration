@@ -3,9 +3,17 @@ div.upTeeth > *, div.downTeeth > * {
     background-repeat: no-repeat;
     margin: 0px;
     background-position: center bottom; 
-    width: 46px;
-    height: 87px;
+    width: 3.3vw;
+    height: 10vh;
+    background-size: contain;
+    margin-left: 0px;
 }
+
+@media screen and (max-width: 576px) {
+    div.upTeeth > *, div.downTeeth > * {
+        margin-left: 2.3vw;
+    }
+}  
 
 div.downTeeth > * {
     background-position: center top;
@@ -13,24 +21,33 @@ div.downTeeth > * {
 
 .tooth-18{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/18.png);
+   
 }
 .tooth-17{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/17.png);
+   
 }
 .tooth-16{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/16.png);
+   
 }
 .tooth-15{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/15.png);
+   
+    
 }
 .tooth-14{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/14.png);
+    
 }
+
 .tooth-13{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/13.png);
+   
 }
 .tooth-12{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/12.png);
+    
 }
 .tooth-11{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/11.png);
@@ -85,7 +102,6 @@ div.downTeeth > * {
 }
 .tooth-43{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/43.png);
-
 }
 .tooth-42{
     background-image: url(https://lv301storage.blob.core.windows.net/teeth/42.png);
