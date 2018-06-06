@@ -34,9 +34,6 @@ class AdminServiceList extends React.Component {
             collapsedLast: 0,
             //startDate: moment(),
 
-            
-
-
             formErrors: {
                 price: '',
 
@@ -50,14 +47,14 @@ class AdminServiceList extends React.Component {
 
     }
 
-    removePrice(id, price) {
-        var removedPrice = {
-            ServiceId: this.state.service.Id,
-            Price: price,
-            Id: id,
-            DateStart: this.state.startDate
-        }
-        deletePriceRequest(removedPrice);
+    deletePrice(id) {
+        // let removedPrice = {
+        //     ServiceId: this.state.service.Id,
+        //     Price: price,
+        //     Id: id,
+        //     DateStart: this.state.startDate
+        // }
+        deletePriceRequest(id);
 
     }
 
@@ -234,13 +231,14 @@ class AdminServiceList extends React.Component {
         return day + '-' + monthIndex + '-' + year;
     }
 
-    // parseDate(str, format, locale) {
-    //     const parsed = dateFnsParse(str, format, { locale });
-    //     if (DateUtils.isDate(parsed)) {
-    //         return parsed;
-    //     }
-    //     return undefined;
-    // }
+    parseDate(str, format, locale) {
+        const parsed = dateFnsParse(str, format, { locale });
+        if (DateUtils.isDate(parsed)) {
+            return parsed;
+        }
+        return undefined;
+    }
+
 
     formatDate(date, format, locale) {
         return dateFnsFormat(date, format, { locale });
@@ -248,10 +246,12 @@ class AdminServiceList extends React.Component {
 
 
 
+
     render() {
         var d = new Date();
         d.setDate(d.getDate() - 1);
         var today = d;
+
         const FORMAT = 'M-D-YYYY';
         return (
             <div className="list-group">
@@ -284,7 +284,7 @@ class AdminServiceList extends React.Component {
                                     </a> : null}
                                 {Date.parse(price.DateStart) >= today ?
                                     <a href="#" id="fafamargin" className="fa fa-trash float-right"
-                                        onClick={() => { modalAlert("You must be logged in", "You must be registred user to perform this action", MSG_TYPE_ERROR); }}>
+                                        onClick={() => { this.deletePrice(price.Id); }}>
                                     </a> : null}
                             </span>
                         </div>
@@ -352,9 +352,8 @@ class AdminServiceList extends React.Component {
                                         <DayPickerInput
                                             formatDate={formatDate}
                                             format={FORMAT}
-                                            maxDate={today}
                                             inputProps={{ readOnly: true }}
-                                            //parseDate={parseDate}
+                                            parseDate={parseDate}
                                             placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
                                             selected={this.state.DateStart}
                                             onDayChange={this.handleChangeDate}

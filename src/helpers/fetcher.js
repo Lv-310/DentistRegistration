@@ -34,4 +34,19 @@ export async function fetchFrom(path, method, params) {
             data: json
         };
     }
+    if (method == 'delete') {
+        const response = await fetch(`${baseURL}/${path}`, {
+            method: method,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            }
+        })
+        const json = await response.json();
+        let status = response.status;
+        return {
+            statusCode: status,
+            data: json
+        };
+    }
 }
