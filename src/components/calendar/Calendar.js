@@ -236,11 +236,18 @@ validateForm() {
   getCurrentDateFromURL = () => {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
-    currentDate = new Date(this.props.match.params.date);
+    // currentDate = new Date(`${this.props.match.params.date}T00:00:01`);
+    currentDate = new Date(currentDate)
 
+    // alert(`${this.props.match.params.date}T00:00:01`);
+   // alert(currentDate);
     return currentDate;
   }
 
+  SetDate = (mydate) =>{
+    alert(mydate[0]);
+    return new Date(mydate[0],mydate[1],mydate[2]);
+  }
   
   clearForm = () => {
     this.setState({
