@@ -11,11 +11,11 @@ import Pagination from '../pagination/Pagination';
 class UserList extends React.Component{
     constructor(){
         super();
-       // var exampleItems = [...Array(150).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) }));
+       var exampleItems = [...Array(150).keys()].map(i => ({ id: (i+1), FirstName: 'Item ' + (i+1) }));
         this.state = {
             'userList': [],
-            pageOfItems: []
-           // exampleItems: exampleItems
+            pageOfItems: [],
+           exampleItems: exampleItems
         }
         this.onChangePage = this.onChangePage.bind(this);
     }
@@ -51,12 +51,12 @@ class UserList extends React.Component{
               {this.state.pageOfItems.map((item, index) => {
                 return <div key={index}>
                  <button type="button" key={index} className="list-group-item list-group-item-action">
-                                {item.FirstName} {item.LastName}
+                                {item.FirstName}
                 </button>
                 </div>
               }
               )}
-              <Pagination items={this.state.userList} onChangePage={this.onChangePage} />
+              <Pagination items={this.state.exampleItems} onChangePage={this.onChangePage} />
             </div>
             <div>
       </div>
