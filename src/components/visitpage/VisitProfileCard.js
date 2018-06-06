@@ -37,18 +37,9 @@ class VisitProfileCard extends React.Component{
                     </div>
                     <div className="card-body">
                       <h4> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h4>
+                      <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p> 
                       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalHrvEmJmi7Ui0Mkv3J3CN9-g10g_QEsclAB5mokha5KgRf7T" 
-                        alt="no image" className="user-profile-image center-block    img-responsive" /> 
-                        
-                      <div className="panel panel-default">
-                        <div className="panel-body">
-                          <div className="row">
-                            <div className="col-md-12">
-                              <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p>  
-                            </div>         
-                          </div>
-                        </div>
-                      </div>
+                        alt="no image" className="user-profile-image center-block img-responsive" /> 
                     </div>
                   </div>
               </div>
