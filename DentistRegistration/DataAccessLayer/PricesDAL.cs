@@ -1,5 +1,4 @@
-﻿using DentistRegistration.Interfaces;
-using DentistRegistration.Models;
+﻿using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

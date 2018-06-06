@@ -72,7 +72,9 @@ namespace DentistRegistration.Controllers
             }
         }
 
-        public IHttpActionResult Delete(int id)
+        [HttpPost]
+        [Route("api/Price/delete")]
+        public IHttpActionResult Delete([FromBody] int id)
         {
             try
             {
