@@ -236,11 +236,7 @@ validateForm() {
   getCurrentDateFromURL = () => {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
-    // currentDate = new Date(`${this.props.match.params.date}T00:00:01`);
-    currentDate = new Date(currentDate)
-
-    // alert(`${this.props.match.params.date}T00:00:01`);
-   // alert(currentDate);
+    currentDate = new Date(this.props.match.params.date)
     return currentDate;
   }
 
@@ -254,28 +250,11 @@ validateForm() {
         desc: '',
     })}
 
-  render() {
-    this.state.allevents.forEach(a => {
-      a.start = new Date(a.start);
-      a.end = new Date(a.end);
-    })
-
-    let formats = {
-      dayFormat: (date, culture, localizer) =>
-      
-        localizer.format(date, 'ddd MM/dd', culture),
-        eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
-          return ""
-        },
-    }
-
-    var x = window.matchMedia("(max-width: 700px)")
-
-    var currentView = this.changeCurrentView();
-
-    return (
-      <div>
-        <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
+  renderModal()
+  {
+    return(
+    <div>
+      <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
         </div>
         <div id="EventModal" className="modal fade" role="dialog">
           <div className="modal-dialog modal-dialog-centered">
@@ -311,11 +290,39 @@ validateForm() {
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  render() {
+    this.state.allevents.forEach(a => {
+      a.start = new Date(a.start);
+      a.end = new Date(a.end);
+    })
+
+    let formats = {
+      dayFormat: (date, culture, localizer) =>
+      
+        localizer.format(date, 'dddd DD.MM', culture),
+        eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
+          return ""
+        },
+    }
+
+    var x = window.matchMedia("(max-width: 700px)")
+
+    var currentView = this.changeCurrentView();
+
+    var currentDate = this.getCurrentDateFromURL();
+
+    return (
+      <div>
+        {this.renderModal()}
         <BigCalendar
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          date={this.getCurrentDateFromURL()}
+          defaultDate={this.getCurrentDateFromURL()}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
