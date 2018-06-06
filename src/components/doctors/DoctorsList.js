@@ -28,7 +28,7 @@ class DoctorsList extends React.Component {
         var doctor = document.getElementById("doc-"+this.props.match.params.doctorId);
         if(doctor!=null)
         {
-          document.getElementById("first").innerText ="Doctor " + doctor.innerText;
+          document.getElementById("first-label").innerText =`Doctor - ${doctor.innerText}`;
         }
       }
       return results;});
@@ -61,13 +61,14 @@ class DoctorsList extends React.Component {
     if (isMobile)
     {
       document.getElementById("first").click();
-      document.getElementById("first").innerText="Doctor " + doctor.FirstName + " " + doctor.LastName;
+      document.getElementById("first-label").innerText=`Doctor - ${doctor.FirstName}  ${doctor.LastName}`;
     }
   }
   render() {
     return (
       <div className="list-group">
-        <a href="#" data-toggle="collapse" data-target="#demo" className="list-group-item active my-list-header btn-secondary dropdown-toggle-split" id="first">DOCTORS
+        <a href="#" data-toggle="collapse" data-target="#demo" className="list-group-item active my-list-header btn-secondary dropdown-toggle-split" id="first">
+        <span id="first-label">Select doctor</span>
       <i className="fas fa-sort-down" id="down-arrow"></i>
         </a>
 

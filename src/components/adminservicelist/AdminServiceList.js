@@ -198,7 +198,7 @@ class AdminServiceList extends React.Component {
 
     changeCollapse() {
         if (isMobile)
-            document.getElementById("service").className = "collapse";
+            document.getElementById("demo3").className = "collapse";
         else document.getElementById("price").className = "collapse show";
     }
 
@@ -305,7 +305,7 @@ class AdminServiceList extends React.Component {
                                 <form id="ajax-editPrice-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                                     <div className="form-group">
                                         <label >{this.state.price.Name} </label>
-                                        <input className={`form-control ${this.errorBorder(this.state.formErrors.price)}`} input type="text"
+                                        <input className={`form-control ${this.errorBorder(this.state.formErrors.price)}`} type="text"
                                             placeholder={this.state.price.Price} name="updatedPrice"
                                             value={this.state.updatedPrice}
                                             onChange={this.handleChange}

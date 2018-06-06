@@ -185,12 +185,12 @@ class InsertDoctor extends React.Component {
                                     <div className="error-message"> {this.state.formErrors.LastName}</div>
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.PhoneNum)}`} placeholder="Phone Number" required="required" name="PhoneNum"
+                                    <input type="tel" className={`form-control ${this.errorBorder(this.state.formErrors.PhoneNum)}`} placeholder="Phone Number" required="required" name="PhoneNum"
                                         onChange={this.handleUserInput} value={this.state.PhoneNum} />
                                     <div className="error-message">{this.state.formErrors.PhoneNum}</div>
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.CabNum)}`} placeholder="Cabinet Number" required="required" name="CabNum"
+                                    <input type="number" className={`form-control ${this.errorBorder(this.state.formErrors.CabNum)}`} placeholder="Cabinet Number" required="required" name="CabNum"
                                         onChange={this.handleUserInput} value={this.state.CabNum} />
                                     <div className="error-message">{this.state.formErrors.CabNum}</div>
                                 </div>

@@ -8,7 +8,12 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "jwt-decode": "^2.2.0",
+<<<<<<< HEAD
     "moment": "^2.22.2",
+=======
+    "moment": "^2.22.1",
+    "npm": "^6.1.0",
+>>>>>>> ab0d61d44a416a152d09c86303f9f75366f83823
     "react": "^16.3.2",
     "react-big-calendar": "^0.19.0",
     "react-bootstrap": "^0.32.1",
@@ -18,10 +23,15 @@
     "react-https-redirect": "^1.0.10",
     "react-modal": "^3.4.4",
     "react-moment": "^0.7.0",
+<<<<<<< HEAD
     "react-proptypes": "^1.0.0",
+=======
+    "react-panels": "^2.5.1",
+>>>>>>> ab0d61d44a416a152d09c86303f9f75366f83823
     "react-router": "^4.2.0",
     "react-router-dom": "^4.3.0-rc.3",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-select": "^1.2.1"
   },
   "scripts": {
     "start": "set HTTPS=true && set PORT=9090 && react-scripts start",

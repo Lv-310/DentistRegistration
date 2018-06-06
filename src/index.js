@@ -12,5 +12,5 @@ ReactDOM.render(
         <App />
     </BrowserRouter>,
     document.getElementById('root'));
-registerServiceWorker();
-unregister();
+//registerServiceWorker();
+//unregister();

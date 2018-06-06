@@ -6,22 +6,29 @@ import { isMobile } from 'react-device-detect';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { fetchFrom } from '../../helpers/fetcher';
+import Pagination from '../pagination/Pagination';
 
 class UserList extends React.Component{
     constructor(){
         super();
+       var exampleItems = [...Array(150).keys()].map(i => ({ id: (i+1), FirstName: 'Item ' + (i+1) }));
         this.state = {
-            'userList': []
+            'userList': [],
+            pageOfItems: [],
+           exampleItems: exampleItems
         }
+        this.onChangePage = this.onChangePage.bind(this);
     }
+
+    onChangePage(pageOfItems) {
+      this.setState({ pageOfItems: pageOfItems });
+  }
 
     componentDidMount() {
         this.getUsers();
         this.changeCollapse();
 
     }
-
-
     getUsers() {
         fetchFrom('Users', 'get', null)
             .then(results => this.setState({ 'userList': results.data }));
@@ -33,7 +40,6 @@ class UserList extends React.Component{
         else document.getElementById("demo").className = "collapse show";
       }
 
-
       render() {
         return (
           <div className="list-group">
@@ -42,17 +48,18 @@ class UserList extends React.Component{
             </a>
     
             <div id="demo" className="collapse show">
-            <div className="height-scroll">
-              {this.state.userList.map((item, index) => {
+              {this.state.pageOfItems.map((item, index) => {
                 return <div key={index}>
                  <button type="button" key={index} className="list-group-item list-group-item-action">
-                                {item.FirstName} {item.LastName}
+                                {item.FirstName}
                 </button>
                 </div>
               }
               )}
-              </div>
+              <Pagination items={this.state.exampleItems} onChangePage={this.onChangePage} />
             </div>
+            <div>
+      </div>
           </div>
         );
       }

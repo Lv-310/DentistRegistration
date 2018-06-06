@@ -9,22 +9,21 @@ import './homepage.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class Homepage extends React.Component {
+
     render() {
         return (
-            <div className="row" id="main-content">
-                <div className="col-md-2">
-                    <Switch>
-                        <Route exact path="/Home" component={DoctorsList} />
-                        <Route path="/Home/doctor/:doctorId/:date/:view" component={DoctorsList} />
-                    </Switch>
-                </div>
-                <div className="col-md-10">
-                    <Switch>
-                        <Route exact path="/Home" component={Select} />
-                        <Route path="/Home/doctor/:doctorId/:date/:view" component={() => <Calendar />} />
-                    </Switch>
-                </div>
+        <div className="row" id="main-content">
+            <div className="col-md-2">
+            <Switch>
+                <Route exact path="/Home" component={DoctorsList} />
+                <Route path="/Home/doctor/:doctorId/:date/:view" component={DoctorsList} />
+            </Switch>
             </div>
+            <div className="col-md-10">
+                <Route exact path="/Home" component={Select} />
+                <Route path="/Home/doctor/:doctorId/:date/:view" component={Calendar} />
+            </div>
+        </div>
         );
     }
 }

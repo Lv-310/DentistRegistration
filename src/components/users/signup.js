@@ -183,7 +183,7 @@ class Signup extends React.Component {
                                     <div className="error-message">{this.state.formErrors.email}</div>
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"
+                                    <input type="tel" className={`form-control ${this.errorBorder(this.state.formErrors.phoneNum)}`} placeholder="Phone Number" required="required" name="phoneNum"
                                         onChange={this.handleUserInput} value={this.state.phoneNum} />
                                     <div className="error-message">{this.state.formErrors.phoneNum}</div>
                                 </div>
