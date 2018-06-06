@@ -236,7 +236,10 @@ validateForm() {
   getCurrentDateFromURL = () => {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
-    currentDate = new Date(`${this.props.match.params.date}T00:00:01`)
+    {
+      let parts = this.props.match.params.date.split("-");
+      currentDate = new Date(parseInt(parts[0],10),parseInt(parts[1],10)-1,parseInt(parts[2],10));
+    }
     return currentDate;
   }
 
@@ -303,7 +306,7 @@ validateForm() {
     let formats = {
       dayFormat: (date, culture, localizer) =>
       
-        localizer.format(date, 'dddd DD.MM', culture),
+        localizer.format(date, 'dddd DD.MM.YYYY', culture),
         eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
           return ""
         },
@@ -313,7 +316,7 @@ validateForm() {
 
     var currentView = this.changeCurrentView();
 
-    var currentDate = this.getCurrentDateFromURL();
+    alert(this.getCurrentDateFromURL())
 
     return (
       <div>
