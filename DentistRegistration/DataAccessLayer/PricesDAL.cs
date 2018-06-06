@@ -193,7 +193,7 @@ namespace DentistRegistration.DataAccessLayer
                 return isInserted;
         }
 
-        public bool Delete(PriceModel price)
+        public bool Delete(int id)
         {
             bool isDeleted = false;
             using (var con = new SqlConnection(connectionString))
@@ -203,8 +203,7 @@ namespace DentistRegistration.DataAccessLayer
                 SqlCommand cmdCheck = new SqlCommand("spCheckPriceForDelete", con);
 
                 cmdCheck.CommandType = CommandType.StoredProcedure;
-                cmdCheck.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
-                cmdCheck.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
+                cmdCheck.Parameters.AddWithValue("@ID_PRICE", id);
                 SqlParameter outPutParameter = new SqlParameter("@Result", SqlDbType.Bit)
                 {
                     Direction = ParameterDirection.Output
@@ -224,7 +223,7 @@ namespace DentistRegistration.DataAccessLayer
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    cmd.Parameters.AddWithValue("@ID_PRICE", price.Id);
+                    cmd.Parameters.AddWithValue("@ID_PRICE", id);
 
                     cmd.ExecuteNonQuery();
 

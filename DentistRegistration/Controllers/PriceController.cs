@@ -72,7 +72,7 @@ namespace DentistRegistration.Controllers
             }
         }
 
-        public IHttpActionResult Delete([FromBody]PriceModel price)
+        public IHttpActionResult Delete(int id)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace DentistRegistration.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                bool isDeleted = priceDal.Delete(price);
+                bool isDeleted = priceDal.Delete(id);
                 if (isDeleted)
                 {
                     return Ok("Price is deleted");
