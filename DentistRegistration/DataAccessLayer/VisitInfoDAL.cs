@@ -58,7 +58,7 @@ namespace DentistRegistration.DataAccessLayer
         {
             entity.PriceSum = entity.Services.Sum(x => x.Price);
 
-            var sqlCmd = String.Format("Insert into VisitInfo(eventId, PriceSum) values({0},{1})",entity.EventId, entity.PriceSum);
+            var sqlCmd = String.Format("Insert into VisitInfo(EventId, PriceSum, XrayId) values({0},{1},{2})",entity.EventId, entity.PriceSum, entity.XrayId);
 
             var cmd = new SqlCommand(sqlCmd,conn,tran);
 
@@ -68,8 +68,8 @@ namespace DentistRegistration.DataAccessLayer
 
         private void InsertService(VisitService service, SqlConnection conn, SqlTransaction tran)
         {
-            var sqlCmd = String.Format("Insert into VisitService(VisitId, ServiceId, ToothNum, ServicePrice, ServiceDescription) values({0},{1},{2},{3},'{4}')",
-                service.VisitId, service.ServiceId, service.ToothNum, service.Price, service.Description);
+            var sqlCmd = String.Format("Insert into VisitService(VisitId, ServiceId, ToothNum, ServicePrice, ServiceDescription, XrayId) values({0},{1},{2},{3},'{4}',{5})",
+                service.VisitId, service.ServiceId, service.ToothNum, service.Price, service.Description, service.XrayId);
 
             var cmd = new SqlCommand(sqlCmd, conn, tran);
 

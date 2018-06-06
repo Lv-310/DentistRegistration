@@ -6,25 +6,17 @@ using System.Web;
 
 namespace DentistRegistration.Models
 {
-    public class VisitInfo
+    public class InfoField
     {
         [Range(0, Int32.MaxValue)]
         [Required(ErrorMessage = "Field can't be empty")]
         public int Id { get; set; }
 
-        [Range(0, Int32.MaxValue)]
+        [StringLength(maximumLength: 100, ErrorMessage = "Description should be maximum 100 characters")]
         [Required(ErrorMessage = "Field can't be empty")]
-        public int EventId { get; set; }
-
-        [Range(0, Int32.MaxValue)]
-        [Required(ErrorMessage = "Field can't be empty")]
-        public int PriceSum { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Field can't be empty")]
-        public VisitService[] Services { get; set; }
-
-        [Range(0, Int32.MaxValue)]
-        [Required(ErrorMessage = "Field can't be empty")]
-        public int XrayId { get; set; }
+        public bool Value { get; set; }
     }
 }
