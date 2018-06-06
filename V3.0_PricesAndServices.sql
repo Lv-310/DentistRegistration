@@ -138,10 +138,10 @@ IF object_id('spCheckPriceForDelete') IS NULL
     EXEC ('create procedure dbo.spCheckPriceForDelete  as select 1')
 GO
 ALTER PROCEDURE spCheckPriceForDelete
-@DATE_START_PRICE DATE, @SERVICE_ID INT,  @RESULT BIT OUTPUT
+@ID_PRICE INT,  @RESULT BIT OUTPUT
 AS
 BEGIN
-IF (@DATE_START_PRICE > (select cast(getdate() as date)) AND (Select count(*) from Prices where DATE_START_PRICE = @DATE_START_PRICE and SERVICE_ID=@SERVICE_ID) = 1)
+IF ((SELECT DATE_START_PRICE FROM PRICES WHERE ID_PRICE = @ID_PRICE) > (select cast(getdate() as date)) AND (Select count(*) from Prices where ID_PRICE = @ID_PRICE) = 1)
 	set @Result=1
 ELSE set @Result=0
 END;
