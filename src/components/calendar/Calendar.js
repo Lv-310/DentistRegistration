@@ -218,9 +218,6 @@ validateForm() {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
 
-    if(month < 10) month = '0' + month;
-    if(day < 10) day = '0' + day;
-
     return `${year}-${month}-${day}`;
   }
 
@@ -315,8 +312,6 @@ validateForm() {
     var x = window.matchMedia("(max-width: 700px)")
 
     var currentView = this.changeCurrentView();
-
-    alert(this.getCurrentDateFromURL())
 
     return (
       <div>
