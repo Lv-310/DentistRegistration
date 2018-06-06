@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import { fetchFrom } from '../../helpers/fetcher';
 import { Panel } from 'react-bootstrap';
 
+import './visitpage.css';
+
 class ToothVisitInfo extends React.Component {
     constructor() {
         super();
         this.state = {
             'services': [],
             service: 1,
-            price: 0
+            price: 0,
+            chars_left: 1024
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -49,6 +52,12 @@ class ToothVisitInfo extends React.Component {
         event.preventDefault();
       }
 
+    handleWordCount = event => {
+        const charCount = event.target.value.length;
+        const charLeft = 1024 - charCount;
+        this.setState({ chars_left: charLeft});
+    }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
@@ -68,7 +77,8 @@ class ToothVisitInfo extends React.Component {
                 </div>
                 <div className="row mb-4">
                     <div className="col-md-12">
-                        <textarea type="text" className="form-control" name="desc" defaultValue="Description" />
+                        <span class="textarea__count">Description: {1024-this.state.chars_left}/1024 characters left</span>
+                        <textarea maxLength="1024" required onChange={this.handleWordCount} type="text" className="form-control" name="desc" />
                     </div>
                 </div>
             </form>
