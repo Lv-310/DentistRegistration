@@ -10,41 +10,20 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class Homepage extends React.Component {
 
-    renderSelect()
-    {
-        return(
-        <div className="row" id="main-content">
-            <div className="col-md-2">
-                <DoctorsList />
-            </div>
-            <div className="col-md-10">
-                <Select />
-            </div>
-        </div>
-        )
-    }
-
-    renderCalendar()
-    {
-        return(
-        <div className="row" id="main-content">
-            <div className="col-md-2">
-                <DoctorsList />
-            </div>
-            <div className="col-md-10">
-                <Calendar />
-            </div>
-        </div>
-        )
-    }
-
-
     render() {
         return (
+        <div className="row" id="main-content">
+            <div className="col-md-2">
             <Switch>
-                <Route exact path="/Home" component={()=>this.renderSelect()} />
-                <Route path="/Home/doctor/:doctorId/:date/:view" component={()=>this.renderCalendar()} />
+                <Route exact path="/Home" component={DoctorsList} />
+                <Route path="/Home/doctor/:doctorId/:date/:view" component={DoctorsList} />
             </Switch>
+            </div>
+            <div className="col-md-10">
+                <Route exact path="/Home" component={Select} />
+                <Route path="/Home/doctor/:doctorId/:date/:view" component={Calendar} />
+            </div>
+        </div>
         );
     }
 }
