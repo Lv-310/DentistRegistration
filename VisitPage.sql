@@ -102,13 +102,13 @@ END;
 GO
 
 								 
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES 
            WHERE TABLE_NAME = 'VisitService')
 BEGIN
 alter table VisitService add XrayId int not null default 0
 END
 
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES 
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES 
            WHERE TABLE_NAME = 'VisitInfo')
 BEGIN
 alter table VisitInfo add XrayId int not null default 0
