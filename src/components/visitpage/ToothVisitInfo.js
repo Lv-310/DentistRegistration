@@ -10,9 +10,10 @@ class ToothVisitInfo extends React.Component {
         super();
         this.state = {
             'services': [],
-            service: 1,
+            service: 0,
             price: 0,
-            chars_left: 1024
+            chars_left: 1024,
+            toothId: 0
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -77,7 +78,7 @@ class ToothVisitInfo extends React.Component {
                 </div>
                 <div className="row mb-4">
                     <div className="col-md-12">
-                        <span class="textarea__count">Description: {1024-this.state.chars_left}/1024 characters left</span>
+                        <span class="textarea__count">Description {this.props.toothId}: {1024-this.state.chars_left}/1024 characters left</span>
                         <textarea maxLength="1024" required onChange={this.handleWordCount} type="text" className="form-control" name="desc" />
                     </div>
                 </div>

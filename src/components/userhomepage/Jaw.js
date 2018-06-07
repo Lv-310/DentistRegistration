@@ -10,20 +10,20 @@ class Jaw extends React.Component {
         super(props);
         this.state = {
           'items': [],
-          tooth : NaN,
+          toothId : NaN,
           toothinfoComp: []
         }
         this.addItem = this.addItem.bind(this)
     }
 
 
-    info = (tooth) => {
-       this.setState({tooth : tooth})
-      return tooth;  
+    info = (toothId) => {
+       this.setState({toothId : toothId})
+      return toothId;  
     }
    
     addItem = () => {
-        this.state.toothinfoComp.push(<ToothVisitInfo />)
+        this.state.toothinfoComp.push(<ToothVisitInfo toothId={this.state.toothId}/>)
         this.setState(
           this.state
         )
@@ -36,12 +36,12 @@ class Jaw extends React.Component {
         let arrayDown = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38]
         
         let imagesUp = arrayUp.map(image => {
-            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(`tooth-${image}`)} onClick={() =>this.info(image)}>
+            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded list-group-item list-group-item-action active`:`tooth-${image} list-group-item-action border border-top-0`)} onClick={() =>this.info(image)}>
             </div>
         });
 
          let imagesDown = arrayDown.map(image => {
-            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(`tooth-${image}`)} onClick={() =>this.info(image)}>
+            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded list-group-item list-group-item-action active`:`tooth-${image} list-group-item-action border border-bottom-0`)} onClick={() =>this.info(image)}>
                 </div>
         });
         
@@ -61,10 +61,10 @@ class Jaw extends React.Component {
                 <div className="container">
                     <div className="card">
                         <div className="card-header">
-                            Tooth name: {this.state.tooth}
+                            Tooth name: {this.state.toothId}
                         </div>
                     <div className="card-body service-holder">
-                    {this.state.toothinfoComp.map((item, index) => {
+                    {this.state.toothinfoComp.map((item, index) => { if(item.props.toothId === this.state.toothId)
                         return <div key={index}>
                             {item}
                         </div>
