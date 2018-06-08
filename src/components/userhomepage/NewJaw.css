@@ -1,13 +1,17 @@
 div.upTeeth > *, div.downTeeth > * {
     display: inline-block;
     background-repeat: no-repeat;
-    margin: 0px;
     background-position: center bottom; 
     width: 3.3vw;
     height: 10vh;
     background-size: contain;
-    margin-left: 0px;
 }
+
+div.upTeeth > div:nth-child(8), div.downTeeth > div:nth-child(8){
+    border-right: 1px solid Aquamarine;;
+}
+
+
 
 @media screen and (max-width: 576px) {
     div.upTeeth > *, div.downTeeth > * {
@@ -17,6 +21,10 @@ div.upTeeth > *, div.downTeeth > * {
 
 div.downTeeth > * {
     background-position: center top;
+}
+
+.activeTeeth{
+    background-color: CornflowerBlue;
 }
 
 .tooth-18{
@@ -153,4 +161,8 @@ div.downTeeth > * {
 .service-holder{
     max-height: 225px;
     overflow: auto;
+}
+
+div.downTeeth {
+    border-top: 1px solid Aquamarine;
 }
