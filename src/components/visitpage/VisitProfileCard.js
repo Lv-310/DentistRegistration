@@ -28,10 +28,10 @@ class VisitProfileCard extends React.Component{
 
   render() {
     return (
-        <div className="container">
+        <div className="container mb-0">
             <div className="row" align="middle">
                 <div className="col-md-12" >
-                  <div className="card">
+                  <div className="card border-bottom-0">
                     <div className="card-header">
                       <h3>Patient info</h3>
                     </div>

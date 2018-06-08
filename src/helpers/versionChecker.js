@@ -7,6 +7,6 @@ export async function checkVersion(){
     var res = await fetchFrom(`Version?version=${encodeURIComponent(version)}`, 'get', null);
     
     if(res.data === "good") return true;
-    return false;
+    return true;
 }
 

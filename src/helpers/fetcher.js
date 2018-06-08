@@ -9,6 +9,7 @@ export async function fetchFrom(path, method, params) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
+                
             }
         })
         const json = await response.json();
