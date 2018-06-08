@@ -49,12 +49,12 @@ class Jaw extends React.Component {
         let arrayDown = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38]
         
         let imagesUp = arrayUp.map(image => {
-            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded list-group-item list-group-item-action active`:`tooth-${image} list-group-item-action border border-top-0`)} onClick={() =>this.info(image)}>
+            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
             </div>
         });
 
          let imagesDown = arrayDown.map(image => {
-            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded list-group-item list-group-item-action active`:`tooth-${image} list-group-item-action border border-bottom-0`)} onClick={() =>this.info(image)}>
+            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
                 </div>
         });
         
