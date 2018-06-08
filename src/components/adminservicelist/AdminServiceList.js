@@ -17,7 +17,7 @@ import { addPriceRequest } from './AllAdminRequest';
 import { deletePriceRequest } from './AllAdminRequest';
 import { modalAlert, MSG_TYPE_INFO, MSG_TYPE_ERROR, MSG_TYPE_WARNING } from '../../helpers/modalAlert';
 import MomentLocaleUtils, { formatDate, parseDate, } from 'react-day-picker/moment';
-import 'moment/locale/it';
+import 'moment/locale/en-gb';
 
 
 
