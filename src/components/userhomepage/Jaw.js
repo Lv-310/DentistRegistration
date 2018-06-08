@@ -16,6 +16,11 @@ class Jaw extends React.Component {
         }
         this.addItem = this.addItem.bind(this)
         this.addServiceCallback = this.addServiceCallback.bind(this)
+        this.gotoBottom = this.gotoBottom.bind(this)
+    }
+    
+    componentDidUpdate() {
+        this.gotoBottom();
     }
 
     addServiceCallback(service, itemId)
@@ -41,7 +46,12 @@ class Jaw extends React.Component {
         //alert(JSON.stringify(this.state.services));
 
     }
-   
+
+    gotoBottom = () => {
+        var element = document.getElementById("service-holder");
+        if(element.scrollHeight!==null){
+            element.scrollTop = element.scrollHeight};
+    }
 
     render() { 
         
@@ -59,36 +69,37 @@ class Jaw extends React.Component {
         });
         
       return (
-        <div className="container"> 
-            <div className="row">
-                <div className="upTeeth">
-                    {imagesUp}
-                </div>
-            </div>
-            <div className="row">
-                <div className="downTeeth">
-                    {imagesDown}
-                </div>
-            </div>
-            <div className="collapse" id="collapseExample">
-                <div className="container">
-                    <div className="card">
-                        <div className="card-header">
-                            Tooth name: {this.state.toothId}
-                        </div>
-                    <div className="card-body service-holder">
-                    {this.state.toothinfoComp.map((item, index) => { if(item.props.toothId === this.state.toothId)
-                        return <div key={index}>
-                            {item}
-                        </div>
-                    }
-                    )}
-                    <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
-                </div>
-            </div>
-            </div> 
-            </div>         
-        </div>
+          <div className="container">
+              <div className="row">
+                  <div className="upTeeth">
+                      {imagesUp}
+                  </div>
+              </div>
+              <div className="row">
+                  <div className="downTeeth">
+                      {imagesDown}
+                  </div>
+              </div>
+              <div className="collapse" id="collapseExample">
+                  <div className="container">
+                      <div className="card">
+                          <div className="card-header">
+                              Tooth name: {this.state.toothId}
+                          </div>
+                          <div className="card-body" id="service-holder">
+                              {this.state.toothinfoComp.map((item, index) => {
+                                  if (item.props.toothId === this.state.toothId)
+                                      return <div key={index}>
+                                          {item}
+                                      </div>
+                              }
+                              )}
+                              <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
       )
     }
   }

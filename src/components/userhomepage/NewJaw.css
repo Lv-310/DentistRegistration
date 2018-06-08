@@ -160,7 +160,7 @@ div.downTeeth > * {
     cursor: pointer;
 }
 
-.service-holder{
+#service-holder{
     max-height: 225px;
     overflow: auto;
 }
