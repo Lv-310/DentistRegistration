@@ -5,11 +5,8 @@
   "dependencies": {
     "azure-storage": "^2.8.3",
     "bootstrap": "^4.1.0",
-<<<<<<< HEAD
     "fast-azure-storage": "^2.2.1",
-=======
     "date-fns": "^1.29.0",
->>>>>>> 9b107685c7a73c3ccdf1eede2d3e6d5f8005d213
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "jwt-decode": "^2.2.0",
