@@ -9,11 +9,18 @@ class Jaw extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          'items': [],
+          services: [],
           toothId : NaN,
-          toothinfoComp: []
+          toothinfoComp: [],
+          nextId:0,
         }
         this.addItem = this.addItem.bind(this)
+        this.addServiceCallback = this.addServiceCallback.bind(this)
+    }
+
+    addServiceCallback(service, itemId)
+    {
+        this.state.services[itemId]=service;
     }
 
 
@@ -23,10 +30,16 @@ class Jaw extends React.Component {
     }
    
     addItem = () => {
-        this.state.toothinfoComp.push(<ToothVisitInfo toothId={this.state.toothId}/>)
+ 
+        let obj = this;
+        this.state.toothinfoComp.push(<ToothVisitInfo toothId={this.state.toothId}
+            callback={obj.addServiceCallback} itemId = {this.state.nextId}/>)
+        this.state.nextId++;
         this.setState(
-          this.state
+            this.state
         )
+        //alert(JSON.stringify(this.state.services));
+
     }
    
 

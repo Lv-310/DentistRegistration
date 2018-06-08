@@ -4,6 +4,7 @@ import baseURL from '../../helpers/url';
 import {isMobile} from 'react-device-detect';
 import jwt_decode from 'jwt-decode'
 import {fetchFrom} from '../../helpers/fetcher';
+import Azure from '../azure/Azure';
 
 import "./doctorprofilecard.css";
 
@@ -39,7 +40,10 @@ class DoctorsProfileCard extends React.Component{
   // <i class="fas fa-sort-down"></i>
   render() {
     return (
+      
         <div className="container">
+                     <div> <Azure /></div>
+
             <div className="row" align="middle">
                 <div className="col-md-12" >
                 <h1> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h1>
@@ -63,7 +67,7 @@ class DoctorsProfileCard extends React.Component{
             </div>
             </div>
         </div>
-     
+    
     );
   }
 }
