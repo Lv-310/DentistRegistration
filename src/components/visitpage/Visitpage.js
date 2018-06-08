@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import VisitProfileCard from './VisitProfileCard'
-
+import Jaw from '../userhomepage/Jaw'
+import PatientInfo from './patientInfo'
 class Visitpage extends React.Component{ 
 
     render(){
         return(
             <div className="row">
-                <div className="col-md-4">
+                <div className="col-sm-5">
                     <VisitProfileCard idfromParent={this.props.match.params.userId}/>
+                    <PatientInfo idfromParent={this.props.match.params.userId}/>
                     </div>
-                    <div className="col-md-8">
-                    
+                    <div className="col-sm-7">
+                    <Jaw />
                     </div>
             </div>  
         );

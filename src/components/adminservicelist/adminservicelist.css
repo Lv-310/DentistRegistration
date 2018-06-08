@@ -35,13 +35,11 @@
     display: inline;
   }
 
-  #first{
+  .pointerEvents{
     pointer-events: none;
   }
-  
+  #fafamargin{
+    margin-right: 7px;
+
+  }
 }
-
-
-
-
-  

@@ -218,7 +218,7 @@ validateForm() {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
 
-    return year + '-' + month + '-' + day;
+    return `${year}-${month}-${day}`;
   }
 
   changeCurrentView = () => {
@@ -233,24 +233,15 @@ validateForm() {
   getCurrentDateFromURL = () => {
     var currentDate = new Date(new Date());
     if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
-    currentDate = new Date(this.props.match.params.date)
-   
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth();
-    
-    var year = currentDate.getFullYear(); 
-    var dateAr = [];
-    dateAr.push(year);
-    dateAr.push(month);
-    dateAr.push(day);
-   
-    alert(dateAr[0]+" "+dateAr[1]+" "+dateAr[2])
-    var d = this.SetDate(dateAr);
-    
-    return d;
+    {
+      let parts = this.props.match.params.date.split("-");
+      currentDate = new Date(parseInt(parts[0],10),parseInt(parts[1],10)-1,parseInt(parts[2],10));
+    }
+    return currentDate;
   }
 
   SetDate = (mydate) =>{
+    alert(mydate[0]);
     return new Date(mydate[0],mydate[1],mydate[2]);
   }
   
@@ -259,28 +250,11 @@ validateForm() {
         desc: '',
     })}
 
-  render() {
-    this.state.allevents.forEach(a => {
-      a.start = new Date(a.start);
-      a.end = new Date(a.end);
-    })
-
-    let formats = {
-      dayFormat: (date, culture, localizer) =>
-      
-        localizer.format(date, 'ddd MM/dd', culture),
-        eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
-          return ""
-        },
-    }
-
-    var x = window.matchMedia("(max-width: 700px)")
-
-    var currentView = this.changeCurrentView();
-
-    return (
-      <div>
-        <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
+  renderModal()
+  {
+    return(
+    <div>
+      <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
         </div>
         <div id="EventModal" className="modal fade" role="dialog">
           <div className="modal-dialog modal-dialog-centered">
@@ -316,11 +290,37 @@ validateForm() {
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  render() {
+    this.state.allevents.forEach(a => {
+      a.start = new Date(a.start);
+      a.end = new Date(a.end);
+    })
+
+    let formats = {
+      dayFormat: (date, culture, localizer) =>
+      
+        localizer.format(date, 'dddd DD.MM.YYYY', culture),
+        eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
+          return ""
+        },
+    }
+
+    var x = window.matchMedia("(max-width: 700px)")
+
+    var currentView = this.changeCurrentView();
+
+    return (
+      <div>
+        {this.renderModal()}
         <BigCalendar
           events={this.state.allevents}
           defaultView={currentView}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          date={this.getCurrentDateFromURL()}
+          defaultDate={this.getCurrentDateFromURL()}
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}

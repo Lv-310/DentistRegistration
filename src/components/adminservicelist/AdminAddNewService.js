@@ -122,7 +122,7 @@ class AdminAddNewService extends React.Component {
 
                         </div>
                         <div className="modal-body col-lg-12">
-                            <form id="ajax-register-form" action="" value={this.state.value} method="post" autoComplete="off" onSubmit={this.handleSubmit}>
+                            <form id="ajax-addService-form" action="" value={this.state.value} method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.Name)}`}
                                         placeholder="Name" name="Name"

@@ -83,3 +83,8 @@
 .margin-top-negative{
   margin-top: -30px;
 }
+
+a.page-link{
+text-align: center;
+padding: 6px 8px;
+}

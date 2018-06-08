@@ -6,14 +6,20 @@ import { isMobile } from 'react-device-detect';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { fetchFrom } from '../../helpers/fetcher';
+import Pagination from '../pagination/Pagination';
 
 class DoctorListForAdminPage extends React.Component{
     constructor(){
         super();
         this.state = {
-            'DoctorsList': []
+            'DoctorsList': [],
+            pageOfItems: []
         }
+        this.onChangePage = this.onChangePage.bind(this);
     }
+    onChangePage(pageOfItems) {
+      this.setState({ pageOfItems: pageOfItems });
+  }
 
     componentDidMount() {
         this.getDoctors();
@@ -43,7 +49,7 @@ class DoctorListForAdminPage extends React.Component{
     
             <div id="demo2" className="collapse show">
             <div className="height-scroll-small">
-              {this.state.DoctorsList.map((item, index) => {
+              {this.state.pageOfItems.map((item, index) => {
                 return <div key={index}>
                  <button type="button" key={index} className="list-group-item list-group-item-action">
                                
@@ -54,6 +60,7 @@ class DoctorListForAdminPage extends React.Component{
                 </div>
               }
               )}
+               <Pagination items={this.state.DoctorsList} onChangePage={this.onChangePage} />
               </div>
             </div>
           </div>

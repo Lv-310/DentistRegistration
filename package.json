@@ -5,7 +5,11 @@
   "dependencies": {
     "azure-storage": "^2.8.3",
     "bootstrap": "^4.1.0",
+<<<<<<< HEAD
     "fast-azure-storage": "^2.2.1",
+=======
+    "date-fns": "^1.29.0",
+>>>>>>> 9b107685c7a73c3ccdf1eede2d3e6d5f8005d213
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "jwt-decode": "^2.2.0",
@@ -14,6 +18,7 @@
     "react": "^16.3.2",
     "react-big-calendar": "^0.19.0",
     "react-bootstrap": "^0.32.1",
+    "react-day-picker": "^7.1.9",
     "react-device-detect": "^1.3.4",
     "react-dom": "^16.3.2",
     "react-https-redirect": "^1.0.10",
@@ -31,5 +36,6 @@
     "build": "set HTTPS=true && set PORT=9090 && react-scripts build",
     "test": "set PORT=9090 && react-scripts test --env=jsdom",
     "eject": "set PORT=9090 && react-scripts eject"
-  }
+  },
+  "devDependencies": {}
 }
