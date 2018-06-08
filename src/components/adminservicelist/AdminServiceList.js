@@ -15,9 +15,9 @@ import { fetchFrom } from '../../helpers/fetcher';
 import { editPriceRequest } from './AllAdminRequest';
 import { addPriceRequest } from './AllAdminRequest';
 import { deletePriceRequest } from './AllAdminRequest';
-import { modalAlert, MSG_TYPE_INFO, MSG_TYPE_ERROR, MSG_TYPE_WARNING } from '../../helpers/modalAlert';
+import { modalAlert, MSG_TYPE_INFO, MSG_TYPE_ERROR, MSG_TYPE_WARNING, modalDialog, modalAlertClose } from '../../helpers/modalAlert';
 import MomentLocaleUtils, { formatDate, parseDate, } from 'react-day-picker/moment';
-import 'moment/locale/it';
+import 'moment/locale/en-gb';
 
 
 
@@ -29,9 +29,12 @@ class AdminServiceList extends React.Component {
             'prices': [],
             service: {},
             price: {},
+            priceForPlaceholder: '',
             updatedPrice: '',
-            datePrice: '',
+            newPrice: '',
             collapsedLast: 0,
+            //datePrice: '',
+            newStartDate: new Date(),
             //startDate: moment(),
 
             formErrors: {
@@ -48,18 +51,21 @@ class AdminServiceList extends React.Component {
     }
 
     deletePrice(id) {
-        // let removedPrice = {
-        //     ServiceId: this.state.service.Id,
-        //     Price: price,
-        //     Id: id,
-        //     DateStart: this.state.startDate
-        // }
-        deletePriceRequest(id);
-
+        deletePriceRequest(id).then((item => {
+            if (item.statusCode != 200) {
+                var state = this.state;
+                state.formErrors.userExist = item.data.Message;
+                this.setState(state);
+                return;
+            }
+        }));
+        this.getServicePrice(this.state.service.Id, this.state.service.Name);
     }
 
 
-    handleSubmit = (event) => {
+
+
+    handleEditSubmit = (event) => {
         event.preventDefault()
 
         const editedPriceData = {
@@ -67,7 +73,6 @@ class AdminServiceList extends React.Component {
             Price: this.state.updatedPrice,
             Id: this.state.price.Id,
             DateStart: this.state.price.DateStart
-
         }
         editPriceRequest(editedPriceData).then((item => {
             if (item.statusCode != 200) {
@@ -86,8 +91,8 @@ class AdminServiceList extends React.Component {
 
         const addedPrice = {
             ServiceId: this.state.service.Id,
-            Price: this.state.updatedPrice,
-            DateStart: this.state.DateStart,
+            Price: this.state.newPrice,
+            DateStart: this.state.newStartDate
         }
         addPriceRequest(addedPrice).then((item => {
             if (item.statusCode != 200) {
@@ -136,8 +141,8 @@ class AdminServiceList extends React.Component {
     }
 
     handleChangeDate = (date) => {
-        this.setState({ DateStart: date },
-            () => { this.validateField('DateStart', date) });
+        this.setState({ newStartDate: date },
+            () => { this.validateField('newStartDate', date) });
 
     }
 
@@ -165,6 +170,10 @@ class AdminServiceList extends React.Component {
         let priceValid = this.state.priceValid;
 
         switch (fieldName) {
+            case 'newPrice':
+                priceValid = value.match(/^[1-9][0-9]*$/) && value.length >= 0;
+                fieldValidationErrors.price = priceValid ? '' : 'You input incorrect data, please try again';
+                break;
             case 'updatedPrice':
                 priceValid = value.match(/^[1-9][0-9]*$/) && value.length >= 0;
                 fieldValidationErrors.price = priceValid ? '' : 'You input incorrect data, please try again';
@@ -186,6 +195,9 @@ class AdminServiceList extends React.Component {
     clearForm = () => {
         this.setState({
             updatedPrice: '',
+            newPrice: '',
+            newStartDate: '',
+
             formErrors: {
                 price: '',
                 datePrice: ''
@@ -203,18 +215,22 @@ class AdminServiceList extends React.Component {
 
 
     addCurentPriceValues(currentPrice) {
-        this.setState({ price: currentPrice });
+        this.setState({ price: currentPrice })
     }
+
+    // addCurentPriceValues(currentPrice) {
+    //     this.setState({ price: currentPrice });
+    // }
 
     // addCurentPriceDate(currentDatePrice) {
     //     this.setState({ datePrice: currentDatePrice });
     // }
 
-    updatedInputValue = (evt) => {
-        this.setState({
-            updatedPrice: evt.target.value
-        });
-    }
+    // updatedInputValue = (evt) => {
+    //     this.setState({
+    //         updatedPrice: evt.target.value
+    //     });
+    // }
 
     // updatedInputDate = (evt) => {
     //     this.setState({
@@ -222,7 +238,7 @@ class AdminServiceList extends React.Component {
     //     });
     // }
 
-    formatDate = (date) => {
+    formatDateStart = (date) => {
 
         var day = date.getDate();
         var monthIndex = date.getMonth() + 1;
@@ -231,19 +247,22 @@ class AdminServiceList extends React.Component {
         return day + '-' + monthIndex + '-' + year;
     }
 
-    parseDate(str, format, locale) {
-        const parsed = dateFnsParse(str, format, { locale });
-        if (DateUtils.isDate(parsed)) {
-            return parsed;
-        }
-        return undefined;
-    }
+    // parseDate(str, format, locale) {
+    //     const parsed = dateFnsParse(str, format, { locale });
+    //     if (DateUtils.isDate(parsed)) {
+    //         return parsed;
+    //     }
+    //     return undefined;
+    // }
 
 
     formatDate(date, format, locale) {
         return dateFnsFormat(date, format, { locale });
     }
 
+    focusFunction() {
+        document.getElementById("myInput").style.background = "yellow";
+    }
 
 
 
@@ -251,8 +270,9 @@ class AdminServiceList extends React.Component {
         var d = new Date();
         d.setDate(d.getDate() - 1);
         var today = d;
+        let Todaydate = this.state.newStartDate;
 
-        const FORMAT = 'M-D-YYYY';
+        const FORMAT = 'D-M-YYYY';
         return (
             <div className="list-group">
                 <a href="#" data-toggle="collapse" data-target="#service" className="list-group-item active my-list-header btn-secondary dropdown-toggle-split">
@@ -277,14 +297,16 @@ class AdminServiceList extends React.Component {
                         return <div key={index}>
                             <span type="button" key={index} className="list-group-item list-group-item-action" >
                                 <span>{price.Price}</span>
-                                <span className="mx-4"> {this.formatDate(new Date(price.DateStart))}</span>
+                                <span className="mx-4"> {this.formatDateStart(new Date(price.DateStart))}</span>
                                 {Date.parse(price.DateStart) >= today ?
                                     <a href="#" className="fas fa-edit float-right"
-                                        onClick={() => { this.addCurentPriceValues(price); this.setState({ addPriceRequest }) }} data-toggle="modal" data-target="#editPriceModal">
+                                        onClick={() => { this.addCurentPriceValues(price); }} data-toggle="modal" data-target="#editPriceModal">
                                     </a> : null}
-                                {Date.parse(price.DateStart) >= today ?
+
+
+                                {Date.parse(price.DateStart) > today ?
                                     <a href="#" id="fafamargin" className="fa fa-trash float-right"
-                                        onClick={() => { this.deletePrice(price.Id); }}>
+                                        onClick={() => modalDialog(price.Price, "You are sure?", MSG_TYPE_WARNING, (id) => { this.deletePrice(id) }, price.Id)} /*{ this.deletePrice(price.Id); }}*/ >
                                     </a> : null}
                             </span>
                         </div>
@@ -304,19 +326,17 @@ class AdminServiceList extends React.Component {
                             </div>
 
                             <div className="modal-body col-lg-12">
-                                <form id="ajax-editPrice-form" action="" method="post" autoComplete="off" onSubmit={this.handleSubmit}>
+                                <form id="ajax-editPrice-form" action="" method="post" autoComplete="off" onSubmit={this.handleEditSubmit}>
                                     <div className="form-group">
-                                        <label >{this.state.price.Name} </label>
+                                        {/* <label >{this.state.price.Name} </label> */}
                                         <input className={`form-control ${this.errorBorder(this.state.formErrors.price)}`} type="text"
-                                            placeholder={this.state.price.Price} name="updatedPrice"
+                                            placeholder={this.state.price.Price}
+                                            name="updatedPrice"
                                             value={this.state.updatedPrice}
                                             onChange={this.handleChange}
                                         />
                                         <div className="error-message">{this.state.formErrors.price}</div>
                                     </div>
-                                    {/* <div className="form-group">
-                                        <div className="error-message">{this.state.formErrors.datePrice}</div>
-                                    </div> */}
                                     <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
                                         Save
                                     </button>
@@ -340,9 +360,9 @@ class AdminServiceList extends React.Component {
                                     <div className="form-group">
                                         <label >{this.state.price.Name} </label>
                                         <input className={`form-control ${this.errorBorder(this.state.formErrors.price)}`} type="text"
-                                            placeholder={this.state.price.Price}
-                                            name="updatedPrice"
-                                            value={this.state.price.updatedPrice}
+                                            placeholder=""
+                                            name="newPrice"
+                                            value={this.state.newPrice}
                                             onChange={this.handleChange}
                                         />
                                         <div className="error-message">{this.state.formErrors.price}</div>
@@ -353,18 +373,19 @@ class AdminServiceList extends React.Component {
                                             formatDate={formatDate}
                                             format={FORMAT}
                                             inputProps={{ readOnly: true }}
-                                            parseDate={parseDate}
-                                            placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
-                                            selected={this.state.DateStart}
+                                            //parseDate={parseDate}
+                                            placeholder={`${dateFnsFormat(new Date(new Date()), FORMAT)}`}
                                             onDayChange={this.handleChangeDate}
-
                                         />
+                                        <a href='#' className="fa fa-calendar" data-toggle="collapse" data-target="DayPickerInput" onClick={() => {
+                                            document.getElementsByClassName('DayPickerInput')[0].firstChild.click()
+                                        }}>
+                                        </a>
+
                                         {/* <DatePicker
                                             dateFormat="DD-MM-YYYY"
-                                            selected={this.state.startDate}
-                                            
-                                            minDate = {moment().startOf('day')}
-                                            
+                                            selected={this.state.startDate}                                            
+                                            minDate = {moment().startOf('day')}                                            
                                             onChange={this.handleDate}
                                             isClearable={true}
                                         /> */}
