@@ -62,6 +62,7 @@ namespace DentistRegistration
             container.RegisterType<IRepositoryCRUcollection<Alergie>, AlergieDAL> ();
             container.RegisterType<IRepositoryCRUcollection<InfoField>, InfoFieldDAL>();
             container.RegisterType<IRepositoryCRU<PatientInfo>, PatientInfoDAL>();
+            container.RegisterType<IRepositoryCRUcollection<Tooth>, ToothDAL>();
             config.DependencyResolver = new UnityResolver(container);
             
         }

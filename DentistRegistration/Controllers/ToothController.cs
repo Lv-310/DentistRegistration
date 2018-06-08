@@ -1,22 +1,24 @@
-﻿using DentistRegistration.DataAccessLayer;
+﻿using DentistRegistration.Interfaces;
 using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DentistRegistration.Controllers
 {
     public class ToothController : ApiController
     {
-        private ToothDAL toothDal = new ToothDAL();
-        
+        private IRepositoryCRUcollection<Tooth> repo;
+
+        public ToothController(IRepositoryCRUcollection<Tooth> r)
+        {
+            repo = r;
+        }
+
         // GET: api/Tooth
         public IEnumerable<Tooth> Get(int id)
         {
-            return toothDal.GetById(id);
+            return repo.GetByTiedId(id);
         }
 
         // POST: api/Price
@@ -30,7 +32,7 @@ namespace DentistRegistration.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                bool isAdded = toothDal.Insert(tooth);
+                bool isAdded = repo.Insert(tooth);
                 if (isAdded)
                 {
                     return Ok("Inserted");
@@ -54,7 +56,7 @@ namespace DentistRegistration.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                bool isUpdated = toothDal.Update(tooth);
+                bool isUpdated = repo.Update(tooth);
                 if (isUpdated)
                 {
                     return Ok("Updated");
