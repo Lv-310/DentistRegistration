@@ -85,7 +85,7 @@ class ToothVisitInfo extends React.Component {
                 <div className="row mb-1">
                     <div className="col-md-4">
                         <select className="form-control" id="sel1" onChange={this.handleSelectChange}>
-                            <option disabled selected value> -- select a service -- </option>
+                            <option disabled selected value> select a service </option>
                             {this.state.services.map((item, index) => {
                                 return <option value={item.Id} key={index}>{item.Name}</option>
                             }

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { fetchFrom } from '../../helpers/fetcher';
 import ToothVisitInfo from '../visitpage/ToothVisitInfo';
+import SummaryInfo from '../visitpage/SummaryInfo';
 //import "./jaw.css"
 import './NewJaw.css';
 
@@ -69,7 +70,10 @@ class Jaw extends React.Component {
         });
         
       return (
-          <div className="container">
+            <div className="container">
+                <div className="row">
+                    <SummaryInfo services = {this.state.services} />
+                </div>
               <div className="row">
                   <div className="upTeeth">
                       {imagesUp}
@@ -95,6 +99,7 @@ class Jaw extends React.Component {
                               }
                               )}
                               <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
+                             
                           </div>
                       </div>
                   </div>
