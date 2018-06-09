@@ -2,14 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { ModalComponent } from 'react-modal';
+import { fetchFrom } from '../../helpers/fetcher';
 
 class SummaryInfo extends React.Component{ 
     constructor(props) {
         super(props)
         this.state = {
             SummaryPrice : 0,
-            ServiceInfo : ""
+            ServiceInfo : "",
+            services : []
         }
+    }
+
+    componentDidMount(){
+        this.getServices();
+    }
+
+    getServices() {
+        fetchFrom('Service', 'get', null)
+            .then(results => {
+                this.setState({ services: results.data });
+                return results;
+            });
     }
 
     renderModal()
@@ -44,11 +58,20 @@ class SummaryInfo extends React.Component{
         );
   }
 
+    
+
+    getServiceName = (id) =>{
+        for(var i = 0; i < this.state.services.length; i++) {
+            if (id == this.state.services[i].Id)
+                return this.state.services[i].Name
+        }
+    }
+
 
     getSummaryInfo = (services) => {
         let serviceInfo = "";
         for(var i = 0; i < services.length; i++) {
-            serviceInfo += i+1+".\tService : "+ services[i].ServiceId +" Price : " + services[i].Price + "\nSummary: " + services[i].Description +'\n';
+            serviceInfo += i+1+".\tService : "+ this.getServiceName(services[i].ServiceId) +" Price : " + services[i].Price + "\nSummary: " + services[i].Description +'\n';
         } 
         return serviceInfo;
     }
