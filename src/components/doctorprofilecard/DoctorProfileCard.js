@@ -54,6 +54,7 @@ class DoctorsProfileCard extends React.Component{
                     <div className="panel-body">
                                 <div className="row">
                                 <div className="col-md-12">
+                                <button className="btn btn-light border-dark">Upload photo</button>
 
                                     <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p> 
                                     <p><strong>Speciality: {this.state.doctor.Speciality}  </strong></p>
