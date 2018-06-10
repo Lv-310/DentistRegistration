@@ -56,7 +56,6 @@ class SummaryInfo extends React.Component{
         </div>
         );
     }
-
     
 
     getServiceName = (id) =>{
@@ -69,7 +68,9 @@ class SummaryInfo extends React.Component{
 
     getSummaryInfo = (services) => {
         let serviceInfo = "";
+      
         for(var i = 0; i < services.length; i++) {
+            if(this.getServiceName(services[i].ServiceId)!= undefined)
             serviceInfo += i+1+".\tService : "+ this.getServiceName(services[i].ServiceId) +" Price : " + services[i].Price + "\nSummary: " + services[i].Description +'\n';
         } 
         return serviceInfo;

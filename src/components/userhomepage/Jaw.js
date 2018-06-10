@@ -43,7 +43,8 @@ class Jaw extends React.Component {
  
         let obj = this;
         this.state.toothinfoComp.push(<ToothVisitInfo toothId={this.state.toothId}
-            callback={obj.addServiceCallback} itemId = {this.state.nextId}/>)
+            toothServices={this.state.services}
+            callback={obj.addServiceCallback} itemId = {this.state.nextId}  />)
         this.state.nextId++;
         this.setState(
             this.state
@@ -92,7 +93,10 @@ class Jaw extends React.Component {
                   <div className="container">
                       <div className="card">
                           <div className="card-header">
-                              Tooth name: {this.state.toothId}
+                              Tooth name: {this.state.toothId} 
+                              <span className="my-span">
+                              <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
+                              </span>
                           </div>
                           <div className="card-body" id="service-holder">
                               {this.state.toothinfoComp.map((item, index) => {
@@ -102,7 +106,7 @@ class Jaw extends React.Component {
                                       </div>
                               }
                               )}
-                              <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
+                             
                           </div>
                       </div>
                   </div>
