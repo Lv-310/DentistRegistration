@@ -29,5 +29,7 @@ namespace DentistRegistration.Models
         [StringLength(15, MinimumLength = 6, ErrorMessage = "Password should be minimum 6 characters and maximum 15 characters")]
         [Required(ErrorMessage = "Field can't be empty")]
         public string Doc_password { get; set; }
+
+        public string AvatarPath { get; set; }
     }
 }

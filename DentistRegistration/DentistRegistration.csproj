@@ -206,6 +206,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants\AllConstants.cs" />
+    <Compile Include="Controllers\AvatarController.cs" />
     <Compile Include="Controllers\CalendarEventController.cs" />
     <Compile Include="Controllers\CalendarEventRuleController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="Controllers\VisitInfoController.cs" />
     <Compile Include="DataAccessLayer\AlergieDAL.cs" />
+    <Compile Include="DataAccessLayer\AvatarUploadDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventsDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventRulesDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventsDataAccessLayer.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IAvatarUpload.cs" />
     <Compile Include="Interfaces\IRepositoryCRU.cs" />
     <Compile Include="Interfaces\IRepositoryCRUcollection.cs" />
     <Compile Include="Interfaces\IRepositoryCRUD.cs" />
