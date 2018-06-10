@@ -26,8 +26,7 @@ class SummaryInfo extends React.Component{
             });
     }
 
-    renderModal()
-    {
+    renderModal(){
         return(
         <div>
         <div id="Modalbtn" data-toggle="modal" data-target="#myModal">
@@ -56,7 +55,7 @@ class SummaryInfo extends React.Component{
             </div>
         </div>
         );
-  }
+    }
 
     
 
@@ -113,7 +112,7 @@ class SummaryInfo extends React.Component{
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Price</span>
                                         </div>
-                                        <input type="text" class="form-control" value = {this.state.SummaryPrice} aria-describedby="basic-addon1" />
+                                        <input type="text" class="form-control" value = {this.state.SummaryPrice} aria-describedby="basic-addon1" readOnly />
                                     </div>
                                 </div>
                                 <div className="col-sm-4 bootstap-change-margin">

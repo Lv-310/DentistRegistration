@@ -26,7 +26,11 @@ class Jaw extends React.Component {
 
     addServiceCallback(service, itemId)
     {
+        this.setState(
+            this.state
+        )
         this.state.services[itemId]=service;
+        
     }
 
 
@@ -99,7 +103,6 @@ class Jaw extends React.Component {
                               }
                               )}
                               <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
-                             
                           </div>
                       </div>
                   </div>
