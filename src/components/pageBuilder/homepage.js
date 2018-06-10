@@ -21,7 +21,7 @@ class Homepage extends React.Component {
             </div>
             <div className="col-md-10">
                 <Route exact path="/Home" component={Select} />
-                <Route path="/Home/doctor/:doctorId/:date/:view" component={() => <Calendar /> />
+                <Route path="/Home/doctor/:doctorId/:date/:view" component={() => <Calendar />} />
             </div>
         </div>
         );
