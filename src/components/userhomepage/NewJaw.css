@@ -168,3 +168,7 @@ div.downTeeth > * {
 div.downTeeth {
     border-top: 1px solid PowderBlue;
 }
+
+.someTeeth{
+    background-color: Aquamarine ;
+}

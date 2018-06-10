@@ -14,6 +14,7 @@ class Jaw extends React.Component {
           toothId : NaN,
           toothinfoComp: [],
           nextId:0,
+          activeTeeth: [],
         }
         this.addItem = this.addItem.bind(this)
         this.addServiceCallback = this.addServiceCallback.bind(this)
@@ -49,6 +50,7 @@ class Jaw extends React.Component {
         this.setState(
             this.state
         )
+        this.state.activeTeeth.push(this.state.toothId);
         //alert(JSON.stringify(this.state.services));
 
     }
@@ -88,18 +90,42 @@ class Jaw extends React.Component {
         }
     }
 
+    teethClassNames(id) {
+        if (id === this.state.toothId) {
+            return (
+                `tooth-${id} rounded activeTeeth`
+            );
+        }
+        let active = false;
+        this.state.activeTeeth.forEach((tooth) => {
+            if (tooth === id) {
+                active = true;
+                return;
+            }
+        }
+        );
+        if(active){
+            return(
+                `tooth-${id} someTeeth`
+            );
+        }
+        return(
+            `tooth-${id}`
+        );
+    }
+
     render() { 
         
         let arrayUp = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28]
         let arrayDown = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38]
         
         let imagesUp = arrayUp.map(image => {
-            return <div key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
+            return <div key={image} className={this.teethClassNames(image)} onClick={() =>this.info(image)}>
             </div>
         });
 
          let imagesDown = arrayDown.map(image => {
-            return <div key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
+            return <div key={image} className={this.teethClassNames(image)} onClick={() =>this.info(image)}>
                 </div>
         });
         
