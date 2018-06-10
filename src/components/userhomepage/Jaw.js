@@ -59,18 +59,47 @@ class Jaw extends React.Component {
             element.scrollTop = element.scrollHeight};
     }
 
+    servicescontainer(){
+        if(!isNaN(this.state.toothId)){
+            return(
+                <div>
+                <div className="container">
+                    <div className="card">
+                        <div className="card-header">
+                            Tooth name: {this.state.toothId} 
+                            <span className="my-span">
+                            <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
+                            </span>
+                        </div>
+                        <div className="card-body" id="service-holder">
+                            {this.state.toothinfoComp.map((item, index) => {
+                                if (item.props.toothId === this.state.toothId)
+                                    return <div key={index}>
+                                        {item}
+                                    </div>
+                            }
+                            )}
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            );
+        }
+    }
+
     render() { 
         
         let arrayUp = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28]
         let arrayDown = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38]
         
         let imagesUp = arrayUp.map(image => {
-            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
+            return <div key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
             </div>
         });
 
          let imagesDown = arrayDown.map(image => {
-            return <div data-toggle="collapse" data-target="#collapseExample" key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
+            return <div key={image} className={(image==this.state.toothId?`tooth-${image} rounded activeTeeth`:`tooth-${image}`)} onClick={() =>this.info(image)}>
                 </div>
         });
         
@@ -89,28 +118,7 @@ class Jaw extends React.Component {
                       {imagesDown}
                   </div>
               </div>
-              <div className="collapse" id="collapseExample">
-                  <div className="container">
-                      <div className="card">
-                          <div className="card-header">
-                              Tooth name: {this.state.toothId} 
-                              <span className="my-span">
-                              <i onClick={this.addItem} className="fas fa-plus plus">  add service...</i>
-                              </span>
-                          </div>
-                          <div className="card-body" id="service-holder">
-                              {this.state.toothinfoComp.map((item, index) => {
-                                  if (item.props.toothId === this.state.toothId)
-                                      return <div key={index}>
-                                          {item}
-                                      </div>
-                              }
-                              )}
-                             
-                          </div>
-                      </div>
-                  </div>
-              </div>
+              {this.servicescontainer()}
           </div>
       )
     }
