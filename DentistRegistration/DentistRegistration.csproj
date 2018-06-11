@@ -219,12 +219,9 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="Controllers\VisitInfoController.cs" />
-<<<<<<< HEAD
     <Compile Include="Controllers\XRayController.cs" />
-=======
     <Compile Include="DataAccessLayer\AlergieDAL.cs" />
     <Compile Include="DataAccessLayer\AvatarUploadDAL.cs" />
->>>>>>> 04fe291e3689a21a5557d52ff1bffbb0b6242bc4
     <Compile Include="DataAccessLayer\CalendarEventsDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventRulesDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventsDataAccessLayer.cs" />
