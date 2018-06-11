@@ -1,0 +1,85 @@
+USE LV_310_DENTISTRY;
+
+GO
+
+IF object_id('spAddPatientInfo') IS NULL
+    EXEC ('create procedure dbo.spAddPatientInfo as select 1')
+GO
+ALTER PROCEDURE spAddPatientInfo
+@ID INT OUTPUT, @MucosalCondition nvarchar(100), @Bite nvarchar(100), @DoctorSupervision nvarchar(100), @DrugUse nvarchar(100), @Complains nvarchar(100), @Anesthesia nvarchar(100),
+@FirstVisit date, @PatientId int
+AS
+BEGIN
+INSERT INTO PatientInfo(MucosalCondition, Bite, DoctorSupervision, DrugUse, Complains, Anesthesia, FirstVisit, PatientId)
+VALUES(@MucosalCondition, @Bite, @DoctorSupervision, @DrugUse, @Complains, @Anesthesia, @FirstVisit, @PatientId);
+SELECT @ID = MAX(ID) FROM PatientInfo;
+END;
+
+GO
+
+IF object_id('spAddPatientAllergies') IS NULL
+    EXEC ('create procedure dbo.spAddPatientAllergies as select 1')
+GO
+ALTER PROCEDURE spAddPatientAllergies
+@PatientInfoId INT, @AlergieId INT
+AS
+BEGIN
+INSERT INTO PatientAlergies(PatientInfoId, AlergieId)
+VALUES(@PatientInfoId, @AlergieId)
+END;
+
+GO
+
+IF object_id('spAddPatientinfoValues') IS NULL
+    EXEC ('create procedure dbo.spAddPatientinfoValues as select 1')
+GO
+ALTER PROCEDURE spAddPatientinfoValues
+@PatientInfoId INT, @InfoFieldId INT, @FieldValue BIT
+AS
+BEGIN
+INSERT INTO PatientInfoValues(PatientInfoId, InfoFieldId, FieldValue)
+VALUES(@PatientInfoId, @InfoFieldId, @FieldValue)
+END;
+
+GO;
+
+IF object_id('spTranAddPatientinfo') IS NULL
+    EXEC ('create procedure dbo.spTranAddPatientinfo as select 1')
+GO
+ALTER PROCEDURE spTranAddPatientinfo
+@RESULT VARCHAR OUTPUT, @MucosalCondition nvarchar(100), @Bite nvarchar(100), @DoctorSupervision nvarchar(100), @DrugUse nvarchar(100), @Complains nvarchar(100), @Anesthesia nvarchar(100),
+@FirstVisit date, @PatientId int, @AlergieId INT, @InfoFieldId INT, @FieldValue BIT
+AS
+BEGIN TRAN
+DECLARE @ID INT
+EXEC spAddPatientInfo @MucosalCondition, @Bite, @DoctorSupervision, @DrugUse, @Complains, @Anesthesia, @FirstVisit, @PatientId, @ID OUTPUT
+SELECT @ID;
+
+IF @@ERROR <> 0
+   BEGIN
+	ROLLBACK TRAN
+	return 1
+   END
+
+EXEC spAddPatientAllergies @ID, @AlergieId
+
+IF @@ERROR <> 0
+   BEGIN
+	ROLLBACK TRAN
+	return 1
+   END
+
+EXEC spAddPatientinfoValues @ID, @InfoFieldId, @FieldValue
+
+IF @@ERROR <> 0
+   BEGIN
+	ROLLBACK TRAN
+	return 1
+   END
+
+
+COMMIT TRAN
+SELECT @RESULT = 'TRANSACTION IS DONE'
+RETURN @RESULT;
+
+GO
