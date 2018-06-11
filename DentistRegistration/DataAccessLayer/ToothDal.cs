@@ -1,19 +1,28 @@
-﻿using DentistRegistration.Models;
+﻿using DentistRegistration.Interfaces;
+using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace DentistRegistration.DataAccessLayer
 {
-    public class ToothDAL
+    public class ToothDAL: IRepositoryCRUcollection<Tooth>
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-    
-        public IEnumerable<Tooth> GetById(int id)
+
+        public IEnumerable<Tooth> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tooth GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tooth> GetByTiedId(int id)
         {
             List<Tooth> lstteeth = new List<Tooth>();
 

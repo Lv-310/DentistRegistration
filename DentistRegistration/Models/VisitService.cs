@@ -28,5 +28,9 @@ namespace DentistRegistration.Models
         [StringLength(maximumLength:1024, ErrorMessage = "Description should be maximum 1024 characters")]
         [Required(ErrorMessage = "Field can't be empty")]
         public string Description { get; set; }
+
+        [Range(0, Int32.MaxValue)]
+        [Required(ErrorMessage = "Field can't be empty")]
+        public int XrayId { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using DentistRegistration.Interfaces;
-using DentistRegistration.Models;
+﻿using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,8 +11,30 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        // To View all Prices    
-        public IEnumerable<PriceModel> GetById(int id)
+        public int GetByServiceId(int id)
+        {
+            int priceService=0;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("spGetCurrentPriceByServiceId", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID", id);
+                SqlParameter output = new SqlParameter();
+                output.DbType = DbType.Int32;
+                output.ParameterName = "@currentprice";
+                output.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(output);
+                SqlDataReader reader = cmd.ExecuteReader();
+                priceService = Convert.ToInt32(output.Value);
+            }
+
+            return priceService;
+        }
+            // To View all Prices    
+            public IEnumerable<PriceModel> GetById(int id)
         {
             List<PriceModel> lstprices = new List<PriceModel>();
 
@@ -171,7 +192,7 @@ namespace DentistRegistration.DataAccessLayer
                 return isInserted;
         }
 
-        public bool Delete(PriceModel price)
+        public bool Delete(int id)
         {
             bool isDeleted = false;
             using (var con = new SqlConnection(connectionString))
@@ -181,8 +202,7 @@ namespace DentistRegistration.DataAccessLayer
                 SqlCommand cmdCheck = new SqlCommand("spCheckPriceForDelete", con);
 
                 cmdCheck.CommandType = CommandType.StoredProcedure;
-                cmdCheck.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
-                cmdCheck.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
+                cmdCheck.Parameters.AddWithValue("@ID_PRICE", id);
                 SqlParameter outPutParameter = new SqlParameter("@Result", SqlDbType.Bit)
                 {
                     Direction = ParameterDirection.Output
@@ -202,7 +222,7 @@ namespace DentistRegistration.DataAccessLayer
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    cmd.Parameters.AddWithValue("@ID_PRICE", price.Id);
+                    cmd.Parameters.AddWithValue("@ID_PRICE", id);
 
                     cmd.ExecuteNonQuery();
 

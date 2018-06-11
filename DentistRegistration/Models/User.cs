@@ -25,5 +25,7 @@ namespace DentistRegistration.Models
         [RegularExpression("^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         [Required(ErrorMessage = "Field can't be empty")]
         public string Email { get; set; }
+
+        public string AvatarPath { get; set; }
     }
 }

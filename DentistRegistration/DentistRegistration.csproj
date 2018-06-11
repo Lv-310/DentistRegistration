@@ -173,8 +173,8 @@
     <Reference Include="Unity.Configuration, Version=5.2.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Container, Version=5.7.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.Container.5.7.0\lib\net46\Unity.Container.dll</HintPath>
+    <Reference Include="Unity.Container, Version=5.8.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.8.6\lib\net46\Unity.Container.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Interception, Version=5.5.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.Interception.dll</HintPath>
@@ -206,10 +206,12 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants\AllConstants.cs" />
+    <Compile Include="Controllers\AvatarController.cs" />
     <Compile Include="Controllers\CalendarEventController.cs" />
     <Compile Include="Controllers\CalendarEventRuleController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PatientInfoController.cs" />
     <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\RandomEventsController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
@@ -217,10 +219,17 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="Controllers\VisitInfoController.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\XRayController.cs" />
+=======
+    <Compile Include="DataAccessLayer\AlergieDAL.cs" />
+    <Compile Include="DataAccessLayer\AvatarUploadDAL.cs" />
+>>>>>>> 04fe291e3689a21a5557d52ff1bffbb0b6242bc4
     <Compile Include="DataAccessLayer\CalendarEventsDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventRulesDAL.cs" />
     <Compile Include="DataAccessLayer\CalendarEventsDataAccessLayer.cs" />
+    <Compile Include="DataAccessLayer\InfoFieldDAL.cs" />
+    <Compile Include="DataAccessLayer\PatientInfoDAL.cs" />
     <Compile Include="DataAccessLayer\PricesDAL.cs" />
     <Compile Include="DataAccessLayer\ServicesDAL.cs" />
     <Compile Include="DataAccessLayer\ToothDAL.cs" />
@@ -230,20 +239,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IAvatarUpload.cs" />
     <Compile Include="Interfaces\IRepositoryCRU.cs" />
     <Compile Include="Interfaces\IRepositoryCRUcollection.cs" />
     <Compile Include="Interfaces\IRepositoryCRUD.cs" />
     <Compile Include="Interfaces\ILoginDIService.cs" />
     <Compile Include="Interfaces\IRepositoryCRUDcollection.cs" />
     <Compile Include="Interfaces\IVersionDIService.cs" />
+    <Compile Include="Models\Alergie.cs" />
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="DataAccessLayer\LoginUserDAL.cs" />
     <Compile Include="Models\CalendarEventRule.cs" />
     <Compile Include="Models\AuthorizedUser.cs" />
+    <Compile Include="Models\InfoField.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="DataAccessLayer\DoctorsDAL.cs" />
     <Compile Include="DataAccessLayer\UsersDAL.cs" />
+    <Compile Include="Models\PatientInfo.cs" />
     <Compile Include="Models\PriceModel.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\Tooth.cs" />

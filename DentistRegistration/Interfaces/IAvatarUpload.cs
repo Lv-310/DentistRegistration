@@ -5,8 +5,8 @@ using System.Web;
 
 namespace DentistRegistration.Interfaces
 {
-    public interface IRepositoryCRUD<T>: IRepositoryCRU<T> where T : class
+    public interface IAvatarUpload
     {
-        bool Delete(int id);
+        bool Update(string path, long phoneNum);
     }
 }

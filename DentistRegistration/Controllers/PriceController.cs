@@ -10,6 +10,13 @@ namespace DentistRegistration.Controllers
     {
         private PricesDAL priceDal = new PricesDAL();
 
+        [HttpGet]
+        [Route("api/Price/Service/{id}")]
+        public int GetByServiceId(int id)
+        {
+            return priceDal.GetByServiceId(id);
+        }
+
         // GET: api/Price/5
         public IEnumerable<PriceModel> Get(int id)
         {
@@ -65,7 +72,9 @@ namespace DentistRegistration.Controllers
             }
         }
 
-        public IHttpActionResult Delete([FromBody]PriceModel price)
+        [HttpPost]
+        [Route("api/Price/delete")]
+        public IHttpActionResult Delete([FromBody] int id)
         {
             try
             {
@@ -73,7 +82,7 @@ namespace DentistRegistration.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                bool isDeleted = priceDal.Delete(price);
+                bool isDeleted = priceDal.Delete(id);
                 if (isDeleted)
                 {
                     return Ok("Price is deleted");

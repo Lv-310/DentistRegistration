@@ -18,7 +18,7 @@ namespace DentistRegistration
         public static void Register(IAppBuilder app, HttpConfiguration config)
         {
             // New code
-            var cors = new EnableCorsAttribute("http://localhost:9090,http://192.168.195.144:9090", "*", "GET, POST, PUT");
+            var cors = new EnableCorsAttribute("http://localhost:9090,http://192.168.195.144:9090", "*", "GET, POST, PUT","DELETE");
             config.EnableCors(cors);
 
             // Web API routes
@@ -45,7 +45,7 @@ namespace DentistRegistration
             });
 
             app.UseWebApi(config);
-
+            
             //Redirect http tp https
             config.Filters.Add(new RequireHttpsAttribute());
 
@@ -55,9 +55,14 @@ namespace DentistRegistration
             container.RegisterType<IRepositoryCRUD<Service>, ServicesDAL>();
             container.RegisterType<IRepositoryCRU<User>, UsersDAL>();
             container.RegisterType<IRepositoryCRUcollection<CalendarEvent>, CalendarEventsDAL>();
+            container.RegisterType<IRepositoryCRUD<CalendarEventRule>, CalendarEventRulesDAL>();
             container.RegisterType<ILoginDIService, LoginUserDAL>();
             container.RegisterType<IVersionDIService, VersionDAL>();
             container.RegisterType<IRepositoryCRU<VisitInfo>, VisitInfoDAL>();
+            container.RegisterType<IRepositoryCRUcollection<Alergie>, AlergieDAL> ();
+            container.RegisterType<IRepositoryCRUcollection<InfoField>, InfoFieldDAL>();
+            container.RegisterType<IRepositoryCRU<PatientInfo>, PatientInfoDAL>();
+            container.RegisterType<IRepositoryCRUcollection<Tooth>, ToothDAL>();
             config.DependencyResolver = new UnityResolver(container);
             
         }
