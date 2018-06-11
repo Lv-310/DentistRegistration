@@ -106,7 +106,7 @@ namespace DentistRegistration.DataAccessLayer
                     isInserted = true;
 
                 }
-                else message = "You cannot add previous or already existing prices";
+                else message = "You can't add previous or already existing prices";
             }
 
             return isInserted;
@@ -115,7 +115,7 @@ namespace DentistRegistration.DataAccessLayer
         public bool Update(PriceModel price, out string message)
         {
                 bool isInserted = false;
-                if (price.Price < 0)
+                if (price.Price <= 0)
                 {
                     message = "incorrect price";
                     return false;
