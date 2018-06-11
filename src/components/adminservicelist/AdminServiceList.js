@@ -15,9 +15,9 @@ import { fetchFrom } from '../../helpers/fetcher';
 import { editPriceRequest } from './AllAdminRequest';
 import { addPriceRequest } from './AllAdminRequest';
 import { deletePriceRequest } from './AllAdminRequest';
-import { modalAlert, MSG_TYPE_INFO, MSG_TYPE_ERROR, MSG_TYPE_WARNING, modalDialog, modalAlertClose } from '../../helpers/modalAlert';
+import { MSG_TYPE_INFO, MSG_TYPE_WARNING, MSG_TYPE_ERROR, modalAlert, modalDialog, modalAlertClose, renderAlertBody } from '../../helpers/modalAlert';
 import MomentLocaleUtils, { formatDate, parseDate, } from 'react-day-picker/moment';
-import 'moment/locale/en-gb';
+
 
 
 
@@ -29,40 +29,35 @@ class AdminServiceList extends React.Component {
             'prices': [],
             service: {},
             price: {},
-            priceForPlaceholder: '',
             updatedPrice: '',
             newPrice: '',
             collapsedLast: 0,
             //datePrice: '',
-            newStartDate: new Date(),
+            newStartDate: '',
             //startDate: moment(),
 
             formErrors: {
                 price: '',
-
+                infoMessage: '',
             },
 
             priceValid: false,
         }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleChangeDate = this.handleChangeDate.bind(this);
-
     }
 
     deletePrice(id) {
-        deletePriceRequest(id).then((item => {
-            if (item.statusCode != 200) {
+        deletePriceRequest(id).then((response => {
+            if (response.statusCode != 200) {
                 var state = this.state;
-                state.formErrors.userExist = item.data.Message;
-                this.setState(state);
+                this.state.formErrors.infoMessage = response.data;
+                this.setState(this.state);
                 return;
             }
         }));
         this.getServicePrice(this.state.service.Id, this.state.service.Name);
+        document.getElementById('price-modal-close').click();
     }
-
-
 
 
     handleEditSubmit = (event) => {
@@ -74,15 +69,17 @@ class AdminServiceList extends React.Component {
             Id: this.state.price.Id,
             DateStart: this.state.price.DateStart
         }
-        editPriceRequest(editedPriceData).then((item => {
-            if (item.statusCode != 200) {
+        editPriceRequest(editedPriceData).then((response => {
+            if (response.statusCode != 200) {
                 var state = this.state;
-                state.formErrors.userExist = item.data.Message;
-                this.setState(state);
+                this.state.formErrors.infoMessage = response.data;
+                this.setState(this.state);
                 return;
+
             }
-            document.getElementById('price-modal-close').click();
             this.getServicePrice(this.state.service.Id, this.state.service.Name);
+            document.getElementById('price-modal-close').click();
+
         }));
     }
 
@@ -94,11 +91,11 @@ class AdminServiceList extends React.Component {
             Price: this.state.newPrice,
             DateStart: this.state.newStartDate
         }
-        addPriceRequest(addedPrice).then((item => {
-            if (item.statusCode != 200) {
+        addPriceRequest(addedPrice).then((response => {
+            if (response.statusCode != 200) {
                 var state = this.state;
-                state.formErrors.userExist = item.data.Message;
-                this.setState(state);
+                this.state.formErrors.infoMessage = response.data.Message;
+                this.setState(this.state);
                 return;
             }
             document.getElementById('price-add-modal-close').click();
@@ -141,9 +138,16 @@ class AdminServiceList extends React.Component {
     }
 
     handleChangeDate = (date) => {
-        this.setState({ newStartDate: date },
-            () => { this.validateField('newStartDate', date) });
+        this.setState({ newStartDate: date });
 
+    }
+
+    formatDateStart = (date) => {
+        var day = date.getDate();
+        var monthIndex = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        return day + '-' + monthIndex + '-' + year;
     }
 
     handleChange = (e) => {
@@ -151,9 +155,6 @@ class AdminServiceList extends React.Component {
         const value = e.target.value;
         this.setState({ [name]: value },
             () => { this.validateField(name, value) });
-
-        // this.setState({ updatedPrice: value },
-        //     () => { this.validateField(name, value) });
 
     }
 
@@ -192,6 +193,17 @@ class AdminServiceList extends React.Component {
         return (error.length === 0 ? '' : "border border-danger");
     }
 
+    changeCollapse() {
+        if (isMobile)
+            document.getElementById("service").className = "collapse";
+        else document.getElementById("price").className = "collapse show";
+    }
+
+
+    addCurentPriceValues(currentPrice) {
+        this.setState({ price: currentPrice })
+    }
+
     clearForm = () => {
         this.setState({
             updatedPrice: '',
@@ -204,47 +216,6 @@ class AdminServiceList extends React.Component {
 
             }
         });
-    }
-
-
-    changeCollapse() {
-        if (isMobile)
-            document.getElementById("demo3").className = "collapse";
-        else document.getElementById("price").className = "collapse show";
-    }
-
-
-    addCurentPriceValues(currentPrice) {
-        this.setState({ price: currentPrice })
-    }
-
-    // addCurentPriceValues(currentPrice) {
-    //     this.setState({ price: currentPrice });
-    // }
-
-    // addCurentPriceDate(currentDatePrice) {
-    //     this.setState({ datePrice: currentDatePrice });
-    // }
-
-    // updatedInputValue = (evt) => {
-    //     this.setState({
-    //         updatedPrice: evt.target.value
-    //     });
-    // }
-
-    // updatedInputDate = (evt) => {
-    //     this.setState({
-    //         datePrice: evt.target.value
-    //     });
-    // }
-
-    formatDateStart = (date) => {
-
-        var day = date.getDate();
-        var monthIndex = date.getMonth() + 1;
-        var year = date.getFullYear();
-
-        return day + '-' + monthIndex + '-' + year;
     }
 
     // parseDate(str, format, locale) {
@@ -260,18 +231,12 @@ class AdminServiceList extends React.Component {
         return dateFnsFormat(date, format, { locale });
     }
 
-    focusFunction() {
-        document.getElementById("myInput").style.background = "yellow";
-    }
-
 
 
     render() {
         var d = new Date();
         d.setDate(d.getDate() - 1);
         var today = d;
-        let Todaydate = this.state.newStartDate;
-
         const FORMAT = 'D-M-YYYY';
         return (
             <div className="list-group">
@@ -290,6 +255,7 @@ class AdminServiceList extends React.Component {
                             </a>
                         </div>
                     })}
+
                 </div>
 
                 <div id="price" className="collapse show">
@@ -298,16 +264,17 @@ class AdminServiceList extends React.Component {
                             <span type="button" key={index} className="list-group-item list-group-item-action" >
                                 <span>{price.Price}</span>
                                 <span className="mx-4"> {this.formatDateStart(new Date(price.DateStart))}</span>
+
                                 {Date.parse(price.DateStart) >= today ?
                                     <a href="#" className="fas fa-edit float-right"
                                         onClick={() => { this.addCurentPriceValues(price); }} data-toggle="modal" data-target="#editPriceModal">
                                     </a> : null}
 
-
-                                {Date.parse(price.DateStart) > today ?
-                                    <a href="#" id="fafamargin" className="fa fa-trash float-right"
-                                        onClick={() => modalDialog(price.Price, "You are sure?", MSG_TYPE_WARNING, (id) => { this.deletePrice(id) }, price.Id)} /*{ this.deletePrice(price.Id); }}*/ >
+                                {Date.parse(price.DateStart) >= today ?
+                                    <a href="#" id="fafadeleteMargin" className="fa fa-trash float-right"
+                                        onClick={() => modalDialog(price.Price, "You are sure?", MSG_TYPE_WARNING, (id) => { this.deletePrice(id) }, price.Id)}>
                                     </a> : null}
+
                             </span>
                         </div>
                     })}
@@ -315,8 +282,8 @@ class AdminServiceList extends React.Component {
                         <div className="fas fa-plus mr-2" />
                         Add New Price
                     </a>
-
                 </div>
+
                 <div id="editPriceModal" className="modal fade" role="dialog">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
@@ -328,7 +295,6 @@ class AdminServiceList extends React.Component {
                             <div className="modal-body col-lg-12">
                                 <form id="ajax-editPrice-form" action="" method="post" autoComplete="off" onSubmit={this.handleEditSubmit}>
                                     <div className="form-group">
-                                        {/* <label >{this.state.price.Name} </label> */}
                                         <input className={`form-control ${this.errorBorder(this.state.formErrors.price)}`} type="text"
                                             placeholder={this.state.price.Price}
                                             name="updatedPrice"
@@ -340,7 +306,7 @@ class AdminServiceList extends React.Component {
                                     <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
                                         Save
                                     </button>
-                                    <div className="error-message">{this.state.formErrors.userExist}</div>
+                                    <div className="error-message">{this.state.formErrors.infoMessage}</div>
                                 </form>
                             </div>
                         </div>
@@ -372,35 +338,28 @@ class AdminServiceList extends React.Component {
                                         <DayPickerInput
                                             formatDate={formatDate}
                                             format={FORMAT}
+                                            placeholder={FORMAT}
                                             inputProps={{ readOnly: true }}
-                                            //parseDate={parseDate}
-                                            placeholder={`${dateFnsFormat(new Date(new Date()), FORMAT)}`}
                                             onDayChange={this.handleChangeDate}
                                         />
-                                        <a href='#' className="fa fa-calendar" data-toggle="collapse" data-target="DayPickerInput" onClick={() => {
-                                            document.getElementsByClassName('DayPickerInput')[0].firstChild.click()
-                                        }}>
-                                        </a>
+                                        {/* <a href='#' id="datePickerMargin" className="fa fa-calendar" data-toggle="collapse-show" data-target="DayPickerInput"
+                                            onClick={() => {
+                                                (document.getElementsByClassName('DayPickerInput')[0].firstChild.click())
 
-                                        {/* <DatePicker
-                                            dateFormat="DD-MM-YYYY"
-                                            selected={this.state.startDate}                                            
-                                            minDate = {moment().startOf('day')}                                            
-                                            onChange={this.handleDate}
-                                            isClearable={true}
-                                        /> */}
+                                                // document.getElementById('DayPickerInput').click();
+                                            }}>
+                                        </a> */}
                                     </div>
 
-                                    <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
+                                    <button className="btn btn-secondary btn-block" disabled={!this.state.priceValid}>
                                         Save
                                     </button>
-                                    <div className="error-message">{this.state.formErrors.userExist}</div>
+                                    <div className="error-message">{this.state.formErrors.infoMessage}</div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }

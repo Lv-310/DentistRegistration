@@ -3,7 +3,7 @@ import AdminServiceList from '../adminservicelist/AdminServiceList';
 import UserList from '../userList/UserList';
 import InsertDoctor from '../doctors/InsertDoctor';
 import DoctorListForAdminPage from '../doctors/DoctorListForAdminPage';
-import AdminAddNewService from '../adminservicelist/AdminAddNewService';
+import AddNewService from '../adminservicelist/AddNewService';
 
 class AdminHomePage extends React.Component {
     render() {
@@ -26,7 +26,7 @@ class AdminHomePage extends React.Component {
                             <a className="text-red mb-1 ml-3 nav-link btn btn-secondary" data-toggle="modal" href="" data-target="#addService">Add New Service </a>
                             <div className="ml-3">
                             <AdminServiceList />
-                            <AdminAddNewService />
+                            <AddNewService />
                             </div>
                         </div>                          
 				    </div>
