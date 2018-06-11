@@ -14,12 +14,15 @@ class ToothVisitInfo extends React.Component {
             price: 0,
             chars_left: 1024,
             toothId: 0,
-            description: ''
+            description: '',
+            toothServices: []
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    
 
     componentDidMount() {
         this.getServices();
@@ -39,6 +42,38 @@ class ToothVisitInfo extends React.Component {
             }, this.props.itemId
         );
     }
+    
+
+    renderInfo(){
+        return(
+            <div className="div_toothinfo">
+                <div className="row mb-1">
+                        <div className="col-md-4">
+                            <select className="form-control"  onChange={this.handleSelectChange}>
+                                <option disabled selected value> select a service </option>
+                                {this.state.services.map((item, index) => {
+                                    return <option value={item.Id} key={index}>{item.Name}</option>
+                                }
+                                )}
+                            </select>
+                        </div>
+                        <div className="col-md-2">
+                            <input className="form-control" id="focusedInput" type="text" 
+                            value={this.state.price} onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col-md-12">
+                            <span class="textarea__count">Description {this.props.toothId}: 
+                            <span className="my-span">{1024-this.state.chars_left}/1024</span></span>
+                            <textarea maxLength="1024" required onChange={this.handleWordCount} 
+                            type="text" className="form-control" name="desc" />
+                        </div>
+                    </div>
+            </div>
+        );
+    }
+
     componentWillUpdate(){
         this.fireCallback()
     }
@@ -82,26 +117,7 @@ class ToothVisitInfo extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <div className="row mb-1">
-                    <div className="col-md-4">
-                        <select className="form-control" id="sel1" onChange={this.handleSelectChange}>
-                            <option disabled selected value> -- select a service -- </option>
-                            {this.state.services.map((item, index) => {
-                                return <option value={item.Id} key={index}>{item.Name}</option>
-                            }
-                            )}
-                        </select>
-                    </div>
-                    <div className="col-md-2">
-                        <input className="form-control" id="focusedInput" type="text" value={this.state.price} onChange={this.handleChange} />
-                    </div>
-                </div>
-                <div className="row mb-4">
-                    <div className="col-md-12">
-                        <span class="textarea__count">Description {this.props.toothId}: {1024-this.state.chars_left}/1024 characters left</span>
-                        <textarea maxLength="1024" required onChange={this.handleWordCount} type="text" className="form-control" name="desc" />
-                    </div>
-                </div>
+                {this.renderInfo()}
             </form>
         );
     }
