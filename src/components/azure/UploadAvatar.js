@@ -32,19 +32,17 @@ class UploadAvatar extends React.Component{
                                                                                                  });
             
                                     InsertAvatar(AvatarParams);
+                                     
                                     };
                                  
-                                    
-
-                                
+                                                              
         
     
 
   render() {
     return (
         <div>
-            <input type="file" value ="hui" onChange={this.fileSelectedHandler}/>
-            
+            <input type="file"  onChange={this.fileSelectedHandler}/>
         </div>
     );
   }
