@@ -270,7 +270,7 @@ class AdminServiceList extends React.Component {
                                         onClick={() => { this.addCurentPriceValues(price); }} data-toggle="modal" data-target="#editPriceModal">
                                     </a> : null}
 
-                                {Date.parse(price.DateStart) >= today ?
+                                {Date.parse(price.DateStart) > today ?
                                     <a href="#" id="fafadeleteMargin" className="fa fa-trash float-right"
                                         onClick={() => modalDialog(price.Price, "You are sure?", MSG_TYPE_WARNING, (id) => { this.deletePrice(id) }, price.Id)}>
                                     </a> : null}
