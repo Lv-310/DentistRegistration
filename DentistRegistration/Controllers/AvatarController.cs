@@ -1,4 +1,5 @@
 ﻿using DentistRegistration.Interfaces;
+using DentistRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,15 @@ namespace DentistRegistration.Controllers
     {
          IAvatarUpload repo;
 
+        public AvatarController() { }
+
         public AvatarController (IAvatarUpload r)
         {
             repo = r;
         }
 
         [HttpPost]
-        [Route("api/Avatar/edit")]
-        public IHttpActionResult EditPrice([FromBody] string path, long phoneNum)
+        public IHttpActionResult EditAvatar([FromBody]AvatarViewModel avatar)
         {
             try
             {
@@ -28,7 +30,7 @@ namespace DentistRegistration.Controllers
                     return BadRequest(ModelState);
                 }
                 
-                bool isAdded = repo.Update(path, phoneNum);
+                bool isAdded = repo.Update(avatar);
                 if (isAdded)
                 {
                     return Ok("Avatar added");

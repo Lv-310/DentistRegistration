@@ -31,13 +31,15 @@ namespace DentistRegistration.DataAccessLayer
 
                     doc = new Doctor
                     {
+
                         FirstName = reader.GetValue(0).ToString(),
                         LastName = reader.GetValue(1).ToString(),
                         PhoneNum = Convert.ToInt64(reader.GetValue(2)),
                         CabNum = Convert.ToByte(reader.GetValue(3)),
                         Speciality = reader.GetValue(4).ToString(),
                         Doc_password = reader.GetValue(5).ToString(),
-                        Id = Convert.ToInt32(reader.GetValue(7))
+                        Id = Convert.ToInt32(reader.GetValue(7)),
+                      
                     };
 
                     lstdoctors.Add(doc);
@@ -94,7 +96,8 @@ namespace DentistRegistration.DataAccessLayer
                         PhoneNum = Convert.ToInt64(reader.GetValue(2)),
                         CabNum = Convert.ToByte(reader.GetValue(3)),
                         Speciality = reader.GetValue(4).ToString(),
-                        Doc_password = reader.GetValue(5).ToString()
+                        Doc_password = reader.GetValue(5).ToString(),
+                        AvatarPath = Convert.ToString(reader.GetValue(8)),
                     };
                 }
             }
