@@ -46,7 +46,7 @@ class PatientInfo extends React.Component{
                                 <p><strong>Complains : </strong>{this.state.patientInfo.Complains}</p>
                                 <p><strong>Anesthesia : </strong>{this.state.patientInfo.Anesthesia}</p>
                                 <p><strong>FirstVisit : </strong>{this.state.patientInfo.FirstVisit}</p>
-                                <div ><strong>Alergies : </strong>
+                                <p ><strong>Allergies : </strong>
                                     { this.state.patientInfo.Alergies!== undefined?
                                     this.state.patientInfo.Alergies.map((item, index) => {
                                     return <span key={index}>
@@ -54,16 +54,17 @@ class PatientInfo extends React.Component{
                                     </span>
                                     }
                                     ):null}
-                                </div>
-                                <div><strong>InfoFields : </strong>
+                                </p>
+                                <p><strong>Information : </strong>
                                     { this.state.patientInfo.InfoFields!== undefined?
-                                    this.state.patientInfo.InfoFields.map((item, index) => {
-                                    return <ul key={index}>
-                                    <li>{" " + item.Name + " : " + item.Value}</li>
-                                    </ul>
+                                        <ul >
+                                    {this.state.patientInfo.InfoFields.map((item, index) => {
+                                    return( 
+                                    <li key={index}>{" " + item.Name + " : " + (item.Value===true?'yes':'no')}</li>)
+                                    
                                     }
-                                    ):null}
-                                </div>
+                                    )}</ul>:null}
+                                </p>
                             </div>
                         </div>
                     </div>
