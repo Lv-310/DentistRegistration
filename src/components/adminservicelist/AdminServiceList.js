@@ -244,7 +244,7 @@ class AdminServiceList extends React.Component {
                     Services
                     <i className="fas fa-sort-down" id="down-arrow"></i>
                 </a>
-                <div id="service" className="height-scroll collapse">
+                <div id="service" className="height-scroll">
                     {this.state.services.map((service, index) => {
                         return <div id={"s-" + service.Id} key={index}>
                             <a href="#" data-toggle="collapse" data-target="#s-" onClick={() => {
@@ -258,7 +258,7 @@ class AdminServiceList extends React.Component {
 
                 </div>
 
-                <div id="price" className="collapse show">
+                <div id="price" className="collapse ">
                     {this.state.prices.map((price, index) => {
                         return <div key={index}>
                             <span type="button" key={index} className="list-group-item list-group-item-action" >
@@ -278,7 +278,7 @@ class AdminServiceList extends React.Component {
                             </span>
                         </div>
                     })}
-                    <a href="#" className="list-group-item list-group-item-action" data-toggle="modal" data-target="#addPriceModal">
+                    <a href="#" className={this.state.service.Id===undefined?"list-group-item list-group-item-action d-none":"list-group-item list-group-item-action"} data-toggle="modal" data-target="#addPriceModal">
                         <div className="fas fa-plus mr-2" />
                         Add New Price
                     </a>
