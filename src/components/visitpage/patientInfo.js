@@ -5,7 +5,6 @@ import {fetchFrom} from '../../helpers/fetcher';
 import patientInfoRegForm from './patientInfoRegForm';
 import PatientInfoRegForm from './patientInfoRegForm';
 
-
 class PatientInfo extends React.Component{
     constructor(){
         super();
@@ -25,6 +24,15 @@ class PatientInfo extends React.Component{
         .then(results => this.setState({patientInfo: results.data}));
     }
 
+    formatDate = (date) => {
+        if(date === undefined) return '';
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+    
+        return year + '-' + month + '-' + day;
+      }
+
     render(){
         return(
             <div className="container ">
@@ -38,7 +46,7 @@ class PatientInfo extends React.Component{
                                 <p><strong>DrugUse : </strong>{this.state.patientInfo.DrugUse}</p>
                                 <p><strong>Complains : </strong>{this.state.patientInfo.Complains}</p>
                                 <p><strong>Anesthesia : </strong>{this.state.patientInfo.Anesthesia}</p>
-                                <p><strong>FirstVisit : </strong>{this.state.patientInfo.FirstVisit}</p>
+                                <p><strong>FirstVisit : </strong>{this.formatDate(new Date(this.state.patientInfo.FirstVisit))}</p>
                                 <p ><strong>Allergies : </strong>
                                     { this.state.patientInfo.Alergies!== undefined?
                                     this.state.patientInfo.Alergies.map((item, index) => {
