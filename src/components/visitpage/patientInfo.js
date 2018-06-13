@@ -28,13 +28,6 @@ class PatientInfo extends React.Component{
     render(){
         return(
             <div className="container ">
-
-            <ul className="nav navbar-nav">                           
-                                <li>
-                                    <a className="btn btn-secondary" data-toggle="modal" href="" data-target="#patientInfoModal">Registration</a>
-                                </li>
-             </ul>
-
                 <div className="row" align="middle">
                     <div className="col-md-12" >
                         <div className="card border-top-0">

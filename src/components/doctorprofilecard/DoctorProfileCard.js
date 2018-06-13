@@ -14,7 +14,8 @@ class DoctorsProfileCard extends React.Component{
     super();
     this.state = {
       doctor: {},
-      id: 0
+      id: 0,
+      path:""
     }
   }
   componentDidMount(){
@@ -37,15 +38,7 @@ class DoctorsProfileCard extends React.Component{
     fetchFrom("Doctors/"+this.state.id,'get',null)
     .then(results => this.setState({doctor: results.data}))
   }
-  callback() {
-   
-        
-            var state = this.state;
-            this.setState(this.state);
-            
-        
-    
-}
+  
   // <i class="fas fa-sort-down"></i>
   render() {
     return (
@@ -62,7 +55,7 @@ class DoctorsProfileCard extends React.Component{
                     <div className="panel-body">
                                 <div className="row">
                                 <div className="col-md-12">
-                                <UploadAvatar PhoneNum={this.state.doctor.PhoneNum} onClick={this.callback}/>
+                                <UploadAvatar PhoneNum={this.state.doctor.PhoneNum} />
 
                                     <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p> 
                                     <p><strong>Speciality: {this.state.doctor.Speciality}  </strong></p>
