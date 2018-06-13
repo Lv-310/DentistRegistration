@@ -99,6 +99,7 @@ namespace DentistRegistration.DataAccessLayer
                         Doc_password = reader.GetValue(5).ToString(),
                         AvatarPath = Convert.ToString(reader.GetValue(8)),
                     };
+                    if (doc.AvatarPath == "") doc.AvatarPath = "/avatar/NX6Pdj3H_400x400.jpg";
                 }
             }
             return doc;
