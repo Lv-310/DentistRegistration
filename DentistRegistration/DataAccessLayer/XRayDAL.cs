@@ -12,7 +12,7 @@ namespace DentistRegistration.DataAccessLayer
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public bool InsertXRay(XRay xrayImage)
+        public int? InsertXRay(XRay xrayImage)
         {
             bool isInserted = false;
 
@@ -28,14 +28,11 @@ namespace DentistRegistration.DataAccessLayer
                 cmd.Parameters.AddWithValue("@LINK", xrayImage.Link);
                 cmd.Parameters.AddWithValue("@XRAY_DATE", xrayImage.Date.Date);
 
-                cmd.ExecuteNonQuery();
-
+                var id = (int?)cmd.ExecuteScalar();
                 isInserted = true;
-
+                return id;
 
             }
-
-        return isInserted;
         }
     }
 }

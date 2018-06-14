@@ -21,14 +21,14 @@ namespace DentistRegistration.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                bool checkInsert = x_Ray.InsertXRay(XRay);
+                var checkInsert = x_Ray.InsertXRay(XRay);
 
-                if (checkInsert == false)
+                if (checkInsert == null)
                     return BadRequest("Something went wrong");
 
                 return Ok(new
                 {
-                    massage = "asda"
+                    massage = checkInsert.ToString()
                 });
             }
             catch (Exception e)
