@@ -56,7 +56,7 @@ class Calendar extends React.Component {
         this.getItems();
       }))
       if(this.state.wrongCredentials) return;
-      alert("Event has been booked.");   
+      modalAlert('Success','Event has been booked', MSG_TYPE_INFO);   
       document.getElementById('event-modal-close').click(); 
   }
 

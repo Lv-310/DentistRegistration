@@ -71,7 +71,7 @@ class Azure extends React.Component{
                     element.setAttribute("href", href)
                     document.getElementById("href-XRay").className = "visible col-lg my-0";
                     document.getElementById("row").className = "";
-                    alert(speedSummary.completeSize);
+                    //alert(speedSummary.completeSize);
 
                 }
             }, 200);
