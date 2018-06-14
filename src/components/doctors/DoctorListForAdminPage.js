@@ -54,7 +54,7 @@ class DoctorListForAdminPage extends React.Component{
                  <button type="button" key={index} className="list-group-item list-group-item-action">
                                
                                 {item.FirstName} {item.LastName}
-                                <a href="#" className="fas fa-edit float-right"></a>
+                                <a href="#"  className="fas fa-edit float-right"></a>
                                 
                 </button>
                 </div>

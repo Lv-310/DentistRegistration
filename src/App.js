@@ -14,7 +14,7 @@ import PageNotFound from './components/pagenotfound/PageNotFound';
 import DoctorSwitcher from './components/doctorhomepage/DoctorSwitcher';
 import { renderAlertBody } from './helpers/modalAlert';
 import { checkToken } from './components/users/tokenService';
-
+import Azure from '../src/components/azure/Azure';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -69,6 +69,7 @@ class App extends React.Component {
                   <Route path="/Users" component={UserHomePage} />
                   <Route path="/Doctors" component={DoctorSwitcher} />
                   <Route path="/Admin" component={AdminHomePage} />
+                  <Route path="/Xray" component={Azure}/>
                   <Route component={PageNotFound} />
                 </Switch>
                 <Footer />
