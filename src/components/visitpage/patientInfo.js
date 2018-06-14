@@ -5,7 +5,6 @@ import {fetchFrom} from '../../helpers/fetcher';
 import patientInfoRegForm from './patientInfoRegForm';
 import PatientInfoRegForm from './patientInfoRegForm';
 
-
 class PatientInfo extends React.Component{
     constructor(){
         super();
@@ -25,16 +24,18 @@ class PatientInfo extends React.Component{
         .then(results => this.setState({patientInfo: results.data}));
     }
 
+    formatDate = (date) => {
+        if(date === undefined) return '';
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+    
+        return year + '-' + month + '-' + day;
+      }
+
     render(){
         return(
             <div className="container ">
-
-            <ul className="nav navbar-nav">                           
-                                <li>
-                                    <a className="btn btn-secondary" data-toggle="modal" href="" data-target="#patientInfoModal">Registration</a>
-                                </li>
-             </ul>
-
                 <div className="row" align="middle">
                     <div className="col-md-12" >
                         <div className="card border-top-0">
@@ -45,8 +46,8 @@ class PatientInfo extends React.Component{
                                 <p><strong>DrugUse : </strong>{this.state.patientInfo.DrugUse}</p>
                                 <p><strong>Complains : </strong>{this.state.patientInfo.Complains}</p>
                                 <p><strong>Anesthesia : </strong>{this.state.patientInfo.Anesthesia}</p>
-                                <p><strong>FirstVisit : </strong>{this.state.patientInfo.FirstVisit}</p>
-                                <div ><strong>Alergies : </strong>
+                                <p><strong>FirstVisit : </strong>{this.formatDate(new Date(this.state.patientInfo.FirstVisit))}</p>
+                                <p ><strong>Allergies : </strong>
                                     { this.state.patientInfo.Alergies!== undefined?
                                     this.state.patientInfo.Alergies.map((item, index) => {
                                     return <span key={index}>
@@ -54,16 +55,17 @@ class PatientInfo extends React.Component{
                                     </span>
                                     }
                                     ):null}
-                                </div>
-                                <div><strong>InfoFields : </strong>
+                                </p>
+                                <p><strong>Information : </strong>
                                     { this.state.patientInfo.InfoFields!== undefined?
-                                    this.state.patientInfo.InfoFields.map((item, index) => {
-                                    return <ul key={index}>
-                                    <li>{" " + item.Name + " : " + item.Value}</li>
-                                    </ul>
+                                        <ul >
+                                    {this.state.patientInfo.InfoFields.map((item, index) => {
+                                    return( 
+                                    <li key={index}>{" " + item.Name + " : " + (item.Value===true?'yes':'no')}</li>)
+                                    
                                     }
-                                    ):null}
-                                </div>
+                                    )}</ul>:null}
+                                </p>
                             </div>
                         </div>
                     </div>

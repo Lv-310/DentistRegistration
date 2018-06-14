@@ -3,6 +3,7 @@ import * as azure from 'azure-storage';
 import {createBlockBlobFromBrowserFile} from 'azure-storage/lib/services/blob/blobservice.browser.js';
 import {displayProcess} from './displayProcess';
 import azureSasAndUrl from '../../helpers/azureurlandsas';
+import {InsertXRay} from './InsertXRay';
 
 class Azure extends React.Component{
     constructor()   {
@@ -20,6 +21,16 @@ class Azure extends React.Component{
 
 
     fileUploadHandler = ()=>{ 
+        var today= new Date();
+        var currentDate=today.getFullYear()+'-'+(today.getMonth()+1)  + '-' + today.getDate();
+        const XRayParams=
+        {
+            User_Id: 1,
+            Link: "/1/"+this.state.selectedFile.name    ,
+            Date: currentDate
+            
+        };
+
         var zminna="https://lv301storage.blob.core.windows.net/images/"+this.state.selectedFile.name;
         displayProcess(0);
        // document.getElementById("uploadProgressBarContainer").classList.remove('hidden');
@@ -49,7 +60,9 @@ class Azure extends React.Component{
                                     }, 200);}                 
                                       
         refreshProgress();                       
-this.setState({selectedFile:null});
+        this.setState({selectedFile:null});
+        InsertXRay(XRayParams);
+        
     }
 
 

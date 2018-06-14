@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { AddService } from '../adminservicelist/AddService';
+import { addServiceRequest } from '../adminservicelist/AllAdminRequest';
 
 
 
-class AdminAddNewService extends React.Component {
+class AddNewService extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,21 +20,18 @@ class AdminAddNewService extends React.Component {
             ServiceDescriptionValid: false,
             formValid: false
         }
-
-        this.handleAdminInput = this.handleAdminInput.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
 
-        const insertParams = {
+        const addedService = {
             Name: this.state.Name,
             Description: this.state.Description
 
         }
 
-        AddService(insertParams).then((item => {
+        addServiceRequest(addedService).then((item => {
             if (item.statusCode != 200) {
                 var state = this.state;
                 state.formErrors.userExist = item.data.Message;
@@ -64,11 +61,11 @@ class AdminAddNewService extends React.Component {
 
         switch (fieldName) {
             case 'Name':
-                ServiceNameValid = value.match(/^[a-zA-Z]+$/) && value.length > 0;
+                ServiceNameValid = value.match(/^[a-zA-Z\s]*$/) && value.length > 0;
                 fieldValidationErrors.Name = ServiceNameValid ? '' : 'Service name is incorrect';
                 break;
             case 'Description':
-                ServiceDescriptionValid = value.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/) && value.length > 0;
+                ServiceDescriptionValid = value.match(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/) && value.length > 0;
                 fieldValidationErrors.Description = ServiceDescriptionValid ? '' : 'Description is incorrect';
                 break;
             default:
@@ -150,4 +147,4 @@ class AdminAddNewService extends React.Component {
         );
     }
 }
-export default withRouter(AdminAddNewService);
+export default withRouter(AddNewService);

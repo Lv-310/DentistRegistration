@@ -57,7 +57,7 @@ class DoctorsList extends React.Component {
 
   handleCustomerClick(doctor) {
     var currentDate = new Date()
-    this.props.history.push(`/Home/doctor/${doctor.Id}/${this.formatDate(currentDate)}/${this.changeDefaultView()}`);
+    this.props.history.push(`/Home/doctor/${doctor.Id}/${this.props.match.params.date===undefined?this.formatDate(new Date()):this.props.match.params.date}/${this.changeDefaultView()}`);
     if (isMobile)
     {
       document.getElementById("first").click();
