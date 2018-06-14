@@ -128,6 +128,7 @@ namespace DentistRegistration.DataAccessLayer
 
                     cmdCheck.CommandType = CommandType.StoredProcedure;
                     cmdCheck.Parameters.AddWithValue("@DATE_START_PRICE", price.DateStart);
+                    cmdCheck.Parameters.AddWithValue("@SERVICE_ID", price.ServiceId);
                     SqlParameter outPutParameter = new SqlParameter("@Result", SqlDbType.NVarChar, 30)
                     {
                         Direction = ParameterDirection.Output
