@@ -17,6 +17,7 @@ import { addPriceRequest } from './AllAdminRequest';
 import { deletePriceRequest } from './AllAdminRequest';
 import { MSG_TYPE_INFO, MSG_TYPE_WARNING, MSG_TYPE_ERROR, modalAlert, modalDialog, modalAlertClose, renderAlertBody } from '../../helpers/modalAlert';
 import MomentLocaleUtils, { formatDate, parseDate, } from 'react-day-picker/moment';
+import { isToday } from 'date-fns';
 
 
 
@@ -218,13 +219,6 @@ class AdminServiceList extends React.Component {
         });
     }
 
-    // parseDate(str, format, locale) {
-    //     const parsed = dateFnsParse(str, format, { locale });
-    //     if (DateUtils.isDate(parsed)) {
-    //         return parsed;
-    //     }
-    //     return undefined;
-    // }
 
 
     formatDate(date, format, locale) {
@@ -234,10 +228,11 @@ class AdminServiceList extends React.Component {
 
 
     render() {
-        var d = new Date();
-        d.setDate(d.getDate() - 1);
-        var today = d;
+        var nowDateTime = new Date();
+        nowDateTime.setDate(nowDateTime.getDate() - 1);
+        var today = nowDateTime;
         const FORMAT = 'D-M-YYYY';
+
         return (
             <div className="list-group">
                 <a href="#" data-toggle="collapse" data-target="#service" className="list-group-item active my-list-header btn-secondary dropdown-toggle-split">
@@ -270,7 +265,7 @@ class AdminServiceList extends React.Component {
                                         onClick={() => { this.addCurentPriceValues(price); }} data-toggle="modal" data-target="#editPriceModal">
                                     </a> : null}
 
-                                {Date.parse(price.DateStart) > today ?
+                                {Date.parse(price.DateStart) > new Date() ?
                                     <a href="#" id="fafadeleteMargin" className="fa fa-trash float-right"
                                         onClick={() => modalDialog(price.Price, "You are sure?", MSG_TYPE_WARNING, (id) => { this.deletePrice(id) }, price.Id)}>
                                     </a> : null}
@@ -278,7 +273,7 @@ class AdminServiceList extends React.Component {
                             </span>
                         </div>
                     })}
-                    <a href="#" className={this.state.service.Id===undefined?"list-group-item list-group-item-action d-none":"list-group-item list-group-item-action"} data-toggle="modal" data-target="#addPriceModal">
+                    <a href="#" className={this.state.service.Id === undefined ? "list-group-item list-group-item-action d-none" : "list-group-item list-group-item-action"} data-toggle="modal" data-target="#addPriceModal">
                         <div className="fas fa-plus mr-2" />
                         Add New Price
                     </a>
@@ -296,6 +291,7 @@ class AdminServiceList extends React.Component {
                                 <form id="ajax-editPrice-form" action="" method="post" autoComplete="off" onSubmit={this.handleEditSubmit}>
                                     <div className="form-group">
                                         <input className={`form-control ${this.errorBorder(this.state.formErrors.price)}`} type="text"
+                                            required="required"
                                             placeholder={this.state.price.Price}
                                             name="updatedPrice"
                                             value={this.state.updatedPrice}

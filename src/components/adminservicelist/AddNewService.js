@@ -3,21 +3,21 @@ import { withRouter } from 'react-router-dom';
 import { addServiceRequest } from '../adminservicelist/AllAdminRequest';
 
 
-
 class AddNewService extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Name: "",
-            Description: "",
+            name: "",
+            description: "",
 
             formErrors: {
-                Name: '',
-                Description: '',
+                name: '',
+                description: '',
+                infoMessage: '',
 
             },
-            ServiceNameValid: false,
-            ServiceDescriptionValid: false,
+            serviceNameValid: false,
+            serviceDescriptionValid: false,
             formValid: false
         }
     }
@@ -26,16 +26,15 @@ class AddNewService extends React.Component {
         event.preventDefault()
 
         const addedService = {
-            Name: this.state.Name,
-            Description: this.state.Description
+            name: this.state.name,
+            description: this.state.description
 
         }
-
-        addServiceRequest(addedService).then((item => {
-            if (item.statusCode != 200) {
+        addServiceRequest(addedService).then((response => {
+            if (response.statusCode != 200) {
                 var state = this.state;
-                state.formErrors.userExist = item.data.Message;
-                this.setState(state);
+                this.state.formErrors.infoMessage = response.data.Message;
+                this.setState(this.state);
                 return;
             }
             document.getElementById('service-modal-close').click();
@@ -43,30 +42,34 @@ class AddNewService extends React.Component {
         }));
     }
 
-    handleAdminInput = (e) => {
+    handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value },
             () => { this.validateField(name, value) });
+    }
+    validateForm() {
+        this.setState({
+            formValid:
+                this.state.serviceNameValid &&
+                this.state.serviceDescriptionValid
+        });
 
-        var errors = this.state.formErrors;
-        errors.userExist = '';
-        this.setState({ formErrors: errors });
     }
 
     validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
-        let ServiceNameValid = this.state.ServiceNameValid;
-        let ServiceDescriptionValid = this.state.ServiceDescriptionValid;
+        let serviceNameValid = this.state.serviceNameValid;
+        let serviceDescriptionValid = this.state.serviceDescriptionValid;
 
         switch (fieldName) {
-            case 'Name':
-                ServiceNameValid = value.match(/^[a-zA-Z\s]*$/) && value.length > 0;
-                fieldValidationErrors.Name = ServiceNameValid ? '' : 'Service name is incorrect';
+            case 'name':
+                serviceNameValid = value.match(/^[a-zA-Z\s]*$/) && value.length >= 0;
+                fieldValidationErrors.name = serviceNameValid ? '' : 'Service Name is incorrect';
                 break;
-            case 'Description':
-                ServiceDescriptionValid = value.match(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/) && value.length > 0;
-                fieldValidationErrors.Description = ServiceDescriptionValid ? '' : 'Description is incorrect';
+            case 'description':
+                serviceDescriptionValid = value.match(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/) && value.length >= 0;
+                fieldValidationErrors.description = serviceDescriptionValid ? '' : 'Description is incorrect';
                 break;
             default:
                 break;
@@ -74,17 +77,9 @@ class AddNewService extends React.Component {
 
         this.setState({
             formErrors: fieldValidationErrors,
-            ServiceNameValid: ServiceNameValid,
-            ServiceDescriptionValid: ServiceDescriptionValid,
+            serviceNameValid: serviceNameValid,
+            serviceDescriptionValid: serviceDescriptionValid,
         }, this.validateForm);
-    }
-
-    validateForm() {
-        this.setState({
-            formValid:
-                this.state.ServiceNameValid && this.state.ServiceDescriptionValid
-        });
-
     }
 
     errorBorder(error) {
@@ -92,15 +87,13 @@ class AddNewService extends React.Component {
     }
 
     clearForm = () => {
-        var errors = this.state.formErrors;
-        errors.userExist = '';
         this.setState({
-            Name: '',
-            Description: '',
+            name: '',
+            description: '',
 
             formErrors: {
-                Name: '',
-                Description: ''
+                name: '',
+                description: ''
 
             }
         });
@@ -113,32 +106,36 @@ class AddNewService extends React.Component {
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4>Add New Service</h4>
-                            <button type="button" id="service-modal-close" className="close" data-dismiss="modal" onClick={this.clearForm}
-                                data-target="#addService"> &times;
-                            </button>
+                            <button type="button" id="service-modal-close" className="close" data-dismiss="modal" onClick={this.clearForm} > &times;</button>
 
                         </div>
                         <div className="modal-body col-lg-12">
                             <form id="ajax-addService-form" action="" value={this.state.value} method="post" autoComplete="off" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
-                                    <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.Name)}`}
-                                        placeholder="Name" name="Name"
-                                        onChange={this.handleAdminInput} value={this.state.Name} />
-                                    <div className="error-message"> {this.state.formErrors.Name}</div>
+                                    <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.name)}`}
+                                        required="required"
+                                        placeholder="Service Name"
+                                        value={this.state.name}
+                                        name="name"
+                                        onChange={this.handleChange}
+                                    />
+                                    <div className="error-message"> {this.state.formErrors.name}</div>
                                 </div>
 
                                 <div className="form-group">
-                                    <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.Description)}`}
-                                        placeholder="Description" name="Description"
-                                        onChange={this.handleAdminInput}
-                                        value={this.state.Description} />
-                                    <div className="error-message"> {this.state.formErrors.Description}</div>
+                                    <input type="text" className={`form-control ${this.errorBorder(this.state.formErrors.description)}`}
+                                        required="required"
+                                        placeholder="Description"
+                                        name="description"
+                                        onChange={this.handleChange}
+                                        value={this.state.description} />
+                                    <div className="error-message"> {this.state.formErrors.description}</div>
                                 </div>
                                 <button className="btn btn-secondary btn-block" disabled={!this.state.formValid}>
                                     Add New Service
                                 </button>
 
-                                <div className="error-message">{this.state.formErrors.userExist}</div>
+                                <div className="error-message">{this.state.formErrors.infoMessage}</div>
                             </form>
                         </div>
                     </div>
