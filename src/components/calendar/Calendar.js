@@ -294,6 +294,11 @@ validateForm() {
     );
   }
 
+  handleNavigate(date, view, action) {
+    if(this.props.history!==undefined)
+    this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${view}`)
+}
+
   render() {
     this.state.allevents.forEach(a => {
       a.start = new Date(a.start);
@@ -324,7 +329,7 @@ validateForm() {
           views={this.checkIfMobile()}
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
-          onNavigate={date => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${this.props.match.params.view}`)}
+          onNavigate={this.handleNavigate}
           onView={view => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)}
           onSelectEvent={event => this.onEventClick(event)}
           components={{

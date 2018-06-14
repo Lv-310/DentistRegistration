@@ -173,7 +173,7 @@ class DoctorCalendar extends React.Component {
       let formats = {
         dayFormat: (date, culture, localizer) =>
         
-          localizer.format(date, 'ddd MM/dd', culture),
+          localizer.format(date, 'ddd DD.MM.YYYY', culture),
           eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
             return ""
           },
