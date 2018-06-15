@@ -48,7 +48,7 @@ class NavBar extends React.Component {
                             SoftServe Dentistry
                         </a>
                         <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                            &#9776;
+                            <i class="fas fa-bars"></i>
                         </button>
                         <div className="collapse navbar-collapse" id="exCollapsingNavbar" data-toggle={isMobile ? "collapse" : ""} data-target="#exCollapsingNavbar">
                             <ul className="nav navbar-nav float-left">
