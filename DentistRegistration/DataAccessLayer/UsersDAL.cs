@@ -77,6 +77,12 @@ namespace DentistRegistration.DataAccessLayer
                 };
                 cmd.Parameters.Add(outPutEmail);
 
+                SqlParameter outPutAvatarPath = new SqlParameter("@AvatarPath", SqlDbType.NVarChar, 320)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outPutAvatarPath);
+
                 cmd.ExecuteNonQuery();
 
                 user = new User
@@ -85,7 +91,8 @@ namespace DentistRegistration.DataAccessLayer
                     LastName = cmd.Parameters["@LASTNAME"].Value.ToString(),
                     PhoneNum = Convert.ToInt64(cmd.Parameters["@PHONENUM"].Value),
                     Email = cmd.Parameters["@EMAIL"].Value.ToString(),
-                    Id = id
+                    Id = id,
+                    AvatarPath=cmd.Parameters["@AvatarPath"].Value.ToString()
                 };
             }
             return user;

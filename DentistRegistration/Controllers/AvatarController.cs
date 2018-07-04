@@ -42,5 +42,6 @@ namespace DentistRegistration.Controllers
                 return BadRequest(ModelState);
             }
         }
+      
     }
 }
