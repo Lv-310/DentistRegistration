@@ -4,6 +4,8 @@ import baseURL from '../../helpers/url';
 import {isMobile} from 'react-device-detect';
 import jwt_decode from 'jwt-decode'
 import {fetchFrom} from '../../helpers/fetcher';
+import UploadPatientAvatar from '../../components/azure/UploadPatientAvatar';
+import azureSasAndUrl from '../../helpers/azureurlandsas';
 
 
 class VisitProfileCard extends React.Component{
@@ -38,11 +40,11 @@ class VisitProfileCard extends React.Component{
                     <div className="card-body">
                       <h4> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h4>
                       <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p> 
-                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalHrvEmJmi7Ui0Mkv3J3CN9-g10g_QEsclAB5mokha5KgRf7T" 
-                        alt="no image" className="user-profile-image center-block img-responsive" />
+                      <img src={azureSasAndUrl.avatar.concat(this.state.doctor.AvatarPath)}
+                        alt="no image" className="my-img center-block    img-responsive" /> 
                     </div>
-                    <button className="btn btn-light border-dark w-25">Upload photo</button>
-                  </div>
+                    <UploadPatientAvatar PhoneNumPatient={this.state.doctor.PhoneNum}/>
+                                      </div>
               </div>
             </div>
         </div>

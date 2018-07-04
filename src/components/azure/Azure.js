@@ -11,14 +11,14 @@ class Azure extends React.Component{
     constructor() {
         super();
         this.state = {
-            selectedFile: null
+            selectedFileXRay: null
         }
     }
 
-    fileSelectedHandler = event => {
+    fileSelectedHandlerXRay = event => {
         console.log(event.target.files[0])
             , this.setState(
-                { selectedFile: event.target.files[0] })
+                { selectedFileXRay: event.target.files[0] })
     }
 
     insertXRay(XRayParams) {
@@ -26,29 +26,29 @@ class Azure extends React.Component{
     }
 
 
-    fileUploadHandler = () => {
+    fileUploadHandlerXRay = () => {
         document.getElementById("progress").className = "progress col-lg px-0 mx-2 mt-2";
         var today = new Date();
         var currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         const XRayParams =
             {
                 User_Id: this.props.idfromParent,
-                Link: "/"+this.props.idfromParent+"/" + this.state.selectedFile.name,
+                Link: "/"+this.props.idfromParent+"/" + this.state.selectedFileXRay.name,
                 Date: currentDate
 
             };
 
-        var href = azureSasAndUrl.ShortUrl +"/client"+this.props.idfromParent +"/"+this.state.selectedFile.name;
+        var href = azureSasAndUrl.ShortUrl +"/client"+this.props.idfromParent +"/"+this.state.selectedFileXRay.name;
         displayProcess(0);
         const blobService = azure.createBlobServiceWithSas(azureSasAndUrl.ShortUrl, azureSasAndUrl.Sas);
-        var customBlockSize = this.state.selectedFile.size > 1024 * 1024 * 32 ? 1024 * 1024 * 4 : 1024 * 512;
+        var customBlockSize = this.state.selectedFileXRay.size > 1024 * 1024 * 32 ? 1024 * 1024 * 4 : 1024 * 512;
         blobService.singleBlobPutThresholdInBytes = customBlockSize;
         var finishedOrError = false;
         blobService.createContainerIfNotExists("client".concat(this.props.idfromParent),{publicAccessLevel:"blob"},
             (error, response) => {
             
         })
-        var speedSummary = blobService.createBlockBlobFromBrowserFile("client".concat(this.props.idfromParent), this.state.selectedFile.name, this.state.selectedFile, { blockSize: customBlockSize },
+        var speedSummary = blobService.createBlockBlobFromBrowserFile("client".concat(this.props.idfromParent), this.state.selectedFileXRay.name, this.state.selectedFileXRay, { blockSize: customBlockSize },
             (error, response) => {
                 finishedOrError = true;
                 if (error) {
@@ -78,7 +78,7 @@ class Azure extends React.Component{
         }
 
         refreshProgress();
-        this.setState({ selectedFile: null });
+        this.setState({ selectedFileXRay: null });
         this.state.id = this.insertXRay(XRayParams);
         //this.props.callback(id);
     }
@@ -128,10 +128,10 @@ class Azure extends React.Component{
         <div className="container">
             <div className="row">
                 <label className="btn btn-secondary my-1 mx-2 col-md" for="avatar" onClick={this.changeVisibility}>Add XRay
-                    <input type="file" id="avatar" onChange={this.fileSelectedHandler} hidden />
+                    <input type="file" id="avatar" onChange={this.fileSelectedHandlerXRay} hidden />
                 </label>
                 <label className="invisible col-md" id="upload">Upload
-                    <button className="invisible" onClick={this.fileUploadHandler} />
+                    <button className="invisible" onClick={this.fileUploadHandlerXRay} />
                 </label>
             </div>
             <div className="form-group hidden row" id="uploadProgressBarContainer">

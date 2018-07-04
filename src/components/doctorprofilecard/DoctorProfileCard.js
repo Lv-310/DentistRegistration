@@ -8,7 +8,6 @@ import UploadAvatar from '../azure/UploadAvatar';
 import "./doctorprofilecard.css";
 import azureSasAndUrl from '../../helpers/azureurlandsas';
 
-
 class DoctorsProfileCard extends React.Component{
   constructor() {
     super();
@@ -61,7 +60,6 @@ class DoctorsProfileCard extends React.Component{
                                     <p><strong>Speciality: {this.state.doctor.Speciality}  </strong></p>
                                 </div>         
                                 <div className="col-md-12">
-                                    <button className="btn btn-success btn-block"><span className="fas fa-user-edit"></span> Change profile </button>
                                 </div>
                                 </div>
                         </div>

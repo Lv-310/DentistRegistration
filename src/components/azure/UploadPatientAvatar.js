@@ -5,23 +5,24 @@ import {displayProcess} from './displayProcess';
 import azureSasAndUrl from '../../helpers/azureurlandsas';
 import {InsertAvatar} from './InsertAvatar';
 
-class UploadAvatar extends React.Component{
+class UploadPatientAvatar extends React.Component{
     constructor(props)   {
         super(props);
     this.state={
         
     }
     }
-    fileSelectedHandlerDoctorAvatar = (event) =>{ this.setState(
-        {selectedFileAvatar: event.target.files[0]});
+
+    fileSelectedHandlerPatientAvatar = (event) =>{ this.setState(
+        {selectedFile: event.target.files[0]});
         const AvatarParams=
         {
-            PhoneNum: this.props.PhoneNum,
-            Path: "/avatar/"+ event.target.files[0].name}        
+            PhoneNum: this.props.PhoneNumPatient,
+            Path: "/avatarpatient/"+ event.target.files[0].name}        
     
         const blobService=azure.createBlobServiceWithSas(azureSasAndUrl.ShortUrl,azureSasAndUrl.Sas);
         
-        blobService.createBlockBlobFromBrowserFile('avatar',
+        blobService.createBlockBlobFromBrowserFile('avatarpatient',
         event.target.files[0].name, event.target.files[0],(error, response) => {
         if(error) {
     // Handle blob error
@@ -29,18 +30,18 @@ class UploadAvatar extends React.Component{
     }
 });
 
-        InsertAvatar(AvatarParams);
+InsertAvatar(AvatarParams)//.then(setTimeout(function(){ document.location.reload(); }, 3000));
         };
                          
   render() {
     return (
         <div>
-            <label className="btn btn-secondary" for="avatar">Upload Avatar
-            <input type="file" id="avatar" onChange={this.fileSelectedHandlerDoctorAvatar} hidden />
+            <label className="btn btn-secondary" for="kek">Upload Avatar
+            <input type="file" id="kek" onChange={this.fileSelectedHandlerPatientAvatar} hidden />
             </label>
         </div>
     );
   }
 }
 
-export default UploadAvatar;
+export default UploadPatientAvatar;
