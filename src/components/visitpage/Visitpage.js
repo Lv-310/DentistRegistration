@@ -15,7 +15,7 @@ class Visitpage extends React.Component{
                     </div>
                     <div className="col-sm-7">
                     <Jaw />
-                    <div className="col-sm-7"><Azure idfromParent={this.props.match.params.userId}/></div>
+                    <div><Azure idfromParent={this.props.match.params.userId}/></div>
                     </div>
             </div>  
         );

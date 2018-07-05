@@ -12,18 +12,18 @@ class VisitProfileCard extends React.Component{
   constructor() {
     super();
     this.state = {
-      doctor: {},
+      user: {},
       id: 0,
     }
   }
   componentDidMount(){
-    this.getDoctor();
+    this.getUser();
   }
 
   
-  getDoctor(){
+  getUser(){
     fetchFrom("Users/"+this.props.idfromParent,'get',null)
-    .then(results => this.setState({doctor: results.data}));
+    .then(results => this.setState({user: results.data}));
   }
 
 
@@ -38,14 +38,14 @@ class VisitProfileCard extends React.Component{
                       <h3>Patient info</h3>
                     </div>
                     <div className="card-body">
-                      <h4> {this.state.doctor.FirstName} {this.state.doctor.LastName}</h4>
-                      <p><strong>Phone: </strong> {this.state.doctor.PhoneNum} </p> 
-                      <img src={azureSasAndUrl.avatar.concat(this.state.doctor.AvatarPath)}
+                      <h4> {this.state.user.FirstName} {this.state.user.LastName}</h4>
+                      <p><strong>Phone: </strong> {this.state.user.PhoneNum} </p> 
+                      <img src={azureSasAndUrl.avatar.concat(this.state.user.AvatarPath)}
                         alt="no image" className="my-img center-block    img-responsive" /> 
                     </div>
-                    <UploadPatientAvatar PhoneNumPatient={this.state.doctor.PhoneNum}/>
-                                      </div>
-              </div>
+                    <UploadPatientAvatar PhoneNumPatient={this.state.user.PhoneNum}/>
+                  </div>
+                </div>
             </div>
         </div>
      
