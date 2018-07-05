@@ -30,7 +30,7 @@ class UploadPatientAvatar extends React.Component{
     }
 });
 
-InsertAvatar(AvatarParams)//.then(setTimeout(function(){ document.location.reload(); }, 3000));
+InsertAvatar(AvatarParams).then(setTimeout(function(){ document.location.reload(); }, 3000));
         };
                          
   render() {

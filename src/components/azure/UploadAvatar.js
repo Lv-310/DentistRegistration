@@ -29,14 +29,14 @@ class UploadAvatar extends React.Component{
     }
 });
 
-        InsertAvatar(AvatarParams);
+        InsertAvatar(AvatarParams).then(setTimeout(function(){ document.location.reload(); }, 3000));;
         };
                          
   render() {
     return (
         <div>
-            <label className="btn btn-secondary" for="avatar">Upload Avatar
-            <input type="file" id="avatar" onChange={this.fileSelectedHandlerDoctorAvatar} hidden />
+            <label className="btn btn-secondary" for="lol">Upload Avatar
+            <input type="file" id="lol" onChange={this.fileSelectedHandlerDoctorAvatar} hidden />
             </label>
         </div>
     );
