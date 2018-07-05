@@ -34,16 +34,17 @@ class Calendar extends React.Component {
     }
     this.handleDescription = this.handleDescription.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
+    this.handleNavigate = this.handleNavigate.bind(this);
+    this.handleView = this.handleView.bind(this);
   }
 
   handleDescription = (e) => {
     this.wrongCredentials = false;
-        this.clearErrorMessage();
+    this.clearErrorMessage();
     const name = e.target.name;
     const value = e.target.value;
-    this.setState({[name]: value},
-    () => { this.validateField(name, value) });
+    this.setState({ [name]: value },
+      () => { this.validateField(name, value) });
   }
 
   BookEvent = (eventParams) => {
@@ -52,43 +53,42 @@ class Calendar extends React.Component {
         this.handleWrongBooking(res)
         return res.data;
       }
-      ).then((res=>{
+      ).then((res => {
         this.getItems();
       }))
-      if(this.state.wrongCredentials) return;
-      modalAlert('Success','Event has been booked', MSG_TYPE_INFO);   
-      document.getElementById('event-modal-close').click(); 
+    if (this.state.wrongCredentials) return;
+    modalAlert('Success', 'Event has been booked', MSG_TYPE_INFO);
+    document.getElementById('event-modal-close').click();
   }
 
   handleWrongBooking(event) {
     if (event.statusCode != 200) {
-        this.state.wrongCredentials = true;
+      this.state.wrongCredentials = true;
     }
 
     if (event.data.Message != undefined) {
-        this.showErrorMessage(event.data.Message);
+      this.showErrorMessage(event.data.Message);
     }
-   
-}
 
-showErrorMessage(message) {
+  }
+
+  showErrorMessage(message) {
     let errors = this.state.responseError;
     errors.wrongCredentials = this.state.wrongCredentials ? message : '';
     this.setState({ responseError: errors });
-}
+  }
 
-clearErrorMessage() {
+  clearErrorMessage() {
     let errors = this.state.responseError;
     errors.wrongCredentials = '';
     this.setState({ responseError: errors });
-}
+  }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    if(localStorage.getItem("token") === null)
-    {
-      modalAlert("You must be logged in","You must be registred user to perform this action",MSG_TYPE_ERROR);
-      document.getElementById('event-modal-close').click(); 
+    if (localStorage.getItem("token") === null) {
+      modalAlert("You must be logged in", "You must be registred user to perform this action", MSG_TYPE_ERROR);
+      document.getElementById('event-modal-close').click();
       return;
     }
     var start = moment(this.state.selectedEvent.start);
@@ -114,25 +114,25 @@ clearErrorMessage() {
 
 
     switch (fieldName) {
-        case 'desc':
+      case 'desc':
         descValid = value.length > 0 && value.length <= 50;
-            fieldValidationErrors.desc = descValid ? '' : 'Input incorrect description';
-            break;
-        default:
-            break;
+        fieldValidationErrors.desc = descValid ? '' : 'Input incorrect description';
+        break;
+      default:
+        break;
     }
 
     this.setState({
-        responseErrors: fieldValidationErrors,
-        descValid: descValid,
+      responseErrors: fieldValidationErrors,
+      descValid: descValid,
     }, this.validateForm);
-}
-validateForm() {
+  }
+  validateForm() {
     this.setState({
-        formValid:
-            this.state.descValid
+      formValid:
+        this.state.descValid
     });
-}
+  }
 
 
   componentDidMount() {
@@ -140,7 +140,7 @@ validateForm() {
   }
 
   getItems() {
-    fetchFrom("RandomEvents/"+this.props.match.params.doctorId, "get", null)
+    fetchFrom("RandomEvents/" + this.props.match.params.doctorId, "get", null)
       .then(results => {
         this.setState({ 'allevents': results.data })
       })
@@ -197,21 +197,20 @@ validateForm() {
 
 
   onEventClick(event) {
-    if(event.hasBeenBooked){
-      modalAlert("Already booked","This event is already booked. Choose another one",MSG_TYPE_INFO);
+    if (event.hasBeenBooked) {
+      modalAlert("Already booked", "This event is already booked. Choose another one", MSG_TYPE_INFO);
       return;
-      }
-    if(localStorage.getItem("token") === null)
-    {
-      modalAlert("You must be logged in","You must be registred user to perform this action",MSG_TYPE_ERROR);
-      document.getElementById('event-modal-close').click(); 
+    }
+    if (localStorage.getItem("token") === null) {
+      modalAlert("You must be logged in", "You must be registred user to perform this action", MSG_TYPE_ERROR);
+      document.getElementById('event-modal-close').click();
       return;
     }
     $("#Modalbtn").click();
     this.setState({ selectedEvent: event });
   }
 
-  
+
   formatURLDate = (date) => {
 
     var day = date.getDate();
@@ -222,39 +221,38 @@ validateForm() {
   }
 
   changeCurrentView = () => {
-    if(isMobile){
+    if (isMobile) {
       return 'day';
     }
     else {
       return this.props.match.params.view;
-    } 
+    }
   }
 
   getCurrentDateFromURL = () => {
     var currentDate = new Date(new Date());
-    if(this.props.match.params.date!==null && this.props.match.params.date!==undefined)
-    {
+    if (this.props.match.params.date !== null && this.props.match.params.date !== undefined) {
       let parts = this.props.match.params.date.split("-");
-      currentDate = new Date(parseInt(parts[0],10),parseInt(parts[1],10)-1,parseInt(parts[2],10));
-   }
+      currentDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+    }
     return currentDate;
   }
 
-  SetDate = (mydate) =>{
+  SetDate = (mydate) => {
     alert(mydate[0]);
-    return new Date(mydate[0],mydate[1],mydate[2]);
+    return new Date(mydate[0], mydate[1], mydate[2]);
   }
-  
+
   clearForm = () => {
     this.setState({
-        desc: '',
-    })}
+      desc: '',
+    })
+  }
 
-  renderModal()
-  {
-    return(
-    <div>
-      <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
+  renderModal() {
+    return (
+      <div>
+        <div id="Modalbtn" data-toggle="modal" data-target="#EventModal">
         </div>
         <div id="EventModal" className="modal fade" role="dialog">
           <div className="modal-dialog modal-dialog-centered">
@@ -295,9 +293,13 @@ validateForm() {
   }
 
   handleNavigate(date, view, action) {
-    if(this.props.history!==undefined)
-    this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${view}`)
-}
+    if (this.props.history !== undefined)
+      this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.formatURLDate(date)}/${view}`)
+  }
+
+  handleView(view) {
+    this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)
+  }
 
   render() {
     this.state.allevents.forEach(a => {
@@ -307,11 +309,11 @@ validateForm() {
 
     let formats = {
       dayFormat: (date, culture, localizer) =>
-      
+
         localizer.format(date, 'dddd DD.MM.YYYY', culture),
-        eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
-          return ""
-        },
+      eventTimeRangeFormat: ({ start, end }, culture, localizer) => {
+        return ""
+      },
     }
 
     var x = window.matchMedia("(max-width: 700px)")
@@ -330,12 +332,12 @@ validateForm() {
           min={new Date(2017, 10, 0, 8, 0, 0)}
           max={new Date(2017, 10, 0, 20, 0, 0)}
           onNavigate={this.handleNavigate}
-          onView={view => this.props.history.push(`/Home/doctor/${this.props.match.params.doctorId}/${this.props.match.params.date}/${view}`)}
+          onView={this.handleView}
           onSelectEvent={event => this.onEventClick(event)}
           components={{
             toolbar: Toolbar
           }}
-          formats = {formats} 
+          formats={formats}
           eventPropGetter={
             (event, start, end, isSelected) => {
               return {

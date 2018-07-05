@@ -72,7 +72,7 @@ class ToothVisitInfo extends React.Component {
                         </select>
                     </div>
                     <div className="col-md-2">
-                        <input className="form-control" id="focusedInput" type="text"
+                        <input className="form-control" id="focusedInput" type="number"
                             value={this.state.price} onChange={this.handleChange} />
                     </div>
                 </div>
@@ -108,7 +108,7 @@ class ToothVisitInfo extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({ price: event.target.price });
+        this.setState({ price: Number(event.target.value) });
     }
 
     handleSelectChange(event) {
